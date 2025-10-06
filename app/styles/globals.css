@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply flex min-h-screen flex-col bg-brand-light text-slate-900 font-sans antialiased;
+}
+
+a {
+  @apply text-brand-blue underline-offset-4 hover:underline;
+}
+
+[data-theme='dark'] body,
+.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+.focus-ring {
+  @apply outline-none ring-2 ring-brand-blue ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+}
+
+svg {
+  shape-rendering: geometricPrecision;
+}

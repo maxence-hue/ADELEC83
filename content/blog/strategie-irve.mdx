@@ -1,0 +1,48 @@
+---
+title: Structurer son infrastructure de recharge en copropriété
+description: Retour d'expérience sur un déploiement progressif de bornes de recharge avec supervision OCPP dans une résidence varoise.
+date: 2024-03-14
+author: Michel Alehause
+tags:
+  - IRVE
+  - copropriété
+  - bornes de recharge
+---
+
+import { Badge } from '@/components/badge';
+
+<Badge>IRVE</Badge>
+
+## 1. Démarrer par une étude précise
+
+Avant d'installer la première borne, nous réalisons un **audit de la colonne montante** et des protections existantes. Sur la résidence "Les Pins Bleus", les mesures ont mis en évidence une marge de 40 kVA, suffisante pour un premier palier de 10 bornes 7 kW.
+
+## 2. Mettre en place un schéma directeur
+
+Nous avons proposé trois scénarios :
+
+- pilotage statique avec délestage par priorité,
+- pilotage dynamique avec supervision OCPP,
+- préparation d'un futur poste de livraison dédié.
+
+Le syndic a retenu le scénario 2 pour bénéficier du suivi énergétique en temps réel.
+
+## 3. Déployer par phases
+
+### Phase 1 — 10 points de charge
+
+```
+Tableau existant -> Coffret IRVE -> Bornes partagées -> Supervision cloud
+```
+
+### Phase 2 — Extension à 30 places
+
+Ajout d'une armoire intelligente et d'un transformateur sec supplémentaire. Le tout piloté via la supervision OCPP qui permet de facturer chaque utilisateur.
+
+## 4. Exploitation et retours
+
+- Temps moyen de charge : 3h20.
+- Taux de disponibilité : 99,4 %.
+- Subvention ADVENIR obtenue : 40 % du montant HT.
+
+**À retenir** : documentez chaque étape et anticipez la montée en puissance dès la phase d'étude pour éviter les travaux lourds à moyen terme.
