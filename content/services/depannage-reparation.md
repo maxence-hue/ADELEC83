@@ -18,7 +18,7 @@ process:
   - "Plan de travaux correctifs et suivi"
 faq:
   - q: "Quelle est votre zone d’intervention ?"
-    a: "Nous couvrons le Var et la métropole toulonnaise. En cas d’urgence critique, nous pouvons intervenir au-delà selon disponibilité."
+    a: "Nous couvrons le Var et la métropole toulonnaise et étudions les demandes hors secteur au cas par cas."
   - q: "Proposez-vous des astreintes ?"
     a: "Oui, pour les copropriétés et sites sensibles sous contrat de maintenance, avec numéro dédié."
   - q: "Pouvez-vous traiter les défauts d’isolement récurrents ?"
@@ -50,4 +50,4 @@ faq:
 | Haute | < 24h ouvrées | Panne partielle dans copropriété |
 | Standard | < 72h | Remise en conformité ou modification |
 
-Nous conservons un stock d’urgence (disjoncteurs, contacteurs, câbles) et un laboratoire mobile pour les tests de mesure.
+Nous conservons un stock tampon (disjoncteurs, contacteurs, câbles) et un laboratoire mobile pour les tests de mesure.

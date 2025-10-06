@@ -1,15 +1,32 @@
 "use client";
 
-import { Bars3Icon, PhoneIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useState } from "react";
-import { navItems, company } from "@/lib/config";
+import { useEffect, useRef, useState } from "react";
+import { navItems, servicesNavItems } from "@/lib/config";
 import { Button } from "./button";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!servicesOpen) {
+      return;
+    }
+
+    function handleClickOutside(event: MouseEvent) {
+      if (servicesMenuRef.current && !servicesMenuRef.current.contains(event.target as Node)) {
+        setServicesOpen(false);
+      }
+    }
+
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, [servicesOpen]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
@@ -24,11 +41,59 @@ export function Header() {
               </div>
             </Link>
             <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 dark:text-slate-200 lg:flex">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className="rounded-full px-3 py-2 transition hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
-                  {item.title}
-                </Link>
-              ))}
+              <div
+                ref={servicesMenuRef}
+                className="relative"
+                onMouseEnter={() => setServicesOpen(true)}
+                onMouseLeave={() => setServicesOpen(false)}
+                onFocus={() => setServicesOpen(true)}
+                onBlur={(event) => {
+                  const nextFocus = event.relatedTarget as Node | null;
+                  if (!nextFocus || !event.currentTarget.contains(nextFocus)) {
+                    setServicesOpen(false);
+                  }
+                }}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-1 rounded-full px-3 py-2 transition hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  aria-expanded={servicesOpen}
+                  onClick={() => setServicesOpen((prev) => !prev)}
+                >
+                  Services
+                  <ChevronDownIcon className={`h-4 w-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                </button>
+                <div
+                  className={`absolute left-0 top-full mt-2 w-72 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl transition duration-150 ease-out dark:border-slate-800 dark:bg-slate-900 ${
+                    servicesOpen ? "visible opacity-100" : "invisible opacity-0"
+                  }`}
+                >
+                  <ul className="space-y-1 text-sm">
+                    {servicesNavItems.map((service) => (
+                      <li key={service.href}>
+                        <Link
+                          href={service.href}
+                          className="flex items-center justify-between rounded-xl px-3 py-2 text-left text-slate-700 transition hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-slate-200"
+                          onClick={() => setServicesOpen(false)}
+                        >
+                          {service.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              {navItems
+                .filter((item) => item.href !== "/services")
+                .map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full px-3 py-2 transition hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
             </nav>
           </div>
           <div className="hidden items-center gap-3 lg:flex">
@@ -48,14 +113,6 @@ export function Header() {
           >
             <Bars3Icon className="h-6 w-6" />
           </button>
-        </div>
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/40 bg-primary/10 px-4 py-2 text-sm text-primary">
-          <div>
-            Urgence électricité ? Appelez le <strong>{company.phone}</strong> — réponse sous 30 min sur horaires ouvrés.
-          </div>
-          <div className="flex items-center gap-2 text-xs text-primary/80">
-            <PhoneIcon className="h-4 w-4" aria-hidden /> Lun–Ven 8h–18h
-          </div>
         </div>
       </div>
       <MobileNav open={open} onClose={() => setOpen(false)} />

@@ -51,7 +51,9 @@ export default function ContactPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-sm text-primary/80">{company.emergencyNote}</p>
+              <p className="mt-4 text-sm text-primary/80">
+                Réponse sous 48h ouvrées avec suivi personnalisé de votre dossier.
+              </p>
             </Card>
             <Card>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Zone d’intervention</h2>

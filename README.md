@@ -62,6 +62,20 @@ public/
 
 > ℹ️ Les visuels sont fournis au format SVG uniquement pour respecter les contraintes de dépôt. Ajoutez vos photos/visuels bitmap plus tard via Git si nécessaire.
 
+## Ajouter des photos facilement
+
+1. Préparez vos images (idéalement en **WebP** ou **AVIF** ≤ 2500px) et placez-les dans `public/photos/` pour qu’elles soient servies statiquement par Vercel.
+2. Référencez-les dans vos composants avec [`next/image`](https://nextjs.org/docs/app/building-your-application/optimizing/images) :
+   ```tsx
+   import Image from "next/image";
+
+   <Image src="/photos/tableau-electrique.webp" alt="Tableau électrique rénové" width={1200} height={800} className="rounded-2xl" />
+   ```
+3. Commitez les fichiers images sur GitHub : Vercel les embarquera automatiquement lors du déploiement (aucune configuration supplémentaire nécessaire).
+4. Pour des bibliothèques importantes, envisagez un stockage externe (ex. Supabase Storage, Cloudinary). Renseignez alors les URLs distantes dans vos contenus Markdown/MDX.
+
+> 💡 Pensez à optimiser vos médias avant commit (Squoosh, imagemin) et à conserver une structure claire (`public/photos/realisations/…`).
+
 ## Accessibilité & UI
 
 - Thème clair/sombre via le toggle intégré (next-themes).

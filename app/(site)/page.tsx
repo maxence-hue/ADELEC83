@@ -7,7 +7,7 @@ import { Steps } from "../components/steps";
 import { Gallery } from "../components/gallery";
 import { Testimonial } from "../components/testimonial";
 import { FAQ } from "../components/faq";
-import { testimonials, faqs, company } from "@/lib/config";
+import { testimonials, faqs } from "@/lib/config";
 import { getServices, getRealisations, getBlogPosts } from "@/lib/content";
 import { BlogCard } from "../components/blog-card";
 import { createMetadata, breadcrumbJsonLd } from "@/lib/seo";
@@ -51,11 +51,7 @@ export default async function HomePage() {
               <Button href="tel:+33617020637" variant="outline" size="lg">
                 Appeler maintenant
               </Button>
-              <Button href="/contact" variant="ghost" size="lg">
-                Urgence chantier
-              </Button>
             </div>
-            <p className="text-sm text-primary/80">{company.emergencyNote}</p>
             <dl className="grid gap-4 sm:grid-cols-3">
               <div>
                 <dt className="text-sm text-slate-500 dark:text-slate-400">Expérience</dt>
@@ -193,7 +189,7 @@ export default async function HomePage() {
             Prendre rendez-vous
           </Button>
           <Button href="tel:+33617020637" variant="outline" size="lg">
-            Urgence électricité
+            Nous appeler
           </Button>
         </div>
       </Section>

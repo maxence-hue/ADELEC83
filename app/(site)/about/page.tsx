@@ -65,7 +65,7 @@ export default function AboutPage() {
               L’entreprise s’appuie sur un réseau d’artisans partenaires (CVC, courants faibles, solaire) pour proposer des offres complètes, en conservant un interlocuteur unique. Nous travaillons avec des marques reconnues : Schneider Electric, Hager, Legrand, Delta Dore, Socomec…
             </p>
             <p>
-              Notre bureau reste ouvert du lundi au vendredi de 8h à 18h. Nous proposons un numéro d’urgence pour les copropriétés afin de garantir une intervention sous 24h ouvrées.
+            Notre bureau reste ouvert du lundi au vendredi de 8h à 18h. Les demandes sont traitées sous 48h ouvrées avec un interlocuteur unique pour chaque chantier.
             </p>
           </article>
           <aside className="space-y-4">

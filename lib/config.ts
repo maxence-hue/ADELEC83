@@ -25,9 +25,7 @@ export const company = {
     { days: "Mercredi", hours: "08:00 – 18:00" },
     { days: "Jeudi", hours: "08:00 – 18:00" },
     { days: "Vendredi", hours: "08:00 – 18:00" }
-  ],
-  emergencyNote:
-    "Service d’urgence disponible sur horaires ouvrés : intervention rapide sur défauts électriques critiques."
+  ]
 };
 
 export const navItems = [
@@ -37,6 +35,16 @@ export const navItems = [
   { title: "À propos", href: "/about" },
   { title: "Blog", href: "/blog" },
   { title: "Contact", href: "/contact" }
+];
+
+export const servicesNavItems = [
+  { title: "Bâtiments collectifs & tertiaires", href: "/services/batiments-collectifs-tertiaires" },
+  { title: "Climatisation", href: "/services/climatisation" },
+  { title: "Domotique", href: "/services/domotique" },
+  { title: "Bornes de recharge", href: "/services/bornes-de-recharge" },
+  { title: "Photovoltaïque", href: "/services/photovoltaique" },
+  { title: "Dépannage & réparation", href: "/services/depannage-reparation" },
+  { title: "Tous les services", href: "/services" }
 ];
 
 export const socialLinks = [
