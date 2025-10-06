@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-slate-950 antialiased;
+}
+
+html.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+a {
+  @apply text-primary underline-offset-4 transition-colors duration-200 hover:text-primary/80;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-glow transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-900 transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-slate-700 dark:text-slate-100;
+}
+
+.section {
+  @apply mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8;
+}
+
+.container-prose {
+  @apply prose prose-slate max-w-none dark:prose-invert;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

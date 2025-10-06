@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="ADElec 83">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1267A6" />
+      <stop offset="100%" stop-color="#0B3C66" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)" />
+  <g fill="#F4F7FB" font-family="'Inter', Arial, sans-serif">
+    <text x="80" y="200" font-size="72" font-weight="700">ADElec 83</text>
+    <text x="80" y="270" font-size="32">Électricien depuis 1995 — collectif, tertiaire &amp; résidentiel</text>
+    <rect x="80" y="320" width="320" height="12" rx="6" fill="#F4F7FB" opacity="0.4" />
+    <polyline points="80,420 220,360 340,410 460,360 600,420" stroke="#F4F7FB" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+    <circle cx="220" cy="340" r="28" fill="#F4F7FB" opacity="0.3" />
+  </g>
+</svg>
