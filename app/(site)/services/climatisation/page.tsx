@@ -16,7 +16,7 @@ export default async function ClimatisationPage() {
     .from('pages')
     .select('*')
     .eq('slug', 'climatisation')
-    .single();
+    .single()) as any;
 
   const brands = [
     { name: 'Daikin', description: 'Leader mondial de la climatisation' },
@@ -113,8 +113,8 @@ export default async function ClimatisationPage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || "Climatisation Réversible"}
-        subtitle={pageData.data?.hero_subtitle || "Confort optimal été comme hiver dans le Var"}
+        title={pageData?.hero_title || "Climatisation Réversible"}
+        subtitle={pageData?.hero_subtitle || "Confort optimal été comme hiver dans le Var"}
         image="/images/hero-clim.jpg"
         cta={{
           text: 'Devis gratuit',

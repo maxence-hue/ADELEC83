@@ -16,7 +16,7 @@ export default async function BornesPage() {
     .from('pages')
     .select('*')
     .eq('slug', 'bornes')
-    .single();
+    .single()) as any;
 
   const solutions = [
     {
@@ -134,8 +134,8 @@ export default async function BornesPage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || "Bornes de Recharge IRVE"}
-        subtitle={pageData.data?.hero_subtitle || "Installation professionnelle pour véhicules électriques"}
+        title={pageData?.hero_title || "Bornes de Recharge IRVE"}
+        subtitle={pageData?.hero_subtitle || "Installation professionnelle pour véhicules électriques"}
         image="/images/hero-borne.jpg"
         cta={{
           text: 'Demander un devis',

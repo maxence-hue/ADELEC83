@@ -16,7 +16,7 @@ export default async function ElectricitePage() {
     .from('pages')
     .select('*')
     .eq('slug', 'electricite')
-    .single();
+    .single()) as any;
 
   const services = [
     {
@@ -63,8 +63,8 @@ export default async function ElectricitePage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || "Électricité Générale"}
-        subtitle={pageData.data?.hero_subtitle || "Installation, rénovation et dépannage électrique dans le Var"}
+        title={pageData?.hero_title || "Électricité Générale"}
+        subtitle={pageData?.hero_subtitle || "Installation, rénovation et dépannage électrique dans le Var"}
         image="/images/hero-electricite.jpg"
         cta={{
           text: 'Demander un devis',

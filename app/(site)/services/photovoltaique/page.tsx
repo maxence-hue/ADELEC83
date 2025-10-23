@@ -17,7 +17,7 @@ export default async function PhotovoltaiquePage() {
     .from('pages')
     .select('*')
     .eq('slug', 'photovoltaique')
-    .single();
+    .single()) as any;
 
   const stats = [
     { value: 1400, suffix: ' kWh/kWc', label: 'Production annuelle dans le Var' },
@@ -85,8 +85,8 @@ export default async function PhotovoltaiquePage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || "Panneaux Photovoltaïques"}
-        subtitle={pageData.data?.hero_subtitle || "Produisez votre propre électricité solaire dans le Var"}
+        title={pageData?.hero_title || "Panneaux Photovoltaïques"}
+        subtitle={pageData?.hero_subtitle || "Produisez votre propre électricité solaire dans le Var"}
         image="/images/hero-solar.jpg"
         cta={{
           text: 'Simulation gratuite',
