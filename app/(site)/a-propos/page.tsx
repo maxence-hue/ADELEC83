@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const { data: pageData } = await supabase
+  const { data: pageData } = (await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'a-propos')
-    .single();
+    .single()) as any;
 
   const values = [
     {

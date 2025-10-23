@@ -29,13 +29,13 @@ export default async function HomePage() {
     { data: testimonials },
     { data: faqItems },
     { data: companyInfo }
-  ] = await Promise.all([
+  ] = (await Promise.all([
     supabase.from('pages').select('*').eq('slug', 'accueil').single(),
     supabase.from('realisations').select('*').eq('featured', true).order('order_index', { ascending: true }).limit(4),
     supabase.from('temoignages').select('*').eq('featured', true).limit(3),
     supabase.from('faq').select('*').eq('active', true).order('order_index', { ascending: true }).limit(6),
     supabase.from('company_info').select('*').eq('key', 'stats').single(),
-  ]);
+  ])) as any;
 
   const stats = companyInfo?.value as any || {
     annees_experience: 20,
@@ -121,7 +121,7 @@ export default async function HomePage() {
           subtitle="Découvrez quelques-unes de nos dernières installations"
         >
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {realisations.map((realisation, index) => (
+            {realisations.map((realisation: any, index: number) => (
               <RealisationCard key={realisation.id} {...realisation} index={index} />
             ))}
           </div>
@@ -169,7 +169,7 @@ export default async function HomePage() {
       {testimonials && testimonials.length > 0 && (
         <Section eyebrow="Témoignages" title="Ils nous font confiance">
           <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((testimonial) => (
+            {testimonials.map((testimonial: any) => (
               <Testimonial
                 key={testimonial.id}
                 name={testimonial.name}
@@ -188,7 +188,7 @@ export default async function HomePage() {
       {/* FAQ Section */}
       {faqItems && faqItems.length > 0 && (
         <Section eyebrow="Questions fréquentes" title="Tout savoir sur nos services">
-          <FAQ items={faqItems.map(item => ({
+          <FAQ items={faqItems.map((item: any) => ({
             question: item.question,
             answer: item.answer,
           }))} />

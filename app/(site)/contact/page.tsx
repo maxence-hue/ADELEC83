@@ -11,17 +11,17 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const { data: pageData } = await supabase
+  const { data: pageData } = (await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'contact')
-    .single();
+    .single()) as any;
 
-  const { data: contactInfo } = await supabase
+  const { data: contactInfo } = (await supabase
     .from('company_info')
     .select('*')
     .eq('key', 'contact')
-    .single();
+    .single()) as any;
 
   const contact = contactInfo?.value as any || {
     adresse: '226 Rue de la République, 83210 Solliès-Pont',
