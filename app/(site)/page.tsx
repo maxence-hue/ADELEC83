@@ -1,202 +1,196 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ButtonLink } from '@/components/button';
-import { Container } from '@/components/container';
-import { Section } from '@/components/section';
-import { FeatureList } from '@/components/feature-list';
-import { Steps } from '@/components/steps';
+import { Hero } from '@/components/hero';
+import { ServiceCard } from '@/components/service-card';
+import { RealisationCard } from '@/components/realisation-card';
+import { Stats } from '@/components/stats';
+import { CTASection } from '@/components/cta-section';
+import { Certifications } from '@/components/certifications';
+import { Testimonial } from '@/components/testimonial';
 import { FAQ } from '@/components/faq';
-import { TestimonialList } from '@/components/testimonial';
-import { Gallery } from '@/components/gallery';
-import { BlogCard } from '@/components/blog-card';
-import { Badge } from '@/components/badge';
-import { getServices, getRealisations, getBlogPosts } from '@/lib/content';
-import { faqs, steps, testimonials, company, cities } from '@/lib/config';
+import { Section } from '@/components/section';
+import { supabase } from '@/lib/supabase';
+import { Star } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Accueil',
-  description: `${company.baseline} — installations électriques, domotique, climatisation, photovoltaïque et maintenance dans le Var.`
+  title: 'ADELEC83 - Électricité, Climatisation et Panneaux Solaires dans le Var',
+  description: 'Entreprise familiale spécialisée en électricité générale, photovoltaïque, climatisation et bornes de recharge dans le Var depuis 2005',
+  openGraph: {
+    title: 'ADELEC83 - Votre électricien dans le Var',
+    description: 'Installation électrique, panneaux solaires, climatisation et bornes de recharge',
+    images: ['/images/og-image.jpg'],
+  },
 };
 
 export default async function HomePage() {
-  const [services, realisations, blogPosts] = await Promise.all([
-    getServices(),
-    getRealisations(),
-    getBlogPosts()
+  // Récupération des données depuis Supabase
+  const [pageData, realisations, testimonials, faqItems, companyInfo] = await Promise.all([
+    supabase.from('pages').select('*').eq('slug', 'accueil').single(),
+    supabase.from('realisations').select('*').eq('featured', true).order('order_index', { ascending: true }).limit(4),
+    supabase.from('temoignages').select('*').eq('featured', true).limit(3),
+    supabase.from('faq').select('*').eq('active', true).order('order_index', { ascending: true }).limit(6),
+    supabase.from('company_info').select('*').eq('key', 'stats').single(),
   ]);
 
-  const featuredServices = services.slice(0, 3);
-  const featuredRealisations = realisations.slice(0, 3).map((item) => ({
-    title: item.title,
-    description: `${item.ville} • ${item.annee}`,
-    href: `/realisations#${item.slug}`
-  }));
-  const featuredPosts = blogPosts.slice(0, 3);
+  const stats = companyInfo.data?.value as any || {
+    annees_experience: 20,
+    installations: 600,
+    clients_satisfaits: 98,
+    employes: 10
+  };
+
+  const services = [
+    {
+      title: 'Électricité Générale',
+      description: 'Installation, rénovation et dépannage électrique pour particuliers et professionnels',
+      iconName: 'zap' as const,
+      href: '/services/electricite',
+      color: 'blue' as const,
+    },
+    {
+      title: 'Photovoltaïque',
+      description: 'Installation de panneaux solaires en autoconsommation ou revente totale',
+      iconName: 'sun' as const,
+      href: '/services/photovoltaique',
+      color: 'yellow' as const,
+    },
+    {
+      title: 'Climatisation',
+      description: 'Pose et entretien de climatisation réversible Daikin, Mitsubishi, Atlantic',
+      iconName: 'wind' as const,
+      href: '/services/climatisation',
+      color: 'cyan' as const,
+    },
+    {
+      title: 'Bornes de Recharge',
+      description: 'Installation de bornes IRVE pour véhicules électriques, certification garantie',
+      iconName: 'battery' as const,
+      href: '/services/bornes',
+      color: 'green' as const,
+    },
+  ];
+
+  const statsArray = [
+    { value: stats.annees_experience, suffix: '+', label: 'Années d\'expérience' },
+    { value: stats.installations, suffix: '+', label: 'Installations réalisées' },
+    { value: stats.clients_satisfaits, suffix: '%', label: 'Clients satisfaits' },
+    { value: stats.employes, label: 'Experts qualifiés' },
+  ];
 
   return (
-    <div className="space-y-20">
-      <section className="bg-gradient-to-br from-white via-brand-light to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        <Container className="grid items-center gap-12 py-20 lg:grid-cols-2">
-          <div>
-            <Badge>Depuis 1995</Badge>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-              L'électricité sur-mesure pour vos sites collectifs, tertiaires et résidentiels.
-            </h1>
-            <p className="mt-6 text-lg text-slate-600 dark:text-slate-300">
-              ADElec 83 garantit des installations sécurisées, conformes et performantes dans tout le Var. Nos équipes coordonnent vos travaux d'électricité, domotique, climatisation et photovoltaïque avec une disponibilité réactive pendant les heures ouvrées.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <ButtonLink href="/contact">Demander un devis</ButtonLink>
-              <ButtonLink variant="outline" href="tel:+33617020637">
-                Appeler l'équipe
-              </ButtonLink>
-              <ButtonLink variant="secondary" href="tel:+33617020637">
-                Urgence électrique
-              </ButtonLink>
-            </div>
-            <dl className="mt-10 grid gap-6 text-sm sm:grid-cols-3">
-              <div>
-                <dt className="font-semibold text-slate-900 dark:text-white">Ancienneté</dt>
-                <dd className="mt-1 text-slate-600 dark:text-slate-300">29 ans de chantiers livrés sans retard.</dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-slate-900 dark:text-white">Domaines</dt>
-                <dd className="mt-1 text-slate-600 dark:text-slate-300">Collectif, tertiaire, ERP, résidentiel premium.</dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-slate-900 dark:text-white">Zones</dt>
-                <dd className="mt-1 text-slate-600 dark:text-slate-300">{cities.join(', ')}.</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="relative flex items-center justify-center">
-            <svg
-              className="h-full max-h-[320px] w-full max-w-[420px] text-brand-blue"
-              viewBox="0 0 400 320"
-              role="img"
-              aria-labelledby="hero-title"
-            >
-              <title id="hero-title">Schéma chantier électrique ADElec 83</title>
-              <rect x="20" y="20" width="360" height="200" rx="24" fill="none" stroke="currentColor" strokeWidth="8" />
-              <path d="M60 70h280M60 110h280" stroke="currentColor" strokeWidth="4" />
-              <path d="M100 200v60l40-20 40 20v-60" stroke="currentColor" strokeWidth="4" fill="none" />
-              <circle cx="280" cy="240" r="30" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path d="M260 240l20-20 20 20-20 20z" fill="currentColor" />
-            </svg>
-          </div>
-        </Container>
-      </section>
+    <>
+      {/* Hero Section */}
+      <Hero
+        title={pageData.data?.hero_title || 'Électricité, Climatisation et Panneaux Solaires dans le Var depuis 2005'}
+        subtitle={pageData.data?.hero_subtitle || 'Votre partenaire local pour tous vos projets énergétiques'}
+        image="/images/hero-home.jpg"
+        cta={{
+          text: 'Demander un devis gratuit',
+          href: '/contact',
+        }}
+        showScrollIndicator
+      />
 
+      {/* Stats Section */}
+      <Stats stats={statsArray} />
+
+      {/* Services Section */}
       <Section
         id="services"
-        eyebrow="Compétences clés"
-        title="Des services complets pour piloter vos installations électriques"
-        subtitle="Du bureau d'études à la maintenance, ADElec 83 sécurise vos projets avec des équipes certifiées et des process documentés."
+        eyebrow="Nos Expertises"
+        title="Des services complets pour tous vos projets énergétiques"
+        subtitle="De l'électricité générale au photovoltaïque, nous accompagnons particuliers et professionnels dans le Var"
       >
-        <div className="grid gap-6 lg:grid-cols-3">
-          {featuredServices.map((service) => (
-            <article key={service.slug} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{service.frontmatter.title}</h3>
-              <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{service.frontmatter.excerpt}</p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                {service.frontmatter.benefits.slice(0, 3).map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <span aria-hidden className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link href={`/services/${service.slug}`} className="mt-auto inline-flex pt-4 text-sm font-semibold text-brand-blue">
-                Découvrir →
-              </Link>
-            </article>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, index) => (
+            <ServiceCard key={index} {...service} index={index} />
           ))}
         </div>
-        <div className="mt-8 flex justify-end">
-          <ButtonLink variant="outline" href="/services">
-            Voir tous les services
-          </ButtonLink>
-        </div>
       </Section>
 
+      {/* Réalisations Section */}
+      {realisations.data && realisations.data.length > 0 && (
+        <Section
+          eyebrow="Nos Réalisations"
+          title="Des projets réussis dans tout le Var"
+          subtitle="Découvrez quelques-unes de nos dernières installations"
+        >
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {realisations.data.map((realisation, index) => (
+              <RealisationCard key={realisation.id} {...realisation} index={index} />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Pourquoi nous choisir */}
       <Section
-        eyebrow="Méthodologie"
-        title="Un déroulé de chantier transparent"
-        subtitle="Chaque étape est tracée dans un carnet de chantier partagé pour garantir la conformité réglementaire et la sécurité des occupants."
+        eyebrow="Pourquoi ADELEC83"
+        title="Une entreprise familiale à votre service"
+        subtitle="Basée à Solliès-Pont, nous intervenons dans tout le Var avec professionnalisme et réactivité"
       >
-        <Steps steps={steps} />
-      </Section>
-
-      <Section
-        eyebrow="Garanties"
-        title="Pourquoi les collectivités et entreprises du Var nous confient leurs réseaux"
-      >
-        <FeatureList
-          items={[
-            {
-              title: 'Assurances & certifications',
-              description:
-                'Responsabilité civile et décennale, habilitations NFC 18-510, attestations Consuel et Qualifelec fournies à la livraison.'
-            },
-            {
-              title: 'Suivi réactif',
-              description: 'Réponse sous 2 heures ouvrées, astreinte téléphonique et reporting photo de chaque intervention.'
-            },
-            {
-              title: 'Approche globale',
-              description: 'Électricité CFO/CFA, climatisation, domotique KNX, IRVE et photovoltaïque pilotés par une équipe unique.'
-            }
-          ]}
-        />
-      </Section>
-
-      <Section eyebrow="Réalisations" title="Chantiers récents" subtitle="Quelques projets marquants livrés dans le Var.">
-        <Gallery items={featuredRealisations} />
-      </Section>
-
-      <Section eyebrow="Témoignages" title="Ils parlent de notre accompagnement">
-        <TestimonialList items={testimonials} />
-      </Section>
-
-      <Section eyebrow="Questions fréquentes" title="Sécurité et conformité : vos questions">
-        <FAQ items={faqs} />
-      </Section>
-
-      <Section eyebrow="Dernières actus" title="Blog ADElec 83">
         <div className="grid gap-6 md:grid-cols-3">
-          {featuredPosts.map((post) => (
-            <BlogCard
-              key={post.slug}
-              slug={post.slug}
-              title={post.frontmatter.title}
-              description={post.frontmatter.description}
-              date={post.frontmatter.date}
-              tags={post.frontmatter.tags}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <Section className="pb-24">
-        <div className="rounded-3xl bg-brand-blue px-8 py-12 text-white shadow-xl">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
-            <div>
-              <h2 className="text-3xl font-bold">Besoin d'un devis rapide ?</h2>
-              <p className="mt-3 text-brand-light">
-                Décrivez-nous votre projet : nous planifions une visite technique et un devis détaillé en moins de 48 heures.
-              </p>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-[#0047AB] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="w-8 h-8 text-white" />
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
-              <ButtonLink href="/contact" className="bg-white text-brand-blue hover:bg-brand-light">
-                Formulaire de contact
-              </ButtonLink>
-              <ButtonLink variant="outline" href="tel:+33617020637" className="border-white text-white hover:bg-white/10">
-                06 17 02 06 37
-              </ButtonLink>
+            <h3 className="text-xl font-semibold mb-2">Expertise reconnue</h3>
+            <p className="text-gray-600">
+              Plus de 20 ans d'expérience et 600+ installations réalisées dans le Var
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-[#FF8C42] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="w-8 h-8 text-[#1e1e1e]" />
             </div>
+            <h3 className="text-xl font-semibold mb-2">Accompagnement complet</h3>
+            <p className="text-gray-600">
+              Gestion des démarches administratives, aides financières et SAV local
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-[#1e1e1e] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Qualité certifiée</h3>
+            <p className="text-gray-600">
+              Certifications RGE QualiPV, IRVE et Qualifélec pour votre tranquillité
+            </p>
           </div>
         </div>
       </Section>
-    </div>
+
+      {/* Testimonials Section */}
+      {testimonials.data && testimonials.data.length > 0 && (
+        <Section eyebrow="Témoignages" title="Ils nous font confiance">
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.data.map((testimonial) => (
+              <Testimonial
+                key={testimonial.id}
+                name={testimonial.name}
+                city={testimonial.city || ''}
+                rating={testimonial.rating || 5}
+                comment={testimonial.comment}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Certifications */}
+      <Certifications />
+
+      {/* FAQ Section */}
+      {faqItems.data && faqItems.data.length > 0 && (
+        <Section eyebrow="Questions fréquentes" title="Tout savoir sur nos services">
+          <FAQ items={faqItems.data.map(item => ({
+            question: item.question,
+            answer: item.answer,
+          }))} />
+        </Section>
+      )}
+
+      {/* CTA Section */}
+      <CTASection />
+    </>
   );
 }

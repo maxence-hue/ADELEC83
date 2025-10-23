@@ -1,0 +1,18 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo ADELEC83 basé sur l'image fournie -->
+  <!-- Lettre A en bleu -->
+  <path d="M40 170 L100 30 L160 170 L140 170 L100 70 L60 170 Z" fill="#0047AB"/>
+  <path d="M85 120 L115 120 L115 135 L85 135 Z" fill="#0047AB"/>
+  
+  <!-- Soleil orange -->
+  <circle cx="150" cy="50" r="25" fill="none" stroke="#FF8C42" stroke-width="5"/>
+  <!-- Rayons du soleil -->
+  <line x1="150" y1="15" x2="150" y2="5" stroke="#FF8C42" stroke-width="3" stroke-linecap="round"/>
+  <line x1="175" y1="25" x2="182" y2="18" stroke="#FF8C42" stroke-width="3" stroke-linecap="round"/>
+  <line x1="185" y1="50" x2="195" y2="50" stroke="#FF8C42" stroke-width="3" stroke-linecap="round"/>
+  <line x1="175" y1="75" x2="182" y2="82" stroke="#FF8C42" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="25" x2="118" y2="18" stroke="#FF8C42" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Éclair orange -->
+  <path d="M135 60 L145 75 L140 75 L150 95 L140 80 L145 80 Z" fill="#FF8C42"/>
+</svg>

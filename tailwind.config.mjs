@@ -1,7 +1,6 @@
 import forms from '@tailwindcss/forms';
-import type { Config } from 'tailwindcss';
 
-const config: Config = {
+const config = {
   darkMode: 'class',
   content: [
     './app/**/*.{ts,tsx,md,mdx}',
@@ -13,9 +12,16 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          blue: '#1267A6',
+          blue: '#0047AB',
+          orange: '#FF8C42',
+          gray: '#1e1e1e',
           light: '#EDF2F7',
           dark: '#0B3D63'
+        },
+        adelec: {
+          blue: '#0047AB',
+          orange: '#FF8C42',
+          gray: '#1e1e1e'
         }
       },
       fontFamily: {

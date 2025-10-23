@@ -1,78 +1,174 @@
 import type { Metadata } from 'next';
+import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
 import { ContactForm } from '@/components/contact-form';
-import { company, cities } from '@/lib/config';
-import { breadcrumbJsonLd } from '@/lib/seo';
+import { supabase } from '@/lib/supabase';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: "Contactez ADElec 83 pour un devis électricité, domotique, climatisation, bornes de recharge ou photovoltaïque."
+  title: 'Contact - ADELEC83 | Devis gratuit dans le Var',
+  description: 'Contactez ADELEC83 pour un devis gratuit en électricité, photovoltaïque, climatisation ou bornes de recharge. Réponse sous 48h.',
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const pageData = await supabase
+    .from('pages')
+    .select('*')
+    .eq('slug', 'contact')
+    .single();
+
+  const contactInfo = await supabase
+    .from('company_info')
+    .select('*')
+    .eq('key', 'contact')
+    .single();
+
+  const contact = contactInfo.data?.value as any || {
+    adresse: '226 Rue de la République, 83210 Solliès-Pont',
+    telephone: '04 94 XX XX XX',
+    email: 'contact@adelec83.fr',
+    horaires: {
+      'lundi-vendredi': '8h-12h / 14h-18h',
+      'samedi': 'Sur rendez-vous',
+      'dimanche': 'Fermé'
+    }
+  };
+
   return (
-    <Section title="Entrons en contact" subtitle="Nous répondons sous 2 heures ouvrées et planifions rapidement une visite technique.">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbJsonLd([
-              { name: 'Accueil', href: '/' },
-              { name: 'Contact', href: '/contact' }
-            ])
-          )
-        }}
+    <>
+      <Hero
+        title={pageData.data?.hero_title || 'Contactez-nous'}
+        subtitle={pageData.data?.hero_subtitle || 'Demandez votre devis gratuit'}
+        image="/images/hero-contact.jpg"
       />
-      <div className="grid gap-12 lg:grid-cols-[2fr,1fr]">
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Formulaire de demande</h2>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-            Merci de préciser vos besoins : nous reviendrons vers vous avec une proposition de rendez-vous et les documents
-            nécessaires (plans, schémas, dossiers administratifs).
+
+      <Section>
+        <div className="prose prose-lg max-w-none text-center">
+          <p className="text-xl text-gray-700 mb-8">
+            Vous avez un projet d\'électricité, de panneaux solaires, de climatisation ou de borne de recharge ?
+            Contactez-nous pour un devis gratuit et personnalisé. Nous vous répondons sous 48h.
           </p>
-          <div className="mt-6">
+        </div>
+      </Section>
+
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[2fr,1fr]">
+          {/* Formulaire */}
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-4">Demande de devis</h2>
+            <p className="text-gray-600 mb-6">
+              Remplissez ce formulaire et nous vous recontacterons rapidement pour discuter de votre projet.
+            </p>
             <ContactForm />
           </div>
-        </div>
-        <aside className="space-y-6">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Coordonnées</h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              {company.address.street}
-              <br />
-              {company.address.postalCode} {company.address.city}
-            </p>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-              Tél. : <a className="font-semibold text-brand-blue" href={`tel:${company.phone.replace(/\s+/g, '')}`}>{company.phone}</a>
-              <br />
-              Email : <a className="text-brand-blue" href={`mailto:${company.email}`}>{company.email}</a>
-            </p>
-            <p className="mt-3 text-xs uppercase tracking-wide text-brand-blue">Horaires</p>
-            <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-              {company.hours.map((item) => (
-                <li key={item.day}>
-                  <span className="font-medium text-slate-900 dark:text-white">{item.day}</span> — {item.hours}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-3xl border border-dashed border-brand-blue/60 bg-brand-blue/5 p-6 text-sm text-slate-600 dark:text-slate-300">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Zones d'intervention</h3>
-            <p className="mt-2">{cities.join(', ')} et alentours.</p>
-            <p className="mt-4">Intervention urgente ? Appelez directement le <a className="font-semibold text-brand-blue" href={`tel:${company.phone.replace(/\s+/g, '')}`}>06 17 02 06 37</a>.</p>
-          </div>
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center dark:border-slate-800 dark:bg-slate-900">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Carte</h3>
-            <div className="mt-4 flex h-48 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800">
-              <svg className="h-20 w-20 text-brand-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                <circle cx="12" cy="9" r="2.5" />
-              </svg>
+
+          {/* Informations de contact */}
+          <aside className="space-y-6">
+            {/* Coordonnées */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h3 className="text-xl font-semibold mb-4 text-[#0047AB]">Nos coordonnées</h3>
+              
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <MapPin className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium">Adresse</p>
+                    <p className="text-sm text-gray-600">{contact.adresse}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <Phone className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium">Téléphone</p>
+                    <a href={`tel:${contact.telephone.replace(/\s/g, '')}`} className="text-sm text-[#0047AB] hover:underline">
+                      {contact.telephone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <Mail className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium">Email</p>
+                    <a href={`mailto:${contact.email}`} className="text-sm text-[#0047AB] hover:underline">
+                      {contact.email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <Clock className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium">Horaires</p>
+                    <div className="text-sm text-gray-600">
+                      {Object.entries(contact.horaires).map(([jour, horaire]) => (
+                        <p key={jour}>
+                          <span className="capitalize">{jour}</span>: {horaire as string}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Localisation indicative — rendez-vous sur site sous 48h.</p>
+
+            {/* Zone d'intervention */}
+            <div className="bg-[#0047AB] text-white rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-3">Zone d\'intervention</h3>
+              <p className="text-sm mb-2">
+                Nous intervenons dans tout le département du Var :
+              </p>
+              <ul className="text-sm space-y-1">
+                <li>• Toulon et agglomération</li>
+                <li>• Hyères et les îles d\'Or</li>
+                <li>• Brignoles et sa région</li>
+                <li>• Draguignan et Dracénie</li>
+                <li>• Saint-Raphaël et Fréjus</li>
+              </ul>
+              <p className="text-sm mt-3 text-[#FF8C42]">
+                + zones limitrophes des départements 13 et 06
+              </p>
+            </div>
+
+            {/* Urgence */}
+            <div className="bg-[#FF8C42] rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-[#1e1e1e]">Urgence électrique ?</h3>
+              <p className="text-sm text-[#1e1e1e] mb-3">
+                Pour toute urgence, contactez-nous directement :
+              </p>
+              <a
+                href="tel:0494XXXXXX"
+                className="inline-block bg-[#1e1e1e] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e1e1e]/90 transition-colors"
+              >
+                <Phone className="inline w-5 h-5 mr-2" />
+                04 94 XX XX XX
+              </a>
+            </div>
+          </aside>
+        </div>
+      </Section>
+
+      {/* Carte Google Maps */}
+      <Section className="bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8">Nous trouver</h2>
+          <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2900.844658775892!2d6.031!3d43.181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDEwJzUxLjYiTiA2wrAwMSczOS42IkU!5e0!3m2!1sfr!2sfr!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
-        </aside>
-      </div>
-    </Section>
+          <p className="text-center text-gray-600 mt-4">
+            226 Rue de la République, 83210 Solliès-Pont
+          </p>
+        </div>
+      </Section>
+    </>
   );
 }

@@ -1,62 +1,141 @@
-# ADElec 83 — Site vitrine Next.js
+# ⚡ ADELEC83 - Site Web Complet
 
-Site vitrine pour **ADElec 83 — Alehause Domotique Électricité** réalisé avec Next.js 14 (App Router), TypeScript et Tailwind CSS. L'application est prête pour un déploiement immédiat sur Vercel.
+> Site vitrine professionnel pour ADELEC83, entreprise d'électricité, photovoltaïque, climatisation et bornes de recharge dans le Var.
 
-## Prérequis
+## 🚀 Technologies
 
-- Node.js 18+
-- npm 9+
+- **Framework** : Next.js 14 (App Router) + TypeScript
+- **Styling** : TailwindCSS
+- **CMS** : Supabase (base de données PostgreSQL)
+- **Animations** : Framer Motion
+- **Icons** : Lucide React
+- **Forms** : React Hook Form + Zod
+- **Déploiement** : Vercel
 
-## Installation
+---
+
+## 📝 Structure du site
+
+### Pages principales
+- ✅ **Accueil** - Hero, services, stats, réalisations, témoignages, FAQ
+- ✅ **Électricité** - Services électriques complets
+- ✅ **Photovoltaïque** - Panneaux solaires, autoconsommation, aides
+- ✅ **Climatisation** - Installation et entretien climatisation réversible
+- ✅ **Bornes IRVE** - Installation bornes de recharge véhicules électriques
+- ✅ **À propos** - Histoire, équipe, valeurs, certifications
+- ✅ **Réalisations** - Portfolio de projets avec filtres
+- ✅ **Blog** - Articles actualités et conseils
+- ✅ **Contact** - Formulaire, coordonnées, carte
+
+### Composants réutilisables
+- `Hero` - Section hero avec image et CTA
+- `ServiceCard` - Carte service avec icône
+- `RealisationCard` - Carte projet
+- `Stats` - Statistiques animées
+- `CTASection` - Call-to-action
+- `Certifications` - Badges certifications
+- `FAQ` - Questions/réponses pliables
+- `ContactForm` - Formulaire de contact
+
+---
+
+## 🛠️ Installation
+
+### Prérequis
+- Node.js 20+
+- npm ou yarn
+- Compte Supabase
+
+### Étapes
 
 ```bash
+# 1. Cloner le projet
+cd ADELEC83
+
+# 2. Installer les dépendances
 npm install
+
+# 3. Configurer les variables d'environnement
+cp .env.example .env.local
+
+# 4. Modifier .env.local avec vos clés Supabase
+# NEXT_PUBLIC_SUPABASE_URL=votre_url
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_cle
+
+# 5. Lancer le serveur de développement
+npm run dev
 ```
 
-## Scripts
+Ouvrir [http://localhost:3000](http://localhost:3000)
 
-- `npm run dev` — Démarre le serveur de développement.
-- `npm run build` — Génère la version de production.
-- `npm run start` — Lance l'application compilée.
-- `npm run lint` — Analyse statique via ESLint.
+---
 
-## Structure principale
+## 📊 Configuration Supabase
 
-```
-app/
-  layout.tsx           # Layout global, Header/Footer, Mobile CTA
-  (site)/              # Pages publiques (accueil, services, blog, etc.)
-  api/contact/         # Route POST pour valider les formulaires
-app/components/        # UI réutilisables (Button, Section, Header, ...)
-app/styles/globals.css # Styles Tailwind globaux
-content/
-  services/            # Fiches services (Markdown)
-  blog/                # Articles (MDX)
-  realisations/        # Réalisations (Markdown)
-lib/                   # Config, SEO helpers, parsing contenu
-public/                # Favicon, icônes SVG, sitemap, robots
-```
+### Création des tables
 
-## Contenus éditoriaux
+Les tables suivantes sont déjà créées dans votre projet Supabase :
 
-- **Services** : fichiers Markdown dans `content/services`. Frontmatter obligatoire (`title`, `excerpt`, `hero`, `benefits`, `deliverables`, `process`, `faq`).
-- **Blog** : fichiers MDX dans `content/blog`. Frontmatter (`title`, `description`, `date`, `author`, `tags`). Possibilité d'utiliser des composants React légers.
-- **Réalisations** : Markdown dans `content/realisations` avec `title`, `description`, `ville`, `annee`, `tags`.
+1. **pages** - Contenu des pages principales
+2. **realisations** - Portfolio de projets
+3. **articles** - Articles de blog
+4. **temoignages** - Avis clients
+5. **faq** - Questions fréquentes
+6. **company_info** - Informations entreprise
+7. **contact_requests** - Demandes de contact
 
-Chaque mise à jour de contenu nécessite un commit Git pour être déployée.
+### Données initiales
 
-## Bonnes pratiques
+Les données de démo sont déjà insérées.
 
-- Utiliser exclusivement des visuels SVG ou intégrer ultérieurement des images légères via Git.
-- Respecter les contrastes et les règles d'accessibilité (focus visibles, alternatives textuelles).
-- Pour ajouter des icônes, placer les SVG dans `public/icons`.
+---
 
-## Déploiement Vercel
+## 📖 Utilisation du CMS
 
-1. Pousser le dépôt sur GitHub.
-2. Importer le projet dans Vercel (Next.js + App Router détectés automatiquement).
-3. Définir `NODE_VERSION` sur 18+ si nécessaire.
+Consultez **DOCUMENTATION_CMS.md** pour le guide complet.
 
-## TODO
+### Accès rapide
+1. Aller sur [supabase.com](https://supabase.com)
+2. Sélectionner votre projet
+3. Cliquer sur **Table Editor**
+4. Modifier les contenus
 
-- Implémenter l'envoi réel du formulaire de contact (SMTP/Resend) dans `app/api/contact/route.ts`.
+---
+
+## 🚀 Déploiement sur Vercel
+
+### Méthode recommandée
+
+1. **Push sur GitHub**
+   ```bash
+   git add .
+   git commit -m "Site ADELEC83 complet"
+   git push origin main
+   ```
+
+2. **Connecter à Vercel**
+   - Aller sur [vercel.com](https://vercel.com)
+   - **New Project** → Importer le repo
+   - Framework : **Next.js**
+
+3. **Variables d'environnement**
+   - Settings → Environment Variables
+   - Ajouter les clés Supabase
+
+4. **Déployer**
+   - Cliquer sur **Deploy**
+   - Attendre le build (~2-3 min)
+
+---
+
+## 📞 Contact
+
+**ADELEC83**
+- 📍 226 Rue de la République, 83210 Solliès-Pont
+- 📞 04 94 XX XX XX
+- ✉️ contact@adelec83.fr
+
+---
+
+**Version** : 1.0.0  
+**Statut** : ✅ Production Ready
