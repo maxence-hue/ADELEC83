@@ -11,19 +11,19 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const pageData = await supabase
+  const { data: pageData } = await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'contact')
     .single();
 
-  const contactInfo = await supabase
+  const { data: contactInfo } = await supabase
     .from('company_info')
     .select('*')
     .eq('key', 'contact')
     .single();
 
-  const contact = contactInfo.data?.value as any || {
+  const contact = contactInfo?.value as any || {
     adresse: '226 Rue de la République, 83210 Solliès-Pont',
     telephone: '04 94 XX XX XX',
     email: 'contact@adelec83.fr',
@@ -37,8 +37,8 @@ export default async function ContactPage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || 'Contactez-nous'}
-        subtitle={pageData.data?.hero_subtitle || 'Demandez votre devis gratuit'}
+        title={pageData?.hero_title || 'Contactez-nous'}
+        subtitle={pageData?.hero_subtitle || 'Demandez votre devis gratuit'}
         image="/images/hero-contact.jpg"
       />
 

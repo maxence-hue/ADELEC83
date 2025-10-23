@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const pageData = await supabase
+  const { data: pageData } = await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'a-propos')
@@ -53,8 +53,8 @@ export default async function AboutPage() {
   return (
     <>
       <Hero
-        title={pageData.data?.hero_title || "Notre Histoire"}
-        subtitle={pageData.data?.hero_subtitle || "Entreprise familiale depuis 2005"}
+        title={pageData?.hero_title || "Notre Histoire"}
+        subtitle={pageData?.hero_subtitle || "Entreprise familiale depuis 2005"}
         image="/images/hero-about.jpg"
         cta={{
           text: 'Nous contacter',

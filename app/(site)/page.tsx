@@ -23,7 +23,13 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Récupération des données depuis Supabase
-  const [pageData, realisations, testimonials, faqItems, companyInfo] = await Promise.all([
+  const [
+    { data: pageData },
+    { data: realisations },
+    { data: testimonials },
+    { data: faqItems },
+    { data: companyInfo }
+  ] = await Promise.all([
     supabase.from('pages').select('*').eq('slug', 'accueil').single(),
     supabase.from('realisations').select('*').eq('featured', true).order('order_index', { ascending: true }).limit(4),
     supabase.from('temoignages').select('*').eq('featured', true).limit(3),
@@ -31,7 +37,7 @@ export default async function HomePage() {
     supabase.from('company_info').select('*').eq('key', 'stats').single(),
   ]);
 
-  const stats = companyInfo.data?.value as any || {
+  const stats = companyInfo?.value as any || {
     annees_experience: 20,
     installations: 600,
     clients_satisfaits: 98,
@@ -80,8 +86,8 @@ export default async function HomePage() {
     <>
       {/* Hero Section */}
       <Hero
-        title={pageData.data?.hero_title || 'Électricité, Climatisation et Panneaux Solaires dans le Var depuis 2005'}
-        subtitle={pageData.data?.hero_subtitle || 'Votre partenaire local pour tous vos projets énergétiques'}
+        title={pageData?.hero_title || 'Électricité, Climatisation et Panneaux Solaires dans le Var depuis 2005'}
+        subtitle={pageData?.hero_subtitle || 'Votre partenaire local pour tous vos projets énergétiques'}
         image="/images/hero-home.jpg"
         cta={{
           text: 'Demander un devis gratuit',
@@ -108,14 +114,14 @@ export default async function HomePage() {
       </Section>
 
       {/* Réalisations Section */}
-      {realisations.data && realisations.data.length > 0 && (
+      {realisations && realisations.length > 0 && (
         <Section
           eyebrow="Nos Réalisations"
           title="Des projets réussis dans tout le Var"
           subtitle="Découvrez quelques-unes de nos dernières installations"
         >
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {realisations.data.map((realisation, index) => (
+            {realisations.map((realisation, index) => (
               <RealisationCard key={realisation.id} {...realisation} index={index} />
             ))}
           </div>
@@ -160,10 +166,10 @@ export default async function HomePage() {
       </Section>
 
       {/* Testimonials Section */}
-      {testimonials.data && testimonials.data.length > 0 && (
+      {testimonials && testimonials.length > 0 && (
         <Section eyebrow="Témoignages" title="Ils nous font confiance">
           <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.data.map((testimonial) => (
+            {testimonials.map((testimonial) => (
               <Testimonial
                 key={testimonial.id}
                 name={testimonial.name}
@@ -180,9 +186,9 @@ export default async function HomePage() {
       <Certifications />
 
       {/* FAQ Section */}
-      {faqItems.data && faqItems.data.length > 0 && (
+      {faqItems && faqItems.length > 0 && (
         <Section eyebrow="Questions fréquentes" title="Tout savoir sur nos services">
-          <FAQ items={faqItems.data.map(item => ({
+          <FAQ items={faqItems.map(item => ({
             question: item.question,
             answer: item.answer,
           }))} />
