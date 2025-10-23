@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RealisationsPage() {
-  const { data: realisations } = await supabase
+  const { data: realisations } = (await supabase
     .from('realisations')
     .select('*')
-    .order('order_index', { ascending: true });
+    .order('order_index', { ascending: true })) as any;
 
   // Grouper les réalisations par catégorie
   const categories = {
@@ -25,7 +25,7 @@ export default async function RealisationsPage() {
     bornes: 'Bornes de recharge',
   };
 
-  const realisationsByCategory = realisations?.reduce((acc, real) => {
+  const realisationsByCategory = realisations?.reduce((acc: any, real: any) => {
     if (real.category) {
       if (!acc[real.category]) acc[real.category] = [];
       acc[real.category].push(real);
@@ -86,7 +86,7 @@ export default async function RealisationsPage() {
           <Section key={key}>
             <h2 className="text-2xl font-bold mb-6 text-[#1e1e1e]">{label}</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {categoryRealisations.map((realisation, index) => (
+              {categoryRealisations.map((realisation: any, index: number) => (
                 <RealisationCard
                   key={realisation.id}
                   {...realisation}

@@ -12,17 +12,17 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const { data: articles } = await supabase
+  const { data: articles } = (await supabase
     .from('articles')
     .select('*')
     .eq('published', true)
-    .order('published_at', { ascending: false });
+    .order('published_at', { ascending: false })) as any;
 
   const categories = [
     { name: 'Tous', count: articles?.length || 0 },
-    { name: 'Actualités', count: articles?.filter(a => a.category === 'Actualités').length || 0 },
-    { name: 'Énergie', count: articles?.filter(a => a.category === 'Énergie').length || 0 },
-    { name: 'Innovation', count: articles?.filter(a => a.category === 'Innovation').length || 0 },
+    { name: 'Actualités', count: articles?.filter((a: any) => a.category === 'Actualités').length || 0 },
+    { name: 'Énergie', count: articles?.filter((a: any) => a.category === 'Énergie').length || 0 },
+    { name: 'Innovation', count: articles?.filter((a: any) => a.category === 'Innovation').length || 0 },
   ];
 
   return (
@@ -68,7 +68,7 @@ export default async function BlogPage() {
       <Section>
         {articles && articles.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
+            {articles.map((article: any) => (
               <BlogCard
                 key={article.id}
                 slug={article.slug}
