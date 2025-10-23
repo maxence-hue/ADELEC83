@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PhotovoltaiquePage() {
-  const pageData = await supabase
+  const { data: pageData } = (await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'photovoltaique')

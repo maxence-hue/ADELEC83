@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BornesPage() {
-  const pageData = await supabase
+  const { data: pageData } = (await supabase
     .from('pages')
     .select('*')
     .eq('slug', 'bornes')
