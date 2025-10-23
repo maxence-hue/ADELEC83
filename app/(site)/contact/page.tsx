@@ -25,7 +25,7 @@ export default async function ContactPage() {
 
   const contact = contactInfo?.value as any || {
     adresse: '226 Rue de la République, 83210 Solliès-Pont',
-    telephone: '04 94 XX XX XX',
+    telephone: '04 94 91 27 53',
     email: 'contact@adelec83.fr',
     horaires: {
       'lundi-vendredi': '8h-12h / 14h-18h',
@@ -138,11 +138,11 @@ export default async function ContactPage() {
                 Pour toute urgence, contactez-nous directement :
               </p>
               <a
-                href="tel:0494XXXXXX"
+                href="tel:0494912753"
                 className="inline-block bg-[#1e1e1e] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e1e1e]/90 transition-colors"
               >
                 <Phone className="inline w-5 h-5 mr-2" />
-                04 94 XX XX XX
+                04 94 91 27 53
               </a>
             </div>
           </aside>

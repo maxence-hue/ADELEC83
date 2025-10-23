@@ -15,7 +15,7 @@ export function CTASection({
   subtitle = "Contactez-nous pour un devis gratuit et personnalisé"
 }: CTASectionProps) {
   return (
-    <section className="py-20 bg-gradient-to-br from-brand-blue to-brand-dark relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-yellow/20 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-64 h-64 bg-brand-yellow rounded-full blur-3xl" />
