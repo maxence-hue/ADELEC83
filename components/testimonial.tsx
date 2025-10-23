@@ -5,14 +5,29 @@ import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface TestimonialProps {
-  author_name: string;
+  author_name?: string;
+  name?: string;
   location?: string;
+  city?: string;
   rating: number;
-  content: string;
+  content?: string;
+  comment?: string;
   index?: number;
 }
 
-export function Testimonial({ author_name, location, rating, content, index = 0 }: TestimonialProps) {
+export function Testimonial({ 
+  author_name, 
+  name,
+  location, 
+  city,
+  rating, 
+  content,
+  comment,
+  index = 0 
+}: TestimonialProps) {
+  const displayName = author_name || name || 'Client';
+  const displayLocation = location || city;
+  const displayContent = content || comment || '';
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -38,12 +53,12 @@ export function Testimonial({ author_name, location, rating, content, index = 0 
           </div>
           
           <p className="text-gray-700 mb-6 italic leading-relaxed">
-            &ldquo;{content}&rdquo;
+            &ldquo;{displayContent}&rdquo;
           </p>
           
           <div className="border-t pt-4">
-            <p className="font-bold text-brand-gray">{author_name}</p>
-            {location && <p className="text-sm text-gray-500">{location}</p>}
+            <p className="font-bold text-brand-gray">{displayName}</p>
+            {displayLocation && <p className="text-sm text-gray-500">{displayLocation}</p>}
           </div>
         </div>
       </Card>
