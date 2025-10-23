@@ -1,233 +1,344 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
-import { CTASection } from '@/components/cta-section';
-import { FAQ } from '@/components/faq';
-import { Stats } from '@/components/stats';
+import { RealisationCard } from '@/components/realisation-card';
 import { supabase } from '@/lib/supabase';
-import { Sun, Battery, TrendingUp, Leaf, Euro, Shield } from 'lucide-react';
+import { Sun, Euro, Home, Smartphone, TrendingUp, Battery, Phone, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Installation Panneaux Solaires Photovoltaïques - ADELEC83',
-  description: 'Installation de panneaux photovoltaïques dans le Var. Autoconsommation, revente totale, batterie virtuelle. Entreprise RGE QualiPV.',
+  title: 'Installation de panneaux solaires photovoltaïques dans le Var – ADELEC83',
+  description: 'ADELEC83 installe vos panneaux solaires dans tout le Var. Autoconsommation, revente totale, batteries, études gratuites.',
+  keywords: ['panneaux solaires Var', 'photovoltaïque Toulon', 'installation solaire Hyères', 'RGE QualiPV', 'autoconsommation solaire'],
 };
 
 export default async function PhotovoltaiquePage() {
-  const { data: pageData } = (await supabase
-    .from('pages')
+  // Récupération des réalisations photovoltaïque
+  const { data: realisations } = await supabase
+    .from('realisations')
     .select('*')
-    .eq('slug', 'photovoltaique')
-    .single()) as any;
+    .eq('category', 'photovoltaique')
+    .order('order_index', { ascending: true })
+    .limit(6) as any;
 
-  const stats = [
-    { value: 1400, suffix: ' kWh/kWc', label: 'Production annuelle dans le Var' },
-    { value: 70, suffix: '%', label: 'D\'économies possibles' },
-    { value: 25, suffix: ' ans', label: 'Garantie production' },
-    { value: 8, suffix: ' ans', label: 'Retour sur investissement' },
-  ];
-
-  const solutions = [
+  const advantages = [
     {
-      title: 'Autoconsommation avec vente du surplus',
-      description: 'Consommez votre production et vendez le surplus à EDF OA',
-      benefits: ['Prime à l\'autoconsommation jusqu\'à 430€/kWc', 'Rachat garanti 13c€/kWh pendant 20 ans', 'Économies immédiates sur votre facture'],
       icon: Sun,
+      title: 'Production d\'énergie verte et gratuite',
+      description: 'Profitez du soleil généreux du Var'
     },
     {
-      title: 'Revente totale',
-      description: 'Vendez l\'intégralité de votre production à EDF',
-      benefits: ['Tarif garanti pendant 20 ans', 'Revenus réguliers', 'Idéal pour les grandes toitures'],
       icon: Euro,
+      title: 'Aides et primes de l\'État',
+      description: 'Primes autoconsommation disponibles'
     },
     {
-      title: 'Batterie virtuelle MySmartBattery',
-      description: 'Stockez virtuellement votre surplus sur le réseau',
-      benefits: ['Récupération gratuite de votre surplus', 'Pas de limite de stockage', 'Sans batterie physique coûteuse'],
+      icon: TrendingUp,
+      title: 'Rentabilité moyenne : 7 à 9 ans',
+      description: 'Investissement rapidement amorti'
+    },
+    {
+      icon: Smartphone,
+      title: 'Suivi de production en temps réel',
+      description: 'Application mobile incluse'
+    }
+  ];
+
+  const offers = [
+    {
+      icon: Sun,
+      title: 'Autoconsommation avec revente de surplus',
+      description: 'Vous consommez votre énergie et revendez le reste à EDF OA.',
+      features: [
+        'Réduction de 50 à 70% de votre facture',
+        'Prime à l\'autoconsommation',
+        'Revente du surplus à 0,13€/kWh',
+        'Solution la plus rentable'
+      ]
+    },
+    {
+      icon: Euro,
+      title: 'Revente totale',
+      description: 'Votre toiture devient une source de revenus.',
+      features: [
+        'Tarif de rachat garanti 20 ans',
+        'Revente à 0,17€/kWh',
+        'Revenus réguliers',
+        'Investissement sécurisé'
+      ]
+    },
+    {
       icon: Battery,
-    },
+      title: 'Batterie virtuelle ou physique',
+      description: 'Stockez votre énergie pour une autonomie maximale.',
+      features: [
+        'Autonomie énergétique',
+        'Utilisation différée',
+        'Protection contre les coupures',
+        'Indépendance totale'
+      ]
+    }
   ];
 
-  const process = [
-    { title: 'Étude personnalisée', description: 'Analyse de votre consommation et dimensionnement optimal' },
-    { title: 'Démarches administratives', description: 'Nous gérons toutes les autorisations et demandes' },
-    { title: 'Installation', description: 'Pose par nos techniciens certifiés en 1-2 jours' },
-    { title: 'Raccordement', description: 'Mise en service avec Enedis sous 2-3 mois' },
-    { title: 'Suivi de production', description: 'Application mobile pour suivre vos économies' },
-  ];
-
-  const faqItems = [
+  const realisationsExamples = [
     {
-      question: "Quelle est la production solaire dans le Var ?",
-      answer: "Le Var bénéficie d'un ensoleillement exceptionnel avec environ 2800 heures de soleil par an. La production moyenne est de 1400 kWh par kWc installé, soit l'une des meilleures de France."
+      power: '9 kWc',
+      location: 'Carqueiranne',
+      type: 'Autoconsommation avec batterie virtuelle',
+      savings: '1 200€/an'
     },
     {
-      question: "Quelles sont les aides pour l'installation de panneaux solaires ?",
-      answer: "Vous pouvez bénéficier de la prime à l'autoconsommation (jusqu'à 430€/kWc pour une installation de 3 kWc), de la TVA à 10%, et du rachat garanti par EDF OA pendant 20 ans."
+      power: '12 kWc',
+      location: 'La Crau',
+      type: 'Revente totale',
+      savings: '2 040€/an'
     },
     {
-      question: "Comment fonctionne la batterie virtuelle MySmartBattery ?",
-      answer: "MySmartBattery stocke virtuellement votre surplus de production sur le réseau. Vous le récupérez gratuitement quand vous en avez besoin, sans limite de temps ni perte d'énergie."
-    },
-    {
-      question: "Quelle est la durée de vie des panneaux ?",
-      answer: "Les panneaux solaires ont une durée de vie de 25 à 30 ans minimum, avec une garantie de production à 80% après 25 ans. Les onduleurs sont garantis 10 ans minimum."
-    },
-    {
-      question: "Faut-il nettoyer les panneaux solaires ?",
-      answer: "Dans le Var, la pluie suffit généralement à nettoyer les panneaux. Un nettoyage annuel peut être bénéfique en cas de salissures importantes (pollution, poussière, fientes)."
-    },
-    {
-      question: "Mon toit est-il adapté au photovoltaïque ?",
-      answer: "L'idéal est une orientation sud avec une pente de 30°, mais les orientations est/ouest fonctionnent aussi très bien. Nous réalisons une étude gratuite pour évaluer le potentiel de votre toiture."
-    },
+      power: '6 kWc',
+      location: 'Solliès-Pont',
+      type: 'Autoconsommation',
+      savings: '900€/an'
+    }
   ];
 
   return (
     <>
+      {/* Hero Section */}
       <Hero
-        title={pageData?.hero_title || "Panneaux Photovoltaïques"}
-        subtitle={pageData?.hero_subtitle || "Produisez votre propre électricité solaire dans le Var"}
-        image="/images/hero-solar.jpg"
+        title="Installation de panneaux solaires photovoltaïques dans le Var"
+        subtitle="ADELEC83, entreprise RGE QualiPV, installe des panneaux solaires pour particuliers et professionnels afin de produire une électricité locale, propre et rentable."
+        image="/images/hero-photovoltaique.jpg"
         cta={{
-          text: 'Simulation gratuite',
+          text: 'Demander mon étude gratuite',
+          href: '/contact',
+        }}
+        secondaryCta={{
+          text: 'Simuler mes économies',
           href: '/contact',
         }}
       />
 
-      {/* Stats Section */}
-      <Stats stats={stats} />
-
-      <Section>
-        <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-gray-700 mb-8">
-            Avec plus de 2800 heures d'ensoleillement par an, le Var est le territoire idéal pour l'énergie solaire.
-            ADELEC83, certifié RGE QualiPV, vous accompagne de A à Z dans votre projet photovoltaïque : 
-            étude personnalisée, démarches administratives, installation et suivi de production.
-          </p>
+      {/* Pourquoi passer à l'énergie solaire */}
+      <Section
+        eyebrow="Les avantages"
+        title="Produisez votre propre électricité et réduisez vos factures"
+        subtitle="Grâce au photovoltaïque, vous pouvez réduire jusqu'à 70 % vos dépenses d'électricité tout en valorisant votre patrimoine. ADELEC83 vous accompagne dans toutes les étapes : étude, installation, raccordement et suivi de production."
+      >
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12">
+          {advantages.map((advantage, index) => (
+            <div key={index} className="text-center">
+              <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <advantage.icon className="w-10 h-10 text-brand-gray" />
+              </div>
+              <h3 className="font-bold text-brand-gray mb-2">{advantage.title}</h3>
+              <p className="text-sm text-gray-600">{advantage.description}</p>
+            </div>
+          ))}
         </div>
       </Section>
 
+      {/* Nos offres photovoltaïques */}
       <Section
         eyebrow="Nos solutions"
-        title="Choisissez la formule adaptée à vos besoins"
+        title="Des solutions adaptées à votre profil"
+        className="bg-gray-50"
       >
-        <div className="grid gap-6 md:grid-cols-3">
-          {solutions.map((solution, index) => {
-            const Icon = solution.icon;
-            return (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 bg-[#FF8C42] rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-[#1e1e1e]" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{solution.title}</h3>
-                <p className="text-gray-600 mb-4">{solution.description}</p>
-                <ul className="space-y-2">
-                  {solution.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex items-start text-sm">
-                      <span className="text-[#0047AB] mr-2">✓</span>
-                      <span className="text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
+        <div className="grid gap-8 md:grid-cols-3 mt-12">
+          {offers.map((offer, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-brand-blue rounded-full flex items-center justify-center mb-4">
+                <offer.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-brand-gray mb-3">{offer.title}</h3>
+              <p className="text-gray-600 mb-4">{offer.description}</p>
+              <ul className="space-y-2">
+                {offer.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center text-sm text-gray-600">
+                    <CheckCircle2 className="w-4 h-4 text-brand-yellow mr-2 flex-shrink-0" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            Obtenir mon devis solaire
+          </Link>
+        </div>
+      </Section>
+
+      {/* Calculateur d'économies */}
+      <Section
+        eyebrow="Simulation"
+        title="Combien pouvez-vous économiser ?"
+        subtitle="Dans le Var, avec un ensoleillement exceptionnel de plus de 2 800 heures par an, le photovoltaïque est particulièrement rentable."
+        className="bg-gradient-to-br from-brand-yellow/10 to-brand-blue/10"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white p-8 rounded-lg shadow-xl">
+            <h3 className="text-2xl font-bold text-brand-gray mb-6 text-center">Exemple pour une maison de 100m² dans le Var</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-bold text-brand-blue mb-4">Installation 6 kWc</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex justify-between">
+                    <span>Production annuelle</span>
+                    <strong>8 400 kWh</strong>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Autoconsommation (60%)</span>
+                    <strong>5 040 kWh</strong>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Revente surplus (40%)</span>
+                    <strong>3 360 kWh</strong>
+                  </li>
+                  <li className="flex justify-between border-t pt-3">
+                    <span>Économies annuelles</span>
+                    <strong className="text-brand-blue text-xl">1 250€</strong>
+                  </li>
                 </ul>
               </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      <Section className="bg-gray-50">
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Notre processus d'installation</h2>
-            <div className="space-y-4">
-              {process.map((step, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="w-8 h-8 bg-[#0047AB] rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
-                  </div>
-                </div>
-              ))}
+              <div>
+                <h4 className="font-bold text-brand-blue mb-4">Rentabilité</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex justify-between">
+                    <span>Coût installation</span>
+                    <strong>10 500€</strong>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Prime autoconsommation</span>
+                    <strong className="text-green-600">-1 500€</strong>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Coût net</span>
+                    <strong>9 000€</strong>
+                  </li>
+                  <li className="flex justify-between border-t pt-3">
+                    <span>Retour sur investissement</span>
+                    <strong className="text-brand-yellow text-xl">7-8 ans</strong>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-bold mb-4">Exemple de rentabilité</h3>
-            <p className="text-gray-600 mb-4">Pour une installation de 6 kWc à Toulon :</p>
-            <ul className="space-y-3">
-              <li className="flex justify-between">
-                <span>Production annuelle</span>
-                <strong>8 400 kWh</strong>
-              </li>
-              <li className="flex justify-between">
-                <span>Économies annuelles</span>
-                <strong>1 500€</strong>
-              </li>
-              <li className="flex justify-between">
-                <span>Prime autoconsommation</span>
-                <strong>1 800€</strong>
-              </li>
-              <li className="flex justify-between">
-                <span>Retour sur investissement</span>
-                <strong>7-9 ans</strong>
-              </li>
-              <li className="flex justify-between border-t pt-3">
-                <span>Économies sur 25 ans</span>
-                <strong className="text-[#0047AB]">37 500€</strong>
-              </li>
-            </ul>
+            <div className="mt-6 p-4 bg-brand-blue/5 rounded-lg text-center">
+              <p className="text-sm text-gray-600">
+                <strong>Durée de vie des panneaux :</strong> 25-30 ans avec garantie de production
+              </p>
+            </div>
           </div>
         </div>
       </Section>
 
-      <Section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">Nos engagements qualité</h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#0047AB] to-[#FF8C42] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Shield className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="font-semibold mb-2">Certification RGE QualiPV</h3>
-            <p className="text-gray-600 text-sm">
-              Qualification indispensable pour bénéficier des aides de l'État
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#0047AB] to-[#FF8C42] rounded-full flex items-center justify-center mx-auto mb-4">
-              <TrendingUp className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="font-semibold mb-2">Garantie de production</h3>
-            <p className="text-gray-600 text-sm">
-              Production garantie à 80% minimum après 25 ans
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#0047AB] to-[#FF8C42] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Leaf className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="font-semibold mb-2">Impact écologique</h3>
-            <p className="text-gray-600 text-sm">
-              Réduisez votre empreinte carbone de 2 tonnes de CO2 par an
-            </p>
-          </div>
-        </div>
-      </Section>
-
+      {/* ADELEC83, installateur solaire local */}
       <Section
-        eyebrow="Questions fréquentes"
-        title="Tout savoir sur le photovoltaïque"
+        eyebrow="Votre installateur local"
+        title="ADELEC83, installateur solaire local"
+        subtitle="Implantés à Solliès-Pont, nous réalisons chaque année plusieurs dizaines d'installations solaires dans le Var et les départements voisins. Nos équipes maîtrisent toutes les étapes : étude technique, pose, raccordement, entretien et déclaration Enedis."
       >
-        <FAQ items={faqItems} />
+        <div className="max-w-3xl mx-auto text-center mt-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <Sun className="w-16 h-16 text-brand-yellow mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-brand-gray mb-4">Certification RGE QualiPV</h3>
+            <p className="text-gray-600 mb-6">
+              Notre certification RGE QualiPV vous garantit une installation conforme aux normes et vous permet de bénéficier des aides de l'État et des primes à l'autoconsommation.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div>
+                <div className="text-3xl font-bold text-brand-yellow">20+</div>
+                <div className="text-sm text-gray-600">ans d'expérience</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-yellow">100+</div>
+                <div className="text-sm text-gray-600">installations/an</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-yellow">25 ans</div>
+                <div className="text-sm text-gray-600">garantie panneaux</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-yellow">100%</div>
+                <div className="text-sm text-gray-600">satisfaits</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8">
+            <a
+              href="tel:0494912753"
+              className="inline-flex items-center bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Contactez nos experts photovoltaïques : 04 94 91 27 53
+            </a>
+          </div>
+        </div>
       </Section>
 
-      <CTASection
-        title="Prêt à produire votre électricité solaire ?"
-        subtitle="Étude gratuite et sans engagement"
-      />
+      {/* Nos réalisations solaires */}
+      <Section
+        eyebrow="Nos réalisations"
+        title="Nos installations photovoltaïques dans le Var"
+        className="bg-gray-50"
+      >
+        {realisations && realisations.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {realisations.map((realisation: any, index: number) => (
+              <RealisationCard key={realisation.id} {...realisation} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-3">
+            {realisationsExamples.map((example, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                <div className="text-3xl font-bold text-brand-yellow mb-2">{example.power}</div>
+                <h3 className="text-xl font-bold text-brand-gray mb-2">{example.location}</h3>
+                <p className="text-gray-600 mb-3">{example.type}</p>
+                <div className="pt-3 border-t">
+                  <span className="text-sm text-gray-500">Économies annuelles</span>
+                  <div className="text-2xl font-bold text-brand-blue">{example.savings}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="text-center mt-8">
+          <Link
+            href="/realisations"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            Voir toutes nos réalisations solaires
+          </Link>
+        </div>
+      </Section>
+
+      {/* CTA Final */}
+      <Section
+        eyebrow="Prêt à passer au solaire ?"
+        title="Demandez votre étude gratuite"
+        subtitle="Nos experts photovoltaïques analysent votre toiture, votre consommation et vous proposent la solution la plus rentable pour votre projet."
+        className="bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-yellow/20"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-yellow-dark transition-colors text-center"
+          >
+            Demander une étude gratuite
+          </Link>
+          <a
+            href="tel:0494912753"
+            className="inline-flex items-center justify-center bg-white text-brand-blue font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <Phone className="w-5 h-5 mr-2" />
+            04 94 91 27 53
+          </a>
+        </div>
+      </Section>
     </>
   );
 }

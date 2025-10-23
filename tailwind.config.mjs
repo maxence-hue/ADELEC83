@@ -18,7 +18,7 @@ const config = {
           yellow: '#fcd12a',
           'yellow-light': '#fde05c',
           'yellow-dark': '#d4ad15',
-          gray: '#D2D2D2',
+          gray: '#1e1e1e',
           light: '#F7FAFC',
           dark: '#0B3D63'
         },
@@ -28,7 +28,7 @@ const config = {
         },
         accent: {
           DEFAULT: '#fcd12a',
-          foreground: '#D2D2D2'
+          foreground: '#1e1e1e'
         }
       },
       fontFamily: {

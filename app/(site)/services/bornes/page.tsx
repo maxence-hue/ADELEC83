@@ -1,338 +1,245 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
-import { CTASection } from '@/components/cta-section';
-import { FAQ } from '@/components/faq';
+import { RealisationCard } from '@/components/realisation-card';
 import { supabase } from '@/lib/supabase';
-import { BatteryCharging, Car, Home, Building2, CheckCircle, Euro } from 'lucide-react';
+import { Zap, Home, Building2, Users, Shield, Smartphone, Phone, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Installation Borne de Recharge IRVE - ADELEC83',
-  description: 'Installation de bornes de recharge pour véhicules électriques dans le Var. Certification IRVE, aides Advenir, particuliers et entreprises.',
+  title: 'Bornes de recharge IRVE pour véhicules électriques dans le Var – ADELEC83',
+  description: 'ADELEC83 installe vos bornes de recharge certifiées IRVE dans tout le Var. Solutions pour particuliers, entreprises et copropriétés.',
+  keywords: ['borne recharge Var', 'IRVE Toulon', 'installation borne électrique', 'wallbox Var', 'borne recharge entreprise'],
 };
 
 export default async function BornesPage() {
-  const { data: pageData } = (await supabase
-    .from('pages')
+  // Récupération des réalisations bornes
+  const { data: realisations } = await supabase
+    .from('realisations')
     .select('*')
-    .eq('slug', 'bornes')
-    .single()) as any;
+    .eq('category', 'bornes-recharge')
+    .order('order_index', { ascending: true })
+    .limit(6) as any;
+
+  const advantages = [
+    {
+      icon: Zap,
+      title: 'Charge rapide et sécurisée',
+      description: 'Rechargez votre véhicule en toute sécurité'
+    },
+    {
+      icon: Home,
+      title: 'Compatible toutes marques',
+      description: 'Tesla, Renault, Peugeot, BMW, etc.'
+    },
+    {
+      icon: Shield,
+      title: 'Éligible au crédit d\'impôt',
+      description: 'Aides ADVENIR et crédit d\'impôt disponibles'
+    },
+    {
+      icon: Smartphone,
+      title: 'Pilotage intelligent',
+      description: 'Suivi de consommation et programmation'
+    }
+  ];
 
   const solutions = [
     {
       icon: Home,
       title: 'Particuliers',
-      description: 'Installation à domicile',
-      features: [
-        'Borne 7,4 kW ou 22 kW',
-        'Compatible tous véhicules',
-        'Pilotage intelligent',
-        'Installation en 1 journée',
-      ],
+      description: 'Borne murale (7,4 à 11 kW), installation clé en main à domicile.',
+      features: ['Installation en 1 journée', 'Devis gratuit', 'Garantie 2 ans', 'SAV réactif']
     },
     {
       icon: Building2,
-      title: 'Copropriétés',
-      description: 'Solution collective ou individuelle',
-      features: [
-        'Droit à la prise',
-        'Infrastructure collective',
-        'Gestion des accès',
-        'Facturation individuelle',
-      ],
-    },
-    {
-      icon: Car,
       title: 'Entreprises',
-      description: 'Flotte et parkings',
-      features: [
-        'Bornes multiples',
-        'Gestion centralisée',
-        'Badge RFID',
-        'Supervision à distance',
-      ],
-    },
-  ];
-
-  const process = [
-    {
-      title: 'Audit électrique',
-      description: 'Vérification de votre installation et dimensionnement',
+      description: 'Bornes doubles ou sur pied, gestion de flottes et accès sécurisé.',
+      features: ['Gestion multi-utilisateurs', 'Facturation intégrée', 'Maintenance préventive', 'Supervision à distance']
     },
     {
-      title: 'Choix de la borne',
-      description: 'Sélection du matériel adapté à vos besoins et véhicule',
-    },
-    {
-      title: 'Démarches administratives',
-      description: 'Demande d\'aides, autorisation syndic si nécessaire',
-    },
-    {
-      title: 'Installation certifiée',
-      description: 'Pose par nos électriciens qualifiés IRVE',
-    },
-    {
-      title: 'Mise en service',
-      description: 'Tests, paramétrage et formation à l\'utilisation',
-    },
-  ];
-
-  const aids = [
-    {
-      title: 'Crédit d\'impôt',
-      amount: '300€',
-      description: 'Pour les particuliers',
-      conditions: 'Résidence principale',
-    },
-    {
-      title: 'Prime Advenir',
-      amount: '50%',
-      description: 'Jusqu\'à 960€ en copropriété',
-      conditions: 'Solution partagée',
-    },
-    {
-      title: 'TVA réduite',
-      amount: '5,5%',
-      description: 'Sur l\'installation',
-      conditions: 'Logement > 2 ans',
-    },
-    {
-      title: 'Aide entreprise',
-      amount: '40%',
-      description: 'Programme Advenir',
-      conditions: 'Parking ouvert au public',
-    },
-  ];
-
-  const faqItems = [
-    {
-      question: "Quelle puissance de borne choisir ?",
-      answer: "Pour un usage domestique, une borne de 7,4 kW (32A monophasé) convient parfaitement et permet une recharge complète en une nuit. Une borne de 22 kW (32A triphasé) est plus rapide mais nécessite une installation triphasée."
-    },
-    {
-      question: "Combien coûte l'installation d'une borne ?",
-      answer: "Le prix varie de 1200€ à 2500€ pour un particulier (borne + installation), déduction faite des aides. En copropriété, comptez 1500€ à 3000€ selon la complexité."
-    },
-    {
-      question: "Qu'est-ce que la certification IRVE ?",
-      answer: "IRVE (Infrastructure de Recharge pour Véhicules Électriques) est une qualification obligatoire pour installer des bornes de plus de 3,7 kW. Elle garantit une installation sécurisée et conforme, et est nécessaire pour bénéficier des aides."
-    },
-    {
-      question: "Comment fonctionne le droit à la prise ?",
-      answer: "Tout occupant d'un immeuble peut demander l'installation d'une borne à ses frais sur sa place de parking. Le syndic ne peut refuser sauf motif légitime et sérieux. Nous gérons toute la procédure pour vous."
-    },
-    {
-      question: "Puis-je utiliser ma production solaire ?",
-      answer: "Oui ! Nous installons des bornes intelligentes qui peuvent privilégier l'énergie solaire pour recharger votre véhicule, maximisant ainsi votre autoconsommation et vos économies."
-    },
-    {
-      question: "Quelle est la durée de vie d'une borne ?",
-      answer: "Une borne de qualité a une durée de vie de 10 à 15 ans minimum. Les bornes que nous installons sont garanties 2 ans pièces et main d'œuvre."
-    },
+      icon: Users,
+      title: 'Copropriétés',
+      description: 'Étude technique et installation conforme à la loi sur le droit à la prise.',
+      features: ['Droit à la prise', 'Installation collective', 'Répartition des coûts', 'Accompagnement AG']
+    }
   ];
 
   return (
     <>
+      {/* Hero Section */}
       <Hero
-        title={pageData?.hero_title || "Bornes de Recharge IRVE"}
-        subtitle={pageData?.hero_subtitle || "Installation professionnelle pour véhicules électriques"}
-        image="/images/hero-borne.jpg"
+        title="Installation de bornes de recharge IRVE dans le Var"
+        subtitle="ADELEC83 installe des bornes de recharge pour véhicules électriques et hybrides rechargeables, à domicile ou en entreprise."
+        image="/images/hero-bornes.jpg"
         cta={{
-          text: 'Demander un devis',
+          text: 'Obtenir mon devis borne de recharge',
           href: '/contact',
         }}
       />
 
-      <Section>
-        <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-gray-700 mb-8">
-            Avec l'essor de la mobilité électrique, disposer d'une borne de recharge devient indispensable.
-            ADELEC83, certifié IRVE, installe vos bornes de recharge dans le Var pour particuliers, 
-            copropriétés et entreprises. Nous gérons l'ensemble du projet : audit, aides, installation et maintenance.
-          </p>
-        </div>
-      </Section>
-
+      {/* Pourquoi installer une borne */}
       <Section
-        eyebrow="Nos solutions"
-        title="Une borne adaptée à chaque besoin"
+        eyebrow="Les avantages"
+        title="Rechargez votre véhicule électrique en toute sécurité et à moindre coût"
+        subtitle="Une borne de recharge certifiée IRVE (Infrastructure de Recharge pour Véhicules Électriques) vous permet de gagner du temps, sécuriser votre installation et optimiser la charge de votre véhicule."
       >
-        <div className="grid gap-6 md:grid-cols-3">
-          {solutions.map((solution, index) => {
-            const Icon = solution.icon;
-            return (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{solution.title}</h3>
-                <p className="text-gray-600 mb-4">{solution.description}</p>
-                <ul className="space-y-2">
-                  {solution.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12">
+          {advantages.map((advantage, index) => (
+            <div key={index} className="text-center">
+              <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <advantage.icon className="w-10 h-10 text-white" />
               </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      <Section className="bg-gray-50">
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Notre processus d'installation</h2>
-            <div className="space-y-4">
-              {process.map((step, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="w-10 h-10 bg-[#0047AB] rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-4">
-              <h3 className="text-xl font-semibold mb-4 text-[#0047AB]">Pourquoi choisir ADELEC83 ?</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <BatteryCharging className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block">Certification IRVE</strong>
-                    <span className="text-gray-600 text-sm">Qualification obligatoire et gage de qualité</span>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <BatteryCharging className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block">Gestion complète</strong>
-                    <span className="text-gray-600 text-sm">Audit, devis, aides, installation et SAV</span>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <BatteryCharging className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block">Toutes marques</strong>
-                    <span className="text-gray-600 text-sm">Wallbox, Schneider, Legrand, Hager...</span>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <BatteryCharging className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block">Maintenance</strong>
-                    <span className="text-gray-600 text-sm">Contrat d'entretien et dépannage rapide</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">Aides financières disponibles</h2>
-          <p className="text-gray-600">Réduisez le coût de votre installation</p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {aids.map((aid, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-lg text-center">
-              <Euro className="w-8 h-8 text-[#FF8C42] mx-auto mb-3" />
-              <h3 className="font-semibold text-lg">{aid.title}</h3>
-              <p className="text-3xl font-bold text-[#0047AB] my-2">{aid.amount}</p>
-              <p className="text-sm text-gray-600">{aid.description}</p>
-              <p className="text-xs text-gray-500 mt-2">{aid.conditions}</p>
+              <h3 className="font-bold text-brand-gray mb-2">{advantage.title}</h3>
+              <p className="text-sm text-gray-600">{advantage.description}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      <Section className="bg-green-50">
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Rechargez avec votre production solaire</h2>
-            <p className="text-gray-700 mb-4">
-              Combinez panneaux solaires et borne de recharge pour maximiser vos économies !
-            </p>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 text-xl">✓</span>
-                <div>
-                  <strong>Recharge gratuite</strong>
-                  <p className="text-gray-600 text-sm">Utilisez votre surplus solaire pour charger votre véhicule</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 text-xl">✓</span>
-                <div>
-                  <strong>Pilotage intelligent</strong>
-                  <p className="text-gray-600 text-sm">La borne ajuste la puissance selon la production</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 text-xl">✓</span>
-                <div>
-                  <strong>100% écologique</strong>
-                  <p className="text-gray-600 text-sm">Mobilité zéro émission avec une énergie verte</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-3 text-xl">✓</span>
-                <div>
-                  <strong>Rentabilité accrue</strong>
-                  <p className="text-gray-600 text-sm">Amortissement plus rapide de vos panneaux solaires</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Exemple de coût de recharge</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center pb-3 border-b">
-                <span className="text-gray-600">Pour 100 km</span>
-                <span className="font-semibold">Coût</span>
+      {/* Nos prestations */}
+      <Section
+        eyebrow="Nos solutions"
+        title="Solutions de recharge pour particuliers et professionnels"
+        className="bg-gray-50"
+      >
+        <div className="grid gap-8 md:grid-cols-3 mt-12">
+          {solutions.map((solution, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mb-4">
+                <solution.icon className="w-8 h-8 text-brand-gray" />
               </div>
-              <div className="flex justify-between">
-                <span>Essence</span>
-                <strong>12€</strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Électricité réseau</span>
-                <strong>3€</strong>
-              </div>
-              <div className="flex justify-between text-green-600">
-                <span>Solaire autoconsommation</span>
-                <strong>0€</strong>
-              </div>
-              <div className="pt-3 border-t">
-                <p className="text-sm text-gray-600 text-center">
-                  Économisez jusqu'à 2000€/an sur vos déplacements
-                </p>
-              </div>
+              <h3 className="text-xl font-bold text-brand-gray mb-3">{solution.title}</h3>
+              <p className="text-gray-600 mb-4">{solution.description}</p>
+              <ul className="space-y-2">
+                {solution.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center text-sm text-gray-600">
+                    <CheckCircle2 className="w-4 h-4 text-brand-blue mr-2 flex-shrink-0" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            Faire une demande d'installation
+          </Link>
+        </div>
+      </Section>
+
+      {/* Pourquoi choisir une borne certifiée IRVE */}
+      <Section
+        eyebrow="Sécurité & conformité"
+        title="Pourquoi choisir une installation certifiée IRVE ?"
+        subtitle="La certification IRVE est obligatoire pour toute installation de borne de recharge supérieure à 3,7 kW. Elle garantit la sécurité de votre installation et vous permet de bénéficier des aides financières."
+      >
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="text-4xl mb-4">🔒</div>
+            <h3 className="text-xl font-bold text-brand-gray mb-3">Sécurité garantie</h3>
+            <p className="text-gray-600">Installation conforme aux normes électriques et protection contre les surcharges.</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="text-4xl mb-4">💶</div>
+            <h3 className="text-xl font-bold text-brand-gray mb-3">Aides financières</h3>
+            <p className="text-gray-600">Crédit d'impôt de 300€ et programme ADVENIR pour les entreprises et copropriétés.</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="text-4xl mb-4">⚡</div>
+            <h3 className="text-xl font-bold text-brand-gray mb-3">Charge optimisée</h3>
+            <p className="text-gray-600">Gestion intelligente de la puissance et programmation des heures creuses.</p>
           </div>
         </div>
       </Section>
 
+      {/* ADELEC83, installateur certifié IRVE */}
       <Section
-        eyebrow="Questions fréquentes"
-        title="Tout savoir sur les bornes de recharge"
+        eyebrow="Votre installateur local"
+        title="ADELEC83, installateur certifié IRVE"
+        subtitle="ADELEC83 est certifiée IRVE et intervient dans tout le Var (Toulon, Hyères, Solliès, Brignoles, Saint-Tropez). Nous accompagnons les particuliers, entreprises et syndics dans la pose, le raccordement et la maintenance de leur borne de recharge."
+        className="bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5"
       >
-        <FAQ items={faqItems} />
+        <div className="max-w-3xl mx-auto text-center mt-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <Shield className="w-16 h-16 text-brand-blue mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-brand-gray mb-4">Certification IRVE</h3>
+            <p className="text-gray-600 mb-6">
+              Notre certification IRVE (Infrastructure de Recharge pour Véhicules Électriques) vous garantit une installation professionnelle, sécurisée et conforme aux normes en vigueur.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">200+</div>
+                <div className="text-sm text-gray-600">bornes installées</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">100%</div>
+                <div className="text-sm text-gray-600">conformes IRVE</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">24h</div>
+                <div className="text-sm text-gray-600">délai de réponse</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">2 ans</div>
+                <div className="text-sm text-gray-600">garantie</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8">
+            <a
+              href="tel:0494912753"
+              className="inline-flex items-center bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Contactez un technicien IRVE : 04 94 91 27 53
+            </a>
+          </div>
+        </div>
       </Section>
 
-      <CTASection
-        title="Passez à la mobilité électrique"
-        subtitle="Installation de votre borne de recharge par des professionnels certifiés"
-      />
+      {/* Nos réalisations */}
+      {realisations && realisations.length > 0 && (
+        <Section
+          eyebrow="Nos réalisations"
+          title="Installations de bornes de recharge dans le Var"
+          subtitle="Découvrez quelques exemples de nos installations de bornes de recharge pour particuliers, entreprises et copropriétés."
+        >
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {realisations.map((realisation: any, index: number) => (
+              <RealisationCard key={realisation.id} {...realisation} index={index} />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* CTA Final */}
+      <Section
+        eyebrow="Prêt à installer votre borne ?"
+        title="Demandez votre devis gratuit"
+        subtitle="Nos techniciens IRVE vous conseillent et vous proposent la solution la plus adaptée à vos besoins et à votre installation électrique."
+        className="bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-yellow/20"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-yellow-dark transition-colors text-center"
+          >
+            Demander un devis IRVE
+          </Link>
+          <a
+            href="tel:0494912753"
+            className="inline-flex items-center justify-center bg-white text-brand-blue font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <Phone className="w-5 h-5 mr-2" />
+            04 94 91 27 53
+          </a>
+        </div>
+      </Section>
     </>
   );
 }

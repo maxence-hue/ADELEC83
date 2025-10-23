@@ -1,262 +1,214 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
-import { CTASection } from '@/components/cta-section';
-import { FAQ } from '@/components/faq';
+import { RealisationCard } from '@/components/realisation-card';
 import { supabase } from '@/lib/supabase';
-import { Wind, Thermometer, Droplets, Volume2, CheckCircle } from 'lucide-react';
+import { Euro, Globe, Home, Volume2, Wrench, CheckCircle2, Phone } from 'lucide-react';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Climatisation Réversible dans le Var - ADELEC83',
-  description: 'Installation et entretien de climatisation réversible Daikin, Mitsubishi, Atlantic dans le Var. Devis gratuit, entreprise RGE.',
+  title: 'Climatisation réversible et pompe à chaleur dans le Var – ADELEC83',
+  description: 'ADELEC83 installe et entretient vos climatisations réversibles et pompes à chaleur air/air dans tout le Var. Entreprise RGE QualiClimafroid.',
+  keywords: ['climatisation Var', 'pompe à chaleur Var', 'climatisation réversible Toulon', 'installation climatisation Hyères', 'RGE QualiClimafroid'],
 };
 
 export default async function ClimatisationPage() {
-  const { data: pageData } = (await supabase
-    .from('pages')
+  // Récupération des réalisations climatisation
+  const { data: realisations } = await supabase
+    .from('realisations')
     .select('*')
-    .eq('slug', 'climatisation')
-    .single()) as any;
+    .eq('category', 'climatisation')
+    .order('order_index', { ascending: true })
+    .limit(6) as any;
 
-  const brands = [
-    { name: 'Daikin', description: 'Leader mondial de la climatisation' },
-    { name: 'Mitsubishi Electric', description: 'Technologie japonaise de pointe' },
-    { name: 'Atlantic', description: 'Marque française de référence' },
-    { name: 'Toshiba', description: 'Innovation et fiabilité' },
-    { name: 'Panasonic', description: 'Performance et silence' },
-    { name: 'Hitachi', description: 'Qualité professionnelle' },
-  ];
-
-  const benefits = [
+  const advantages = [
     {
-      icon: Thermometer,
-      title: 'Confort été comme hiver',
-      description: 'Climatisation en été, chauffage économique en hiver avec la pompe à chaleur réversible',
+      icon: Euro,
+      title: 'Jusqu\'à 60 % d\'économies d\'énergie',
+      description: 'Réduisez considérablement votre facture de chauffage'
     },
     {
-      icon: Wind,
-      title: 'Air purifié et sain',
-      description: 'Filtres haute performance pour un air débarrassé des allergènes et polluants',
+      icon: Globe,
+      title: 'Éligible aux aides de l\'État',
+      description: 'Primes CEE et aides disponibles'
+    },
+    {
+      icon: Home,
+      title: 'Confort thermique optimal',
+      description: 'Température idéale toute l\'année'
     },
     {
       icon: Volume2,
-      title: 'Ultra silencieux',
-      description: 'Technologies dernière génération pour un confort acoustique optimal',
-    },
-    {
-      icon: Droplets,
-      title: 'Déshumidification',
-      description: 'Régulation automatique de l\'humidité pour un air plus sain',
-    },
+      title: 'Systèmes silencieux',
+      description: 'Technologie connectée et discrète'
+    }
   ];
 
   const services = [
     {
-      title: 'Installation',
-      items: [
-        'Étude thermique gratuite',
-        'Choix du matériel adapté',
-        'Installation soignée et rapide',
-        'Mise en service et réglages',
-        'Formation à l\'utilisation',
-      ],
+      title: 'Installation complète',
+      description: 'Étude thermique, choix du matériel, pose et mise en service.',
+      details: 'Marques partenaires : Daikin, Mitsubishi, Atlantic.'
     },
     {
-      title: 'Entretien',
-      items: [
-        'Contrat de maintenance annuel',
-        'Nettoyage des filtres',
-        'Vérification du fluide frigorigène',
-        'Contrôle des performances',
-        'Intervention rapide en cas de panne',
-      ],
+      title: 'Remplacement d\'un ancien système',
+      description: 'Optimisez vos performances énergétiques avec un matériel nouvelle génération.',
+      details: 'Diagnostic gratuit de votre installation actuelle.'
     },
     {
-      title: 'Dépannage',
-      items: [
-        'Diagnostic précis',
-        'Réparation toutes marques',
-        'Pièces détachées d\'origine',
-        'Intervention sous 48h',
-        'Devis gratuit',
-      ],
-    },
-  ];
-
-  const faqItems = [
-    {
-      question: "Quelle puissance de climatisation pour mon logement ?",
-      answer: "La puissance nécessaire dépend de plusieurs facteurs : surface, isolation, exposition, hauteur sous plafond. En moyenne, comptez 100W/m² pour une pièce bien isolée. Nous réalisons une étude thermique gratuite pour déterminer la puissance optimale."
-    },
-    {
-      question: "Quelle est la différence entre climatisation et pompe à chaleur ?",
-      answer: "Une climatisation réversible EST une pompe à chaleur air/air. Elle peut rafraîchir en été et chauffer en hiver avec un excellent rendement (COP de 3 à 5). C'est la solution 2-en-1 idéale dans le Var."
-    },
-    {
-      question: "Combien coûte l'installation d'une climatisation ?",
-      answer: "Pour un split de 2,5 kW, comptez entre 1500€ et 2500€ pose comprise. Pour un multi-split 3 pièces, entre 4000€ et 6000€. Le prix varie selon la marque, la puissance et la complexité de l'installation."
-    },
-    {
-      question: "L'entretien est-il obligatoire ?",
-      answer: "Pour les climatisations contenant plus de 2kg de fluide frigorigène (>7kW environ), un contrôle annuel est obligatoire. Pour les autres, c'est fortement recommandé pour maintenir les performances et prolonger la durée de vie."
-    },
-    {
-      question: "Quelles sont les aides pour une pompe à chaleur ?",
-      answer: "Les PAC air/air ne sont pas éligibles à MaPrimeRénov' mais peuvent bénéficier des CEE (Certificats d'Économies d'Énergie) et de la TVA à 10% en rénovation. Nous vous accompagnons dans vos démarches."
-    },
-    {
-      question: "Quelle est la durée de vie d'une climatisation ?",
-      answer: "Avec un entretien régulier, une climatisation de qualité dure 15 à 20 ans. Les compresseurs inverter modernes sont particulièrement fiables et économiques."
-    },
+      title: 'Entretien & maintenance annuelle',
+      description: 'Contrôle des fluides, nettoyage et vérification des performances.',
+      details: 'Contrats d\'entretien sur mesure disponibles.'
+    }
   ];
 
   return (
     <>
+      {/* Hero Section */}
       <Hero
-        title={pageData?.hero_title || "Climatisation Réversible"}
-        subtitle={pageData?.hero_subtitle || "Confort optimal été comme hiver dans le Var"}
-        image="/images/hero-clim.jpg"
+        title="Installation et entretien de climatisation réversible dans le Var"
+        subtitle="ADELEC83, entreprise RGE QualiClimafroid, installe et entretient vos systèmes de climatisation réversible et pompes à chaleur air/air dans tout le Var (83)."
+        image="/images/hero-climatisation.jpg"
         cta={{
-          text: 'Devis gratuit',
+          text: 'Demandez votre devis gratuit',
+          href: '/contact',
+        }}
+        secondaryCta={{
+          text: 'Simuler mon projet clim',
           href: '/contact',
         }}
       />
 
-      <Section>
-        <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-gray-700 mb-8">
-            Avec des étés de plus en plus chauds dans le Var, la climatisation est devenue indispensable.
-            ADELEC83 installe et entretient vos systèmes de climatisation réversible depuis plus de 20 ans.
-            Nous travaillons avec les meilleures marques pour vous garantir confort, économies et fiabilité.
-          </p>
-        </div>
-      </Section>
-
+      {/* Pourquoi choisir la climatisation réversible */}
       <Section
         eyebrow="Les avantages"
-        title="Pourquoi choisir la climatisation réversible ?"
-        subtitle="Une solution complète pour votre confort thermique"
+        title="Chauffez et rafraîchissez votre maison avec une seule installation"
+        subtitle="La climatisation réversible, aussi appelée pompe à chaleur air/air, est aujourd'hui la solution la plus économique, écologique et confortable pour votre logement ou vos locaux. Elle capte les calories de l'air extérieur pour chauffer en hiver et les rejette pour rafraîchir en été."
       >
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-600 text-sm">{benefit.description}</p>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12">
+          {advantages.map((advantage, index) => (
+            <div key={index} className="text-center">
+              <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <advantage.icon className="w-10 h-10 text-white" />
               </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      <Section className="bg-gray-50">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">Nos marques partenaires</h2>
-          <p className="text-gray-600">Nous travaillons avec les leaders du marché</p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {brands.map((brand, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow text-center hover:shadow-lg transition-shadow">
-              <h3 className="font-semibold text-[#0047AB]">{brand.name}</h3>
-              <p className="text-xs text-gray-600 mt-1">{brand.description}</p>
+              <h3 className="font-bold text-brand-gray mb-2">{advantage.title}</h3>
+              <p className="text-sm text-gray-600">{advantage.description}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      <Section>
-        <h2 className="text-3xl font-bold text-center mb-8">Nos prestations complètes</h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-4 text-[#0047AB]">{service.title}</h3>
-              <ul className="space-y-2">
-                {service.items.map((item, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="bg-[#0047AB] text-white">
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Économisez avec la climatisation réversible</h2>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <span className="text-[#FF8C42] mr-3 text-xl">✓</span>
-                <div>
-                  <strong>COP de 3 à 5</strong>
-                  <p className="text-white/90 text-sm">Pour 1 kWh consommé, 3 à 5 kWh de chaleur produits</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#FF8C42] mr-3 text-xl">✓</span>
-                <div>
-                  <strong>-50% vs chauffage électrique</strong>
-                  <p className="text-white/90 text-sm">Division par deux de votre facture de chauffage</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#FF8C42] mr-3 text-xl">✓</span>
-                <div>
-                  <strong>Technologie Inverter</strong>
-                  <p className="text-white/90 text-sm">Adaptation automatique pour minimiser la consommation</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#FF8C42] mr-3 text-xl">✓</span>
-                <div>
-                  <strong>Pilotage intelligent</strong>
-                  <p className="text-white/90 text-sm">Programmation et contrôle à distance via smartphone</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-            <h3 className="text-2xl font-bold mb-4">Exemple d'économies</h3>
-            <p className="text-white/90 mb-4">Pour une maison de 100m² dans le Var :</p>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span>Chauffage électrique classique</span>
-                <strong>2 400€/an</strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Climatisation réversible</span>
-                <strong>1 200€/an</strong>
-              </div>
-              <div className="border-t border-white/20 pt-3 flex justify-between">
-                <span>Économies annuelles</span>
-                <strong className="text-[#FF8C42] text-xl">1 200€</strong>
-              </div>
-              <div className="text-center pt-2">
-                <p className="text-sm text-white/90">Amortissement en 3-4 ans</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-
+      {/* Nos prestations */}
       <Section
-        eyebrow="Questions fréquentes"
-        title="Tout savoir sur la climatisation"
+        eyebrow="Nos services"
+        title="Une solution adaptée à chaque besoin"
+        className="bg-gray-50"
       >
-        <FAQ items={faqItems} />
+        <div className="grid gap-8 md:grid-cols-3 mt-12">
+          {services.map((service, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-brand-gray" />
+              </div>
+              <h3 className="text-xl font-bold text-brand-gray mb-3">{service.title}</h3>
+              <p className="text-gray-600 mb-3">{service.description}</p>
+              <p className="text-sm text-brand-blue font-semibold">{service.details}</p>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            Demander un devis d'installation
+          </Link>
+        </div>
       </Section>
 
-      <CTASection
-        title="Installez votre climatisation avec ADELEC83"
-        subtitle="Étude gratuite et devis personnalisé sous 48h"
-      />
+      {/* ADELEC83, votre installateur RGE */}
+      <Section
+        eyebrow="Votre installateur local"
+        title="ADELEC83, votre installateur RGE dans le Var"
+        subtitle="Basée à Solliès-Pont, ADELEC83 intervient dans tout le Var : Toulon, Hyères, La Crau, Brignoles, Carqueiranne, Saint-Maximin… Nos techniciens QualiClimafroid assurent un service réactif, soigné et conforme à la réglementation en vigueur."
+        className="bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5"
+      >
+        <div className="max-w-3xl mx-auto text-center mt-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <Wrench className="w-16 h-16 text-brand-blue mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-brand-gray mb-4">Certification RGE QualiClimafroid</h3>
+            <p className="text-gray-600 mb-6">
+              Notre certification RGE (Reconnu Garant de l'Environnement) vous garantit une installation conforme aux normes et vous permet de bénéficier des aides de l'État.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">20+</div>
+                <div className="text-sm text-gray-600">ans d'expérience</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">500+</div>
+                <div className="text-sm text-gray-600">installations/an</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">98%</div>
+                <div className="text-sm text-gray-600">clients satisfaits</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-blue">48h</div>
+                <div className="text-sm text-gray-600">délai d'intervention</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8">
+            <a
+              href="tel:0494912753"
+              className="inline-flex items-center bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Contactez un expert climatisation : 04 94 91 27 53
+            </a>
+          </div>
+        </div>
+      </Section>
+
+      {/* Nos réalisations */}
+      {realisations && realisations.length > 0 && (
+        <Section
+          eyebrow="Nos réalisations"
+          title="Installations climatisation dans le Var"
+          subtitle="Découvrez quelques exemples de nos installations de climatisation réversible chez nos clients particuliers et professionnels."
+        >
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {realisations.map((realisation: any, index: number) => (
+              <RealisationCard key={realisation.id} {...realisation} index={index} />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* CTA Final */}
+      <Section
+        eyebrow="Prêt à installer votre climatisation ?"
+        title="Demandez votre étude gratuite"
+        subtitle="Nos techniciens vous conseillent et vous proposent la solution la plus adaptée à votre logement et à votre budget."
+        className="bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-yellow/20"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <Link
+            href="/contact"
+            className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-yellow-dark transition-colors text-center"
+          >
+            Demander un devis gratuit
+          </Link>
+          <a
+            href="tel:0494912753"
+            className="inline-flex items-center justify-center bg-white text-brand-blue font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <Phone className="w-5 h-5 mr-2" />
+            04 94 91 27 53
+          </a>
+        </div>
+      </Section>
     </>
   );
 }
