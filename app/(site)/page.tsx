@@ -47,32 +47,52 @@ export default async function HomePage() {
 
   const services = [
     {
-      title: 'Électricité Générale',
-      description: 'Installation, rénovation et dépannage électrique pour particuliers et professionnels',
+      number: '1',
+      title: 'Bâtiments collectifs et tertiaires',
+      description: 'ADELEC83 accompagne syndics, promoteurs et gestionnaires de bâtiments dans leurs projets d\'électricité générale, de construction et de rénovation. Notre expertise garantit sécurité, conformité et confort pour chaque résidence ou local professionnel.',
       iconName: 'zap' as const,
-      href: '/services/electricite',
+      href: '/services/batiments-collectifs-tertiaires',
       color: 'blue' as const,
     },
     {
-      title: 'Photovoltaïque',
-      description: 'Installation de panneaux solaires en autoconsommation ou revente totale',
-      iconName: 'sun' as const,
-      href: '/services/photovoltaique',
-      color: 'yellow' as const,
-    },
-    {
-      title: 'Climatisation',
-      description: 'Pose et entretien de climatisation réversible Daikin, Mitsubishi, Atlantic',
+      number: '2',
+      title: 'Climatisation & pompe à chaleur',
+      description: 'Profitez d\'un confort thermique toute l\'année grâce à nos systèmes de climatisation réversible et pompes à chaleur. ADELEC83 assure l\'installation, la maintenance et la réparation de vos équipements.',
       iconName: 'wind' as const,
       href: '/services/climatisation',
       color: 'cyan' as const,
     },
     {
-      title: 'Bornes de Recharge',
-      description: 'Installation de bornes IRVE pour véhicules électriques, certification garantie',
+      number: '3',
+      title: 'Domotique & confort connecté',
+      description: 'Transformez votre maison en un espace intelligent grâce à nos solutions de domotique personnalisées. Contrôlez votre éclairage, climatisation ou volets à distance et améliorez votre sécurité au quotidien.',
+      iconName: 'zap' as const,
+      href: '/services/domotique',
+      color: 'blue' as const,
+    },
+    {
+      number: '4',
+      title: 'Bornes de recharge pour véhicules électriques',
+      description: 'ADELEC83 installe des bornes de recharge IRVE certifiées pour particuliers, copropriétés et entreprises dans tout le Var. Solutions éligibles aux aides de l\'État.',
       iconName: 'battery' as const,
       href: '/services/bornes',
       color: 'green' as const,
+    },
+    {
+      number: '5',
+      title: 'Panneaux solaires photovoltaïques',
+      description: 'Réduisez vos factures et votre empreinte carbone grâce à l\'énergie solaire. ADELEC83, entreprise RGE QualiPV, conçoit et installe des systèmes photovoltaïques en autoconsommation ou revente totale.',
+      iconName: 'sun' as const,
+      href: '/services/photovoltaique',
+      color: 'yellow' as const,
+    },
+    {
+      number: '6',
+      title: 'Dépannage & maintenance électrique',
+      description: 'En cas de panne, court-circuit ou dysfonctionnement, notre équipe d\'électriciens intervient rapidement dans tout le Var. Nous assurons la recherche de panne, la remise en service et la maintenance préventive.',
+      iconName: 'zap' as const,
+      href: '/contact',
+      color: 'blue' as const,
     },
   ];
 
@@ -112,14 +132,39 @@ export default async function HomePage() {
       {/* Services Section */}
       <Section
         id="services"
-        eyebrow="Nos domaines d'expertise"
+        eyebrow="Nos services"
         title="Nos expertises"
-        subtitle="ADELEC83 intervient sur tous vos projets d'énergie : de l'électricité générale à la production solaire, en passant par la climatisation et les bornes de recharge. Découvrez nos spécialités."
+        subtitle="ADELEC83 intervient sur tous vos projets d'énergie : de l'électricité générale à la production solaire, en passant par la climatisation et les bornes de recharge."
       >
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <ServiceCard key={index} {...service} index={index} />
           ))}
+        </div>
+      </Section>
+
+      {/* Ils nous font confiance */}
+      <Section
+        eyebrow="Nos partenaires"
+        title="Ils nous font confiance"
+        subtitle="Depuis plus de 20 ans, ADELEC83 collabore avec des acteurs majeurs de la construction et de la promotion immobilière dans le Var et les Bouches-du-Rhône. Nos partenaires nous confient leurs projets pour la qualité de nos installations, notre réactivité et notre engagement sur le long terme."
+        className="bg-gray-50"
+      >
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12">
+          {['URBAT', 'DAPROM', 'Marignan', 'JDS Construction', '1001 Vies Habitat', 'Erilia'].map((partner, index) => (
+            <div key={index} className="flex items-center justify-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-2xl font-bold text-brand-blue">{partner}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-12 text-center max-w-3xl mx-auto">
+          <p className="text-gray-700 mb-6">
+            Ces partenaires de confiance témoignent de la fiabilité et du sérieux d'ADELEC83 sur les chantiers d'envergure.
+            Que vous soyez promoteur, syndic ou professionnel du bâtiment, nous vous accompagnons sur toutes les phases de vos projets : études, installation, maintenance et suivi énergétique.
+          </p>
+          <a href="/contact" className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-blue hover:text-white transition-colors">
+            Vous êtes un professionnel ? Contactez notre service B2B
+          </a>
         </div>
       </Section>
 

@@ -53,7 +53,7 @@ function AnimatedCounter({ value, suffix = '', duration = 2 }: { value: number; 
 
 export function Stats({ stats }: StatsProps) {
   return (
-    <section className="py-16 bg-gradient-to-br from-brand-blue to-brand-dark">
+    <section className="py-16 bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-yellow/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
@@ -68,7 +68,7 @@ export function Stats({ stats }: StatsProps) {
               <div className="text-4xl md:text-5xl font-bold text-white mb-2">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="text-white/80 text-sm md:text-base">{stat.label}</p>
+              <p className="text-white/90 text-sm md:text-base font-medium">{stat.label}</p>
             </motion.div>
           ))}
         </div>

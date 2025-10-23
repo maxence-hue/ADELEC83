@@ -27,6 +27,7 @@ const bgColors = {
 };
 
 interface ServiceCardProps {
+  number?: string;
   title: string;
   description: string;
   iconName: keyof typeof icons;
@@ -35,7 +36,7 @@ interface ServiceCardProps {
   index?: number;
 }
 
-export function ServiceCard({ title, description, iconName, href, color, index = 0 }: ServiceCardProps) {
+export function ServiceCard({ number, title, description, iconName, href, color, index = 0 }: ServiceCardProps) {
   const Icon = icons[iconName];
 
   return (
@@ -50,19 +51,26 @@ export function ServiceCard({ title, description, iconName, href, color, index =
           <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
           <div className="relative z-10">
-            <div className={`w-14 h-14 rounded-xl ${bgColors[color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-              <Icon className={`w-7 h-7 ${iconColors[color]} group-hover:text-white transition-colors`} />
+            <div className="flex items-start justify-between mb-4">
+              <div className={`w-14 h-14 rounded-xl ${bgColors[color]} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <Icon className={`w-7 h-7 ${iconColors[color]} group-hover:text-white transition-colors`} />
+              </div>
+              {number && (
+                <div className="text-5xl font-bold text-brand-blue/10 group-hover:text-brand-yellow/20 transition-colors">
+                  {number}
+                </div>
+              )}
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-brand-gray group-hover:text-brand-blue transition-colors">
+            <h3 className="text-xl font-bold mb-3 text-brand-gray group-hover:text-brand-blue transition-colors leading-tight">
               {title}
             </h3>
             
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="text-gray-600 mb-4 leading-relaxed text-sm">
               {description}
             </p>
             
-            <div className="flex items-center text-brand-blue group-hover:text-brand-yellow transition-colors font-medium">
+            <div className="flex items-center text-brand-blue group-hover:text-brand-yellow transition-colors font-medium text-sm">
               <span>En savoir plus</span>
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" />
             </div>

@@ -48,14 +48,14 @@ export function CTASection({
               </Button>
             </Link>
             
-            <a href="tel:0494000000">
+            <a href="tel:0494912753">
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-blue transition-all duration-300"
               >
                 <Phone className="mr-2 w-5 h-5" />
-                04 94 00 00 00
+                04 94 91 27 53
               </Button>
             </a>
           </div>
