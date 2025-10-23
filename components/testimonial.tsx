@@ -36,7 +36,7 @@ export function Testimonial({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card className="p-6 h-full hover:shadow-xl transition-shadow duration-300 relative">
-        <Quote className="absolute top-4 right-4 w-12 h-12 text-brand-orange/10" />
+        <Quote className="absolute top-4 right-4 w-12 h-12 text-brand-yellow/10" />
         
         <div className="relative z-10">
           <div className="flex gap-1 mb-4">
@@ -45,7 +45,7 @@ export function Testimonial({
                 key={i}
                 className={`w-5 h-5 ${
                   i < rating
-                    ? 'fill-brand-orange text-brand-orange'
+                    ? 'fill-brand-yellow text-brand-yellow'
                     : 'fill-gray-200 text-gray-200'
                 }`}
               />

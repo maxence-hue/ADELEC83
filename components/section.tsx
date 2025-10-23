@@ -25,7 +25,7 @@ export function Section({ children, className, id, eyebrow, title, subtitle }: S
             className="text-center mb-12"
           >
             {eyebrow && (
-              <p className="text-brand-orange font-semibold mb-2 uppercase tracking-wide text-sm">
+              <p className="text-brand-yellow font-semibold mb-2 uppercase tracking-wide text-sm">
                 {eyebrow}
               </p>
             )}

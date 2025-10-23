@@ -12,11 +12,12 @@ import { supabase } from '@/lib/supabase';
 import { Star } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'ADELEC83 - Électricité, Climatisation et Panneaux Solaires dans le Var',
-  description: 'Entreprise familiale spécialisée en électricité générale, photovoltaïque, climatisation et bornes de recharge dans le Var depuis 2005',
+  title: 'ADELEC83 – Électricien, climatisation et panneaux solaires dans le Var (83)',
+  description: 'ADELEC83, votre expert en électricité, climatisation, bornes de recharge et panneaux solaires dans le Var. Études, installation et maintenance depuis 2005. Devis gratuit.',
+  keywords: ['électricien Var', 'climatisation Solliès-Pont', 'installation panneau solaire Var', 'borne de recharge Toulon', 'entreprise électricité Hyères', 'artisan solaire RGE Var'],
   openGraph: {
-    title: 'ADELEC83 - Votre électricien dans le Var',
-    description: 'Installation électrique, panneaux solaires, climatisation et bornes de recharge',
+    title: 'ADELEC83 – Électricien, climatisation et panneaux solaires dans le Var',
+    description: 'ADELEC83, votre expert en électricité, climatisation, bornes de recharge et panneaux solaires dans le Var. Études, installation et maintenance depuis 2005.',
     images: ['/images/og-image.jpg'],
   },
 };
@@ -86,13 +87,22 @@ export default async function HomePage() {
     <>
       {/* Hero Section */}
       <Hero
-        title={pageData?.hero_title || 'Électricité, Climatisation et Panneaux Solaires dans le Var depuis 2005'}
-        subtitle={pageData?.hero_subtitle || 'Votre partenaire local pour tous vos projets énergétiques'}
+        title="Électricien, climatisation et panneaux solaires dans le Var depuis 2005"
+        subtitle="ADELEC83 accompagne particuliers et professionnels dans la modernisation de leurs installations électriques, climatiques et solaires, avec des solutions locales et durables."
         image="/images/hero-home.jpg"
         cta={{
-          text: 'Demander un devis gratuit',
+          text: 'Demandez votre étude gratuite',
           href: '/contact',
         }}
+        secondaryCta={{
+          text: 'Voir nos réalisations',
+          href: '/realisations',
+        }}
+        badges={[
+          '✅ Entreprise RGE QualiPV & QualiClimafroid',
+          '✅ 20 ans d\'expérience dans l\'énergie',
+          '✅ Plus de 500 installations réalisées dans le Var'
+        ]}
         showScrollIndicator
       />
 
@@ -102,9 +112,9 @@ export default async function HomePage() {
       {/* Services Section */}
       <Section
         id="services"
-        eyebrow="Nos Expertises"
-        title="Des services complets pour tous vos projets énergétiques"
-        subtitle="De l'électricité générale au photovoltaïque, nous accompagnons particuliers et professionnels dans le Var"
+        eyebrow="Nos domaines d'expertise"
+        title="Nos expertises"
+        subtitle="ADELEC83 intervient sur tous vos projets d'énergie : de l'électricité générale à la production solaire, en passant par la climatisation et les bornes de recharge. Découvrez nos spécialités."
       >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
@@ -116,9 +126,9 @@ export default async function HomePage() {
       {/* Réalisations Section */}
       {realisations && realisations.length > 0 && (
         <Section
-          eyebrow="Nos Réalisations"
-          title="Des projets réussis dans tout le Var"
-          subtitle="Découvrez quelques-unes de nos dernières installations"
+          eyebrow="Nos dernières réalisations"
+          title="Nos réalisations dans le Var"
+          subtitle="Découvrez quelques-unes de nos installations réalisées dans le Var et les Alpes-Maritimes : du particulier à l'entreprise, chaque projet est unique."
         >
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {realisations.map((realisation: any, index: number) => (
@@ -130,44 +140,90 @@ export default async function HomePage() {
 
       {/* Pourquoi nous choisir */}
       <Section
-        eyebrow="Pourquoi ADELEC83"
-        title="Une entreprise familiale à votre service"
-        subtitle="Basée à Solliès-Pont, nous intervenons dans tout le Var avec professionnalisme et réactivité"
+        eyebrow="Pourquoi nous faire confiance ?"
+        title="Pourquoi choisir ADELEC83 ?"
+        subtitle="Depuis plus de 20 ans, nous mettons notre savoir-faire au service de la performance énergétique. Choisir ADELEC83, c'est choisir la fiabilité, la proximité et l'expérience d'un artisan du Var engagé pour l'avenir."
       >
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 mt-12">
           <div className="text-center">
-            <div className="w-16 h-16 bg-[#0047AB] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Star className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+              🧱
             </div>
-            <h3 className="text-xl font-semibold mb-2">Expertise reconnue</h3>
-            <p className="text-gray-600">
-              Plus de 20 ans d'expérience et 600+ installations réalisées dans le Var
+            <h3 className="text-lg font-bold mb-2">20 ans d'expérience</h3>
+            <p className="text-gray-600 text-sm">
+              dans les travaux électriques et climatiques
             </p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-[#FF8C42] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Star className="w-8 h-8 text-[#1e1e1e]" />
+            <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+              ⚡
             </div>
-            <h3 className="text-xl font-semibold mb-2">Accompagnement complet</h3>
-            <p className="text-gray-600">
-              Gestion des démarches administratives, aides financières et SAV local
+            <h3 className="text-lg font-bold mb-2">Techniciens qualifiés</h3>
+            <p className="text-gray-600 text-sm">
+              et formés chaque année
             </p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-[#1e1e1e] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Star className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+              🌞
             </div>
-            <h3 className="text-xl font-semibold mb-2">Qualité certifiée</h3>
-            <p className="text-gray-600">
-              Certifications RGE QualiPV, IRVE et Qualifélec pour votre tranquillité
+            <h3 className="text-lg font-bold mb-2">Entreprise locale RGE</h3>
+            <p className="text-gray-600 text-sm">
+              implantée à Solliès-Pont
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+              🔍
+            </div>
+            <h3 className="text-lg font-bold mb-2">Accompagnement complet</h3>
+            <p className="text-gray-600 text-sm">
+              étude, pose, maintenance
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+              💬
+            </div>
+            <h3 className="text-lg font-bold mb-2">Contact direct</h3>
+            <p className="text-gray-600 text-sm">
+              et réactif avec un interlocuteur unique
             </p>
           </div>
         </div>
       </Section>
 
+      {/* Économies Section */}
+      <Section
+        eyebrow="Économies d'énergie"
+        title="Réduisez votre facture d'électricité jusqu'à 70 %"
+        subtitle="Grâce à nos solutions sur mesure (panneaux solaires, climatisation performante, bornes connectées), vous produisez et consommez votre propre énergie verte. Nous étudions votre consommation, votre toiture et vos besoins pour concevoir la solution la plus rentable."
+        className="bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5"
+      >
+        <div className="grid gap-8 md:grid-cols-3 mt-12">
+          <div className="text-center">
+            <div className="text-5xl font-bold text-brand-blue mb-2">+500</div>
+            <p className="text-gray-600">installations solaires</p>
+          </div>
+          <div className="text-center">
+            <div className="text-5xl font-bold text-brand-yellow mb-2">70%</div>
+            <p className="text-gray-600">d'économies possibles</p>
+          </div>
+          <div className="text-center">
+            <div className="text-5xl font-bold text-brand-blue mb-2">3</div>
+            <p className="text-gray-600">départements couverts (83, 13, 06)</p>
+          </div>
+        </div>
+        <div className="text-center mt-8">
+          <a href="/contact" className="inline-block bg-brand-yellow text-brand-gray font-bold px-8 py-4 rounded-lg hover:bg-brand-yellow-dark transition-colors">
+            Je simule mes économies
+          </a>
+        </div>
+      </Section>
+
       {/* Testimonials Section */}
       {testimonials && testimonials.length > 0 && (
-        <Section eyebrow="Témoignages" title="Ils nous font confiance">
+        <Section eyebrow="Témoignages clients" title="Ils nous ont fait confiance">
           <div className="grid gap-6 md:grid-cols-3">
             {testimonials.map((testimonial: any) => (
               <Testimonial

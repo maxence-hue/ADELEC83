@@ -13,12 +13,17 @@ interface HeroProps {
     text: string;
     href: string;
   };
+  secondaryCta?: {
+    text: string;
+    href: string;
+  };
+  badges?: string[];
   showScrollIndicator?: boolean;
 }
 
-export function Hero({ title, subtitle, image, cta, showScrollIndicator }: HeroProps) {
+export function Hero({ title, subtitle, image, cta, secondaryCta, badges, showScrollIndicator }: HeroProps) {
   return (
-    <section className="relative h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-blue to-brand-dark">
+    <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-blue via-brand-blue-dark to-brand-yellow/20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <Image
@@ -28,7 +33,7 @@ export function Hero({ title, subtitle, image, cta, showScrollIndicator }: HeroP
           className="object-cover opacity-20"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 to-brand-dark/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 via-brand-blue-dark/85 to-brand-yellow/30" />
       </div>
 
       {/* Content */}
@@ -40,15 +45,39 @@ export function Hero({ title, subtitle, image, cta, showScrollIndicator }: HeroP
           <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
             {subtitle}
           </p>
-          {cta && (
-            <Link href={cta.href}>
-              <Button 
-                size="lg" 
-                className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                {cta.text}
-              </Button>
-            </Link>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            {cta && (
+              <Link href={cta.href}>
+                <Button 
+                  size="lg" 
+                  className="bg-brand-yellow hover:bg-brand-yellow-dark text-brand-gray font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  {cta.text}
+                </Button>
+              </Link>
+            )}
+            {secondaryCta && (
+              <Link href={secondaryCta.href}>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-brand-blue font-semibold shadow-lg transition-all duration-300"
+                >
+                  {secondaryCta.text}
+                </Button>
+              </Link>
+            )}
+          </div>
+          
+          {badges && badges.length > 0 && (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm text-white/90">
+              {badges.map((badge, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <span>{badge}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>

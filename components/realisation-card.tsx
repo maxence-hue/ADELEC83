@@ -42,7 +42,7 @@ export function RealisationCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
-          <Badge className="absolute top-4 left-4 bg-brand-orange text-white shadow-lg">
+          <Badge className="absolute top-4 left-4 bg-brand-yellow text-brand-gray font-bold shadow-lg">
             {category}
           </Badge>
         </div>

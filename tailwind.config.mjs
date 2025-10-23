@@ -12,23 +12,23 @@ const config = {
     extend: {
       colors: {
         brand: {
-          blue: '#0047AB',
-          'blue-light': '#4A8FE7',
-          'blue-dark': '#003580',
-          orange: '#FF8C42',
-          'orange-light': '#FFB574',
-          'orange-dark': '#E87024',
+          blue: '#1a8bcc',
+          'blue-light': '#4da8e0',
+          'blue-dark': '#156a9e',
+          yellow: '#fcd12a',
+          'yellow-light': '#fde05c',
+          'yellow-dark': '#d4ad15',
           gray: '#1e1e1e',
           light: '#F7FAFC',
           dark: '#0B3D63'
         },
         primary: {
-          DEFAULT: '#0047AB',
+          DEFAULT: '#1a8bcc',
           foreground: '#FFFFFF'
         },
         accent: {
-          DEFAULT: '#FF8C42',
-          foreground: '#FFFFFF'
+          DEFAULT: '#fcd12a',
+          foreground: '#1e1e1e'
         }
       },
       fontFamily: {
