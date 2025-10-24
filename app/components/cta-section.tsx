@@ -66,11 +66,11 @@ export function CTASection({
           {showContact && (
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center text-sm">
               <a
-                href="mailto:contact@adelec83.fr"
+                href="mailto:contact@adelec83.com"
                 className="flex items-center text-white/80 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                contact@adelec83.fr
+                contact@adelec83.com
               </a>
               <span className="text-white/60 hidden sm:inline">•</span>
               <span className="text-white/80">

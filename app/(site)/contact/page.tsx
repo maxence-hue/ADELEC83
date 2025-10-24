@@ -24,7 +24,7 @@ export default async function ContactPage() {
     .single()) as any;
 
   const contact = contactInfo?.value as any || {
-    adresse: '1 chemin de l’enclos, 83210 Sollies Pont',
+    adresse: '1 chemin de l’enclos, 83210 Solliès-Pont',
     telephone: '04 94 91 27 53',
     email: 'contact@adelec83.com',
     horaires: {
@@ -165,7 +165,7 @@ export default async function ContactPage() {
             />
           </div>
           <p className="text-center text-gray-600 mt-4">
-            1 chemin de l’enclos, 83210 Sollies Pont
+            1 chemin de l’enclos, 83210 Solliès-Pont
           </p>
         </div>
       </Section>
