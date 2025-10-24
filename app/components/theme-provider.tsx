@@ -12,25 +12,20 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme] = useState<Theme>('light'); // Toujours en mode light
 
   useEffect(() => {
-    const stored = window.localStorage.getItem('adelec-theme') as Theme | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(stored ?? (prefersDark ? 'dark' : 'light'));
-  }, []);
-
-  useEffect(() => {
+    // Forcer le mode light
     const root = window.document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
-    root.dataset.theme = theme;
-    window.localStorage.setItem('adelec-theme', theme);
-  }, [theme]);
+    root.classList.remove('dark');
+    root.classList.add('light');
+    root.dataset.theme = 'light';
+  }, []);
 
   const value = useMemo(
     () => ({
       theme,
-      toggle: () => setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+      toggle: () => {} // Désactivé - toujours en mode light
     }),
     [theme]
   );
