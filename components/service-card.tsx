@@ -56,7 +56,7 @@ export function ServiceCard({ number, title, description, iconName, href, color,
                 <Icon className={`w-7 h-7 ${iconColors[color]} group-hover:text-white transition-colors`} />
               </div>
               {number && (
-                <div className="text-5xl font-bold text-brand-blue/10 group-hover:text-brand-yellow/20 transition-colors">
+                <div className="text-5xl font-bold text-gray-300 group-hover:text-brand-blue/30 transition-colors">
                   {number}
                 </div>
               )}
