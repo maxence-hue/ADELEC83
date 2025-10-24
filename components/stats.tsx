@@ -65,10 +65,10 @@ export function Stats({ stats }: StatsProps) {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-brand-yellow mb-2">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="text-white/90 text-sm md:text-base font-medium">{stat.label}</p>
+              <p className="text-white text-sm md:text-base font-semibold">{stat.label}</p>
             </motion.div>
           ))}
         </div>

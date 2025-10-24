@@ -24,9 +24,9 @@ export default async function ContactPage() {
     .single()) as any;
 
   const contact = contactInfo?.value as any || {
-    adresse: '226 Rue de la République, 83210 Solliès-Pont',
+    adresse: '1 chemin de l’enclos, 83210 Sollies Pont',
     telephone: '04 94 91 27 53',
-    email: 'contact@adelec83.fr',
+    email: 'contact@adelec83.com',
     horaires: {
       'lundi-vendredi': '8h-12h / 14h-18h',
       'samedi': 'Sur rendez-vous',
@@ -165,7 +165,7 @@ export default async function ContactPage() {
             />
           </div>
           <p className="text-center text-gray-600 mt-4">
-            226 Rue de la République, 83210 Solliès-Pont
+            1 chemin de l’enclos, 83210 Sollies Pont
           </p>
         </div>
       </Section>

@@ -58,8 +58,8 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 text-sm">
             <div className="flex items-center gap-4">
-              <span className="hidden sm:inline">📍 Solliès-Pont, Var (83)</span>
-              <span>📧 contact@adelec83.fr</span>
+              <span className="hidden sm:inline">📍 1 chemin de l'enclos, 83210 Sollies Pont</span>
+              <span>📧 contact@adelec83.com</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
@@ -107,9 +107,9 @@ export function Header() {
                             <Link
                               key={service.href}
                               href={service.href}
-                              className="block px-4 py-3 hover:bg-brand-blue/5 transition-colors"
+                              className="block px-4 py-3 hover:bg-brand-blue/5 transition-colors no-underline"
                             >
-                              <div className="font-semibold text-brand-gray">{service.name}</div>
+                              <div className="font-semibold text-brand-gray hover:text-brand-blue transition-colors">{service.name}</div>
                               <div className="text-sm text-gray-500">{service.description}</div>
                             </Link>
                           ))}
