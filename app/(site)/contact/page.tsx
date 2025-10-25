@@ -66,11 +66,11 @@ export default async function ContactPage() {
           <aside className="space-y-6">
             {/* Coordonnées */}
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4 text-[#0047AB]">Nos coordonnées</h3>
+              <h3 className="text-xl font-semibold mb-4 text-brand-blue">Nos coordonnées</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <MapPin className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <MapPin className="w-5 h-5 text-brand-blue mr-3 flex-shrink-0 mt-1" />
                   <div>
                     <p className="font-medium">Adresse</p>
                     <p className="text-sm text-gray-600">{contact.adresse}</p>
@@ -78,27 +78,27 @@ export default async function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <Phone className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <Phone className="w-5 h-5 text-brand-blue mr-3 flex-shrink-0 mt-1" />
                   <div>
                     <p className="font-medium">Téléphone</p>
-                    <a href={`tel:${contact.telephone.replace(/\s/g, '')}`} className="text-sm text-[#0047AB] hover:underline">
+                    <a href={`tel:${contact.telephone.replace(/\s/g, '')}`} className="text-sm text-brand-blue hover:underline">
                       {contact.telephone}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <Mail className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <Mail className="w-5 h-5 text-brand-blue mr-3 flex-shrink-0 mt-1" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <a href={`mailto:${contact.email}`} className="text-sm text-[#0047AB] hover:underline">
+                    <a href={`mailto:${contact.email}`} className="text-sm text-brand-blue hover:underline">
                       {contact.email}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <Clock className="w-5 h-5 text-[#0047AB] mr-3 flex-shrink-0 mt-1" />
+                  <Clock className="w-5 h-5 text-brand-blue mr-3 flex-shrink-0 mt-1" />
                   <div>
                     <p className="font-medium">Horaires</p>
                     <div className="text-sm text-gray-600">
@@ -114,7 +114,7 @@ export default async function ContactPage() {
             </div>
 
             {/* Zone d'intervention */}
-            <div className="bg-[#0047AB] text-white rounded-lg p-6">
+            <div className="bg-brand-blue text-white rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-3">Zone d\'intervention</h3>
               <p className="text-sm mb-2">
                 Nous intervenons dans tout le département du Var :
@@ -126,20 +126,20 @@ export default async function ContactPage() {
                 <li>• Draguignan et Dracénie</li>
                 <li>• Saint-Raphaël et Fréjus</li>
               </ul>
-              <p className="text-sm mt-3 text-[#FF8C42]">
+              <p className="text-sm mt-3 text-brand-yellow">
                 + zones limitrophes des départements 13 et 06
               </p>
             </div>
 
             {/* Urgence */}
-            <div className="bg-[#FF8C42] rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2 text-[#1e1e1e]">Urgence électrique ?</h3>
-              <p className="text-sm text-[#1e1e1e] mb-3">
+            <div className="bg-brand-yellow rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-brand-gray">Urgence électrique ?</h3>
+              <p className="text-sm text-brand-gray mb-3">
                 Pour toute urgence, contactez-nous directement :
               </p>
               <a
                 href="tel:0494912753"
-                className="inline-block bg-[#1e1e1e] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e1e1e]/90 transition-colors"
+                className="inline-block bg-brand-gray text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-gray/90 transition-colors"
               >
                 <Phone className="inline w-5 h-5 mr-2" />
                 04 94 91 27 53

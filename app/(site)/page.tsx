@@ -94,6 +94,22 @@ export default async function HomePage() {
       href: '/contact',
       color: 'blue' as const,
     },
+    {
+      number: '7',
+      title: 'Électricité pour Villa & Résidences de standing',
+      description: 'Installations électriques haut de gamme pour villas de prestige dans le Var. Des solutions sur mesure, élégantes et performantes, parfaitement intégrées à votre résidence avec domotique KNX et design premium.',
+      iconName: 'zap' as const,
+      href: '/services/villas-residences-standing',
+      color: 'blue' as const,
+    },
+    {
+      number: '8',
+      title: 'Électricité de Luxe & Projets d\'exception',
+      description: 'La signature électrique des lieux d\'exception. Nous travaillons avec les architectes et décorateurs pour créer des installations de haute précision pour villas, hôtels, domaines viticoles et showrooms.',
+      iconName: 'sun' as const,
+      href: '/services/luxe-projets-exception',
+      color: 'yellow' as const,
+    },
   ];
 
   const statsArray = [
