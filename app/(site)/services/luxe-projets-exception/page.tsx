@@ -3,7 +3,7 @@ import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
 import { RealisationCard } from '@/components/realisation-card';
-import { supabase } from '@/lib/supabase';
+import { sanityClient, REALISATIONS_BY_SERVICE_TYPE_QUERY, type Realisation } from '@/lib/sanity';
 import { Award, CheckCircle, Sparkles, Shield, Users, Zap } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -13,14 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function LuxeExceptionPage() {
-  // Récupération des réalisations haut de gamme
-  const { data: realisations } = (await supabase
-    .from('realisations')
-    .select('*')
-    .in('category', ['villa', 'commercial', 'hotel'])
-    .eq('featured', true)
-    .order('created_at', { ascending: false })
-    .limit(6)) as any;
+  // Récupération des réalisations filtrées par type de service "luxe-projets-exception"
+  const realisations: Realisation[] = await sanityClient.fetch(
+    REALISATIONS_BY_SERVICE_TYPE_QUERY,
+    { serviceType: 'luxe-projets-exception' }
+  ).catch(() => []);
 
   const equipments = [
     'Meljac',

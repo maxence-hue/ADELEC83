@@ -5,14 +5,18 @@ import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar } from 'lucide-react';
+import { urlFor } from '@/lib/sanity';
+import type { Realisation } from '@/lib/sanity';
 
 interface RealisationCardProps {
-  title: string;
-  description: string;
-  category: string;
+  title?: string;
+  description?: string;
+  category?: string;
   location?: string;
   date?: string;
-  image_url: string;
+  image_url?: string;
+  year?: number;
+  image?: any; // Image Sanity
   index?: number;
 }
 
@@ -22,9 +26,15 @@ export function RealisationCard({
   category, 
   location, 
   date,
-  image_url, 
+  image_url,
+  year,
+  image,
   index = 0 
 }: RealisationCardProps) {
+  // Support des deux formats d'image (Sanity ou Supabase)
+  const imageUrl = image_url || (image ? urlFor(image).width(800).height(600).url() : '/images/placeholder.jpg');
+  const displayYear = date || (year ? String(year) : undefined);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -35,8 +45,8 @@ export function RealisationCard({
       <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full">
         <div className="relative h-64 overflow-hidden">
           <Image
-            src={image_url}
-            alt={title}
+            src={imageUrl}
+            alt={title || 'Réalisation'}
             fill
             className="object-cover group-hover:scale-110 transition-transform duration-500"
           />
@@ -63,10 +73,10 @@ export function RealisationCard({
                 <span>{location}</span>
               </div>
             )}
-            {date && (
+            {displayYear && (
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                <span>{date}</span>
+                <span>{displayYear}</span>
               </div>
             )}
           </div>

@@ -9,6 +9,7 @@ import { Testimonial } from '@/components/testimonial';
 import { FAQ } from '@/components/faq';
 import { Section } from '@/components/section';
 import { supabase } from '@/lib/supabase';
+import { sanityClient, FEATURED_REALISATIONS_QUERY, type Realisation } from '@/lib/sanity';
 import { Star } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -23,16 +24,17 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // Récupération des données depuis Supabase
+  // Récupération des réalisations depuis Sanity
+  const realisations: Realisation[] = await sanityClient.fetch(FEATURED_REALISATIONS_QUERY).catch(() => []);
+
+  // Récupération des autres données depuis Supabase
   const [
     { data: pageData },
-    { data: realisations },
     { data: testimonials },
     { data: faqItems },
     { data: companyInfo }
   ] = (await Promise.all([
     supabase.from('pages').select('*').eq('slug', 'accueil').single(),
-    supabase.from('realisations').select('*').eq('featured', true).order('order_index', { ascending: true }).limit(4),
     supabase.from('temoignages').select('*').eq('featured', true).limit(3),
     supabase.from('faq').select('*').eq('active', true).order('order_index', { ascending: true }).limit(6),
     supabase.from('company_info').select('*').eq('key', 'stats').single(),

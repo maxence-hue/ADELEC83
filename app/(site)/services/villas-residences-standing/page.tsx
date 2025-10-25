@@ -3,7 +3,7 @@ import { Hero } from '@/components/hero';
 import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
 import { RealisationCard } from '@/components/realisation-card';
-import { supabase } from '@/lib/supabase';
+import { sanityClient, REALISATIONS_BY_SERVICE_TYPE_QUERY, type Realisation } from '@/lib/sanity';
 import { CheckCircle, Home, Lightbulb, Shield, Smartphone } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -13,13 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function VillasResidencesPage() {
-  // Récupération des réalisations de villas
-  const { data: realisations } = (await supabase
-    .from('realisations')
-    .select('*')
-    .eq('category', 'villa')
-    .order('created_at', { ascending: false })
-    .limit(6)) as any;
+  // Récupération des réalisations filtrées par type de service "villas-residences-standing"
+  const realisations: Realisation[] = await sanityClient.fetch(
+    REALISATIONS_BY_SERVICE_TYPE_QUERY,
+    { serviceType: 'villas-residences-standing' }
+  ).catch(() => []);
 
   const expertises = [
     {
