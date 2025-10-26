@@ -1,7 +1,6 @@
-// Schéma Sanity pour les Articles de Blog
-// Ce fichier sert de documentation pour la structure des données dans Sanity Studio
+import { defineField, defineType } from 'sanity';
 
-export default {
+export default defineType({
   name: 'post',
   title: 'Articles de Blog',
   type: 'document',
@@ -189,4 +188,4 @@ export default {
       subtitle: 'publishedAt',
     },
   },
-};
+});

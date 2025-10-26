@@ -1,7 +1,6 @@
-// Schéma Sanity pour les Réalisations
-// Ce fichier sert de documentation pour la structure des données dans Sanity Studio
+import { defineField, defineType } from 'sanity';
 
-export default {
+export default defineType({
   name: 'realisation',
   title: 'Réalisations',
   type: 'document',
@@ -143,4 +142,4 @@ export default {
       subtitle: 'location',
     },
   },
-};
+});
