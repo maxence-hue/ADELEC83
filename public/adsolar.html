@@ -16,13 +16,13 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '371803885581290');
+fbq('init', '387557417154475');
 fbq('track', 'PageView');
-console.log('[Meta Pixel] Script chargé - ID: 371803885581290');
+console.log('[Meta Pixel] Script chargé - ID: 387557417154475');
 console.log('[Meta Pixel] PageView envoyé');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=387557417154475&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
@@ -32,7 +32,7 @@ window.addEventListener('load', function() {
   setTimeout(function() {
     if (typeof fbq === 'function') {
       console.log('✅ Meta Pixel fbq() disponible');
-      console.log('✅ Pixel ID: 371803885581290');
+      console.log('✅ Pixel ID: 387557417154475');
       // Test de connexion
       fbq('track', 'PageView');
       console.log('✅ PageView re-envoyé pour confirmation');
@@ -2354,7 +2354,7 @@ window.addEventListener('load', function() {
     console.log('✅ Script chargé');
     console.log('Meta Pixel fbq disponible:', typeof fbq !== 'undefined');
     if (typeof fbq !== 'undefined') {
-      console.log('✅ Meta Pixel ID: 371803885581290 initialisé');
+      console.log('✅ Meta Pixel ID: 387557417154475 initialisé');
     }
 
     // WEBHOOK
@@ -2550,7 +2550,7 @@ window.addEventListener('load', function() {
         
         if (typeof fbq === 'function') {
           // Utiliser trackSingle pour être sûr d'envoyer au bon pixel
-          fbq('trackSingle', '371803885581290', 'Lead', {
+          fbq('trackSingle', '387557417154475', 'Lead', {
             content_name: 'Simulation ADSolar',
             content_category: 'solar_installation',
             value: responses.facture_energie || 'Non renseigné',
@@ -2559,7 +2559,7 @@ window.addEventListener('load', function() {
             status: 'qualified'
           });
           console.log('✅ [Meta Pixel] Lead event envoyé avec trackSingle!');
-          console.log('✅ Pixel ID: 371803885581290');
+          console.log('✅ Pixel ID: 387557417154475');
           
           // Envoyer aussi avec track standard pour double sécurité
           fbq('track', 'Lead', {
@@ -2572,7 +2572,7 @@ window.addEventListener('load', function() {
           
           // Fallback: envoyer aussi via image pixel pour garantir la réception
           var img = new Image(1, 1);
-          img.src = 'https://www.facebook.com/tr?id=371803885581290&ev=Lead&cd[content_name]=Simulation%20ADSolar&cd[content_category]=solar_installation&cd[value]=' + encodeURIComponent(responses.facture_energie || 'Non renseigné') + '&cd[currency]=EUR&noscript=1';
+          img.src = 'https://www.facebook.com/tr?id=387557417154475&ev=Lead&cd[content_name]=Simulation%20ADSolar&cd[content_category]=solar_installation&cd[value]=' + encodeURIComponent(responses.facture_energie || 'Non renseigné') + '&cd[currency]=EUR&noscript=1';
           console.log('✅ [Meta Pixel] Fallback image pixel aussi envoyé!');
         } else {
           console.error('❌ [Meta Pixel] fbq function is not available');
@@ -2582,7 +2582,7 @@ window.addEventListener('load', function() {
           // Fallback si fbq n'est pas disponible: utiliser l'image pixel directement
           console.warn('⚠️ Tentative d\'envoi via image pixel de fallback...');
           var img = new Image(1, 1);
-          img.src = 'https://www.facebook.com/tr?id=371803885581290&ev=Lead&cd[content_name]=Simulation%20ADSolar&noscript=1';
+          img.src = 'https://www.facebook.com/tr?id=387557417154475&ev=Lead&cd[content_name]=Simulation%20ADSolar&noscript=1';
           console.log('✅ Image pixel de fallback envoyée');
         }
 
