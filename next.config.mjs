@@ -13,6 +13,14 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  async rewrites() {
+    return [
+      {
+        source: '/adsolar',
+        destination: '/adsolar.html',
+      },
+    ];
+  },
 };
 
 export default withMDX(nextConfig);
