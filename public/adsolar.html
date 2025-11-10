@@ -6,7 +6,7 @@
   <title>ADSolar — Panneaux solaires RGE en région PACA</title>
   <meta name="description" content="ADSolar, installateur photovoltaïque RGE en Provence-Alpes-Côte d'Azur. Plus de 300 installations réalisées. Profitez de la TVA à 10% avant janvier 2025 !" />
   
- <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -18,11 +18,33 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '371803885581290');
 fbq('track', 'PageView');
+console.log('[Meta Pixel] Script chargé - ID: 371803885581290');
+console.log('[Meta Pixel] PageView envoyé');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+<!-- Vérification du chargement du Meta Pixel -->
+<script>
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    if (typeof fbq === 'function') {
+      console.log('✅ Meta Pixel fbq() disponible');
+      console.log('✅ Pixel ID: 371803885581290');
+      // Test de connexion
+      fbq('track', 'PageView');
+      console.log('✅ PageView re-envoyé pour confirmation');
+    } else {
+      console.error('❌ Meta Pixel NON chargé - Vérifiez:');
+      console.error('   1. Bloqueur de publicité désactivé?');
+      console.error('   2. https://connect.facebook.net accessible?');
+      console.error('   3. Pixel activé dans Business Manager?');
+    }
+  }, 1000);
+});
+</script>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2519,20 +2541,49 @@ src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
 
         // TRACKING META PIXEL - ENVOYÉ EN PREMIER
         console.log('🚀 Envoi de l\'événement Lead au Meta Pixel...');
+        console.log('📊 Données du lead:', {
+          nom: payload.nom,
+          email: payload.email,
+          type_logement: responses.type_logement,
+          facture_energie: responses.facture_energie
+        });
+        
         if (typeof fbq === 'function') {
+          // Utiliser trackSingle pour être sûr d'envoyer au bon pixel
+          fbq('trackSingle', '371803885581290', 'Lead', {
+            content_name: 'Simulation ADSolar',
+            content_category: 'solar_installation',
+            value: responses.facture_energie || 'Non renseigné',
+            currency: 'EUR',
+            // Données supplémentaires pour mieux tracker
+            status: 'qualified'
+          });
+          console.log('✅ [Meta Pixel] Lead event envoyé avec trackSingle!');
+          console.log('✅ Pixel ID: 371803885581290');
+          
+          // Envoyer aussi avec track standard pour double sécurité
           fbq('track', 'Lead', {
             content_name: 'Simulation ADSolar',
             content_category: 'solar_installation',
             value: responses.facture_energie || 'Non renseigné',
             currency: 'EUR'
           });
-          console.log('✅ [Meta Pixel] Lead event envoyé avec succès!');
-          console.log('📊 Données:', {
-            content_name: 'Simulation ADSolar',
-            facture_energie: responses.facture_energie
-          });
+          console.log('✅ [Meta Pixel] Lead event aussi envoyé avec track!');
+          
+          // Fallback: envoyer aussi via image pixel pour garantir la réception
+          var img = new Image(1, 1);
+          img.src = 'https://www.facebook.com/tr?id=371803885581290&ev=Lead&cd[content_name]=Simulation%20ADSolar&cd[content_category]=solar_installation&cd[value]=' + encodeURIComponent(responses.facture_energie || 'Non renseigné') + '&cd[currency]=EUR&noscript=1';
+          console.log('✅ [Meta Pixel] Fallback image pixel aussi envoyé!');
         } else {
-          console.error('❌ [Meta Pixel] fbq function is not available - vérifiez que le pixel n\'est pas bloqué par un adblocker');
+          console.error('❌ [Meta Pixel] fbq function is not available');
+          console.error('❌ Le pixel est probablement bloqué par un ad blocker');
+          console.error('❌ Ou le script n\'a pas pu se charger depuis connect.facebook.net');
+          
+          // Fallback si fbq n'est pas disponible: utiliser l'image pixel directement
+          console.warn('⚠️ Tentative d\'envoi via image pixel de fallback...');
+          var img = new Image(1, 1);
+          img.src = 'https://www.facebook.com/tr?id=371803885581290&ev=Lead&cd[content_name]=Simulation%20ADSolar&noscript=1';
+          console.log('✅ Image pixel de fallback envoyée');
         }
 
         // DataLayer Google Analytics
