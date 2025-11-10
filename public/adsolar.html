@@ -2325,8 +2325,15 @@ src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
   </footer>
 
   <script>
-    const TEST_MODE = false;
+    const TEST_MODE = true; // Mode debug activé pour vérifier le Meta Pixel
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Vérifier que le Meta Pixel est chargé
+    console.log('✅ Script chargé');
+    console.log('Meta Pixel fbq disponible:', typeof fbq !== 'undefined');
+    if (typeof fbq !== 'undefined') {
+      console.log('✅ Meta Pixel ID: 371803885581290 initialisé');
+    }
 
     // WEBHOOK
     async function sendToWebhook(payload, webhookUrl) {
@@ -2510,13 +2517,8 @@ src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
           }
         });
 
-        await sendToWebhook(payload, form.dataset.webhook);
-
-        form.reset();
-        form.classList.add('hidden');
-        if (successBlock) successBlock.classList.add('is-visible');
-
-        // TRACKING META PIXEL - VERSION CORRIGÉE
+        // TRACKING META PIXEL - ENVOYÉ EN PREMIER
+        console.log('🚀 Envoi de l\'événement Lead au Meta Pixel...');
         if (typeof fbq === 'function') {
           fbq('track', 'Lead', {
             content_name: 'Simulation ADSolar',
@@ -2524,9 +2526,13 @@ src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
             value: responses.facture_energie || 'Non renseigné',
             currency: 'EUR'
           });
-          if (TEST_MODE) console.log('[Meta Pixel] Lead event tracked successfully');
+          console.log('✅ [Meta Pixel] Lead event envoyé avec succès!');
+          console.log('📊 Données:', {
+            content_name: 'Simulation ADSolar',
+            facture_energie: responses.facture_energie
+          });
         } else {
-          console.error('[Meta Pixel] fbq function is not available - vérifiez que le pixel n\'est pas bloqué par un adblocker');
+          console.error('❌ [Meta Pixel] fbq function is not available - vérifiez que le pixel n\'est pas bloqué par un adblocker');
         }
 
         // DataLayer Google Analytics
@@ -2538,8 +2544,19 @@ src="https://www.facebook.com/tr?id=371803885581290&ev=PageView&noscript=1"
             lead_type: 'simulation',
             user_email: payload.email
           });
-          if (TEST_MODE) console.log('[DataLayer] Lead event tracked successfully');
+          console.log('✅ [DataLayer] Lead event tracked successfully');
         }
+
+        // Envoyer au webhook
+        await sendToWebhook(payload, form.dataset.webhook);
+
+        // Attendre un peu pour s'assurer que les événements sont envoyés
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Afficher le message de succès
+        form.reset();
+        form.classList.add('hidden');
+        if (successBlock) successBlock.classList.add('is-visible');
       });
     })();
 
