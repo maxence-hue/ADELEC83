@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ADSolar — Panneaux solaires RGE en région PACA</title>
   <meta name="description" content="ADSolar, installateur photovoltaïque RGE en Provence-Alpes-Côte d'Azur. Plus de 300 installations réalisées. Profitez de la TVA à 10% avant janvier 2025 !" />
-  <meta name="robots" content="noindex, nofollow" />
   
   <!-- Meta Pixel Code -->
   <script>
@@ -30,37 +29,2574 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Tout le CSS sera ajouté ici via un fichier séparé */
+    /* ==========================================================================
+       MOBILE FIRST - BASE STYLES (320px+)
+       ========================================================================== */
+    
+    :root {
+      --adsolar-blue: #1a8bcc;
+      --adsolar-blue-dark: #0f6c9f;
+      --adsolar-yellow: #fcd12a;
+      --adsolar-red: #ef4444;
+      --text: #0b1020;
+      --text-light: #2c3847;
+      --muted: #5b6473;
+      --bg: #f7f9fc;
+      --bg-light: #ffffff;
+      --line: #e6ebf5;
+      --shadow-sm: 0 2px 8px rgba(11, 16, 32, 0.06);
+      --shadow: 0 12px 32px rgba(26, 139, 204, 0.12);
+      --shadow-lg: 0 20px 48px rgba(26, 139, 204, 0.16);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --touch-target: 48px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      -webkit-appearance: none;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Container mobile-first */
+    .container {
+      width: 100%;
+      padding-left: var(--space-md);
+      padding-right: var(--space-md);
+      margin: 0 auto;
+    }
+    
+    /* Sections spacing mobile-first */
+    section {
+      padding: var(--space-2xl) 0;
+    }
+    
+    /* ==========================================================================
+       BANNIÈRE URGENCE TVA
+       ========================================================================== */
+    
+    .urgent-banner {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      padding: var(--space-md);
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+    }
+    
+    .urgent-banner strong {
+      font-size: 15px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    
+    .urgent-banner span {
+      font-size: 13px;
+      opacity: 0.95;
+      display: block;
+      line-height: 1.4;
+    }
+    
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 249, 252, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: var(--space-md) 0;
+    }
+    
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    
+    .logo img {
+      height: 48px;
+      width: auto;
+    }
+    
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--adsolar-yellow);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+      min-height: var(--touch-target);
+      white-space: nowrap;
+    }
+    
+    .header-cta:active {
+      transform: scale(0.97);
+    }
+    
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    
+    .hero {
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, rgba(26, 139, 204, 0.08), rgba(252, 209, 42, 0.05));
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(26, 139, 204, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+    
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .hero-logos img {
+      height: 32px;
+      width: auto;
+      opacity: 0.9;
+    }
+    
+    .hero h1 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin: 0 0 var(--space-md);
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    
+    .hero-intro {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 var(--space-lg);
+      text-align: center;
+    }
+    
+    .hero-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    
+    .hero-bullets li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-sm);
+      align-items: start;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    
+    .hero-bullets .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--adsolar-blue);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+    
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      padding: var(--space-md);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-top: var(--space-md);
+    }
+    
+    .hero-badge strong {
+      display: block;
+      font-size: 16px;
+      color: var(--adsolar-blue);
+      margin-bottom: 4px;
+    }
+    
+    .hero-badge span {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: var(--adsolar-yellow);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+      min-height: 56px;
+      text-align: center;
+    }
+    
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+    
+    /* ==========================================================================
+       FORM SECTION
+       ========================================================================== */
+    
+    .form-shell {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow);
+    }
+    
+    .form-shell h2 {
+      margin: 0 0 var(--space-sm);
+      font-size: 22px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    
+    .form-shell > p {
+      margin: 0 0 var(--space-lg);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    
+    .ms-progress {
+      position: relative;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(26, 139, 204, 0.15);
+      overflow: hidden;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .ms-progress-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: linear-gradient(90deg, var(--adsolar-blue), var(--adsolar-yellow));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    
+    .ms-step {
+      display: none;
+    }
+    
+    .ms-step.is-active {
+      display: block;
+      animation: fadeSlideIn 0.3s ease;
+    }
+    
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .ms-step h3 {
+      margin: 0 0 var(--space-md);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    
+    .ms-options {
+      display: grid;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .ms-option {
+      width: 100%;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 2px solid var(--line);
+      background: var(--bg-light);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 56px;
+      transition: all 0.2s ease;
+    }
+    
+    .ms-option:active {
+      transform: scale(0.98);
+    }
+    
+    .ms-option span {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    
+    .ms-step label {
+      display: block;
+      margin-bottom: var(--space-md);
+      font-weight: 600;
+      font-size: 15px;
+    }
+    
+    .ms-step input[type="text"],
+    .ms-step input[type="email"],
+    .ms-step input[type="tel"] {
+      width: 100%;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 2px solid var(--line);
+      font-size: 16px;
+      font-family: inherit;
+      margin-top: var(--space-xs);
+      background: var(--bg-light);
+      transition: border-color 0.2s ease;
+    }
+    
+    .ms-step input:focus {
+      outline: none;
+      border-color: var(--adsolar-blue);
+    }
+    
+    .ms-submit {
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: var(--adsolar-blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+      min-height: 56px;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .ms-submit:active {
+      transform: scale(0.98);
+    }
+    
+    .ms-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-md);
+    }
+    
+    .btn-secondary {
+      color: var(--adsolar-blue);
+      font-weight: 600;
+      font-size: 15px;
+      padding: var(--space-sm);
+      min-height: var(--touch-target);
+      display: flex;
+      align-items: center;
+    }
+    
+    .form-success {
+      display: none;
+      background: rgba(26, 139, 204, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      font-weight: 600;
+      color: var(--adsolar-blue);
+      line-height: 1.6;
+    }
+    
+    .form-success.is-visible {
+      display: block;
+    }
+    
+    /* ==========================================================================
+       TRUST STRIP
+       ========================================================================== */
+    
+    .trust-strip {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .trust-strip ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--space-md);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--text-light);
+    }
+    
+    .trust-strip li::before {
+      content: "✓";
+      color: var(--adsolar-blue);
+      font-weight: 800;
+      margin-right: var(--space-xs);
+    }
+    
+    /* ==========================================================================
+       VAR MATIN SECTION
+       ========================================================================== */
+    
+    .vm-highlight {
+      background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      margin: var(--space-xl) auto;
+    }
+    
+    .vm-highlight__logo {
+      text-align: center;
+      margin-bottom: var(--space-md);
+    }
+    
+    .vm-highlight__logo img {
+      height: 64px;
+      width: auto;
+      margin: 0 auto;
+    }
+    
+    .vm-highlight__content {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .vm-highlight__kicker {
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      color: var(--adsolar-blue);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .vm-highlight__content h2 {
+      margin: 0 0 var(--space-sm);
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    
+    .vm-highlight__meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: var(--space-md);
+    }
+    
+    .vm-highlight__publication {
+      font-weight: 700;
+      color: var(--adsolar-blue);
+    }
+    
+    .vm-highlight__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: var(--adsolar-blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+      width: 100%;
+      min-height: var(--touch-target);
+    }
+    
+    .vm-highlight__cta:active {
+      transform: scale(0.98);
+    }
+    
+    .vm-highlight__preview {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .vm-highlight__preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Modal Var Matin */
+    .vm-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(11, 16, 32, 0.8);
+      backdrop-filter: blur(4px);
+      padding: var(--space-md);
+      overflow-y: auto;
+    }
+    
+    .vm-modal[aria-hidden="false"] {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    
+    .vm-modal__dialog {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      position: relative;
+      box-shadow: 0 24px 48px rgba(11, 16, 32, 0.3);
+    }
+    
+    .vm-modal__close {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--adsolar-red);
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    
+    .vm-modal__close:active {
+      transform: scale(0.95);
+    }
+    
+    .vm-modal__title {
+      margin: 0 0 var(--space-lg);
+      font-size: 18px;
+      font-weight: 800;
+      padding-right: 40px;
+    }
+    
+    .vm-modal__figure {
+      margin: 0;
+    }
+    
+    .vm-modal__figure img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+    }
+    
+    .vm-modal__caption {
+      margin-top: var(--space-sm);
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+    
+    /* ==========================================================================
+       TVA URGENCE SECTION
+       ========================================================================== */
+    
+    .tva-section {
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.05), rgba(255, 255, 255, 0.95));
+    }
+    
+    .tva-intro {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .tva-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.15);
+      color: #b91c1c;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-md);
+    }
+    
+    .tva-intro h2 {
+      margin: 0 0 var(--space-md);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+    
+    .tva-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    .tva-countdown {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    
+    .tva-countdown strong {
+      display: block;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--adsolar-red);
+      margin-bottom: var(--space-md);
+      line-height: 1.2;
+    }
+    
+    .tva-countdown p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    /* ==========================================================================
+       OPTIMISEUR SECTION
+       ========================================================================== */
+    
+    .opt-section {
+      background: var(--bg-light);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .opt-section::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(26, 139, 204, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+    
+    .opt-container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .opt-heading {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .opt-heading span {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(26, 139, 204, 0.1);
+      color: var(--adsolar-blue);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-md);
+    }
+    
+    .opt-heading h2 {
+      margin: 0 0 var(--space-sm);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+    
+    .opt-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    .opt-highlight {
+      background: rgba(26, 139, 204, 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .opt-highlight strong {
+      display: block;
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--adsolar-blue);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .opt-highlight span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    
+    .opt-form {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .opt-fieldset {
+      border: none;
+      margin: 0 0 var(--space-lg);
+      padding: 0;
+    }
+    
+    .opt-fieldset:last-child {
+      margin-bottom: 0;
+    }
+    
+    .opt-fieldset legend {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: var(--space-md);
+      color: var(--text);
+    }
+    
+    .opt-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius);
+      background: var(--bg-light);
+      border: 2px solid transparent;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .opt-toggle:active {
+      border-color: rgba(26, 139, 204, 0.3);
+    }
+    
+    .opt-toggle input {
+      appearance: none;
+      width: 48px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(26, 139, 204, 0.2);
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    
+    .opt-toggle input::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      box-shadow: 0 2px 6px rgba(11, 16, 32, 0.15);
+      transition: transform 0.2s ease;
+    }
+    
+    .opt-toggle input:checked {
+      background: linear-gradient(90deg, var(--adsolar-blue), var(--adsolar-yellow));
+    }
+    
+    .opt-toggle input:checked::after {
+      transform: translateX(20px);
+    }
+    
+    .opt-toggle strong {
+      font-size: 15px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+    
+    .opt-subtext {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    
+    .opt-orientations {
+      margin-top: var(--space-md);
+      padding-left: calc(48px + var(--space-md));
+    }
+    
+    .opt-orientations > p {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .opt-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    
+    .opt-pill {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 2px solid var(--line);
+      background: var(--bg-light);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .opt-pill.is-active {
+      background: var(--adsolar-blue);
+      color: #fff;
+      border-color: var(--adsolar-blue);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .opt-pill.is-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    
+    .opt-pill:not(.is-disabled):active {
+      transform: scale(0.97);
+    }
+    
+    .opt-summary {
+      background: rgba(26, 139, 204, 0.06);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+    
+    .opt-battery {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .opt-battery-shell {
+      width: 100px;
+      height: 180px;
+      border-radius: 20px;
+      background: var(--bg-light);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display: flex;
+      flex-direction: column-reverse;
+      overflow: hidden;
+      margin: 0 auto var(--space-md);
+      position: relative;
+    }
+    
+    .opt-battery-cap {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 16px;
+      background: var(--bg-light);
+      border-radius: 8px 8px 4px 4px;
+      box-shadow: 0 4px 8px rgba(11, 16, 32, 0.1);
+    }
+    
+    .opt-battery-level {
+      width: 100%;
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--adsolar-blue), var(--adsolar-yellow));
+      height: 50%;
+      transition: height 0.3s ease;
+    }
+    
+    .opt-battery-text span {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text);
+      display: block;
+      line-height: 1;
+    }
+    
+    .opt-battery-text small {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    
+    .opt-shares {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .opt-share-card {
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    
+    .opt-share-card strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    
+    .opt-share-card span {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    
+    .opt-breakdown-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+      color: var(--text);
+    }
+    
+    .opt-breakdown {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    .opt-breakdown li {
+      margin-bottom: var(--space-xs);
+    }
+    
+    /* ==========================================================================
+       SECTIONS TITLE
+       ========================================================================== */
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .section-title span {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(26, 139, 204, 0.1);
+      color: var(--adsolar-blue);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-md);
+    }
+    
+    .section-title h2 {
+      margin: 0 0 var(--space-sm);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+    
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    /* ==========================================================================
+       VALUE SECTION
+       ========================================================================== */
+    
+    .value-section {
+      background: var(--bg-light);
+    }
+    
+    .value-grid {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    
+    .value-card {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .value-card::after {
+      content: "";
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(252, 209, 42, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    
+    .value-card strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+      color: var(--text);
+    }
+    
+    .value-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    /* ==========================================================================
+       STEPS SECTION
+       ========================================================================== */
+    
+    .st-section {
+      background: var(--bg);
+    }
+    
+    .st-media {
+      margin-bottom: var(--space-xl);
+    }
+    
+    .st-media img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      margin-bottom: var(--space-md);
+    }
+    
+    .st-caption {
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .st-caption strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    
+    .st-caption span {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    .st-timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    
+    .st-track {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: rgba(26, 139, 204, 0.15);
+      border-radius: 999px;
+    }
+    
+    .st-progress {
+      width: 100%;
+      height: 0;
+      background: linear-gradient(180deg, var(--adsolar-blue), var(--adsolar-yellow));
+      border-radius: 999px;
+      transition: height 0.3s ease;
+    }
+    
+    .st-steps {
+      display: grid;
+      gap: var(--space-xl);
+    }
+    
+    .st-step {
+      position: relative;
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .st-step.is-active {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    
+    .st-index {
+      position: absolute;
+      left: -26px;
+      top: var(--space-lg);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--adsolar-blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+    
+    .st-step.is-active .st-index {
+      background: var(--adsolar-yellow);
+      color: var(--text);
+    }
+    
+    .st-step h3 {
+      margin: 0 0 var(--space-sm);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    
+    .st-step p {
+      margin: 0 0 var(--space-md);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    .st-step ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    .st-step li {
+      margin-bottom: var(--space-xs);
+    }
+    
+    /* ==========================================================================
+       INTERVIEWS SECTION
+       ========================================================================== */
+    
+    .iv-section {
+      background: var(--bg-light);
+    }
+    
+    .iv-grid {
+      display: grid;
+      gap: var(--space-xl);
+    }
+    
+    .iv-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #0f2438;
+      box-shadow: var(--shadow);
+    }
+    
+    .iv-media {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .iv-media img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .iv-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 36, 56, 0), rgba(15, 36, 56, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .iv-play {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--adsolar-blue);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+    
+    .iv-body {
+      padding: var(--space-lg);
+    }
+    
+    .iv-body p {
+      margin: 0;
+      font-style: italic;
+      color: #dfe8f4;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    /* ==========================================================================
+       TESTIMONIALS SECTION
+       ========================================================================== */
+    
+    .testimonials {
+      background: var(--bg);
+    }
+    
+    /* ==========================================================================
+       CTA FINAL
+       ========================================================================== */
+    
+    .cta-final {
+      background: linear-gradient(135deg, rgba(26, 139, 204, 0.08), rgba(252, 209, 42, 0.05));
+    }
+    
+    .cta-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    
+    .cta-card h2 {
+      margin: 0 0 var(--space-md);
+      font-size: 24px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    
+    .cta-card p {
+      margin: 0 0 var(--space-lg);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    
+    footer {
+      padding: var(--space-xl) 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    /* ==========================================================================
+       TABLET (600px+)
+       ========================================================================== */
+    
+    @media (min-width: 600px) {
+      :root {
+        --space-xs: 12px;
+        --space-sm: 16px;
+        --space-md: 24px;
+        --space-lg: 32px;
+        --space-xl: 48px;
+        --space-2xl: 64px;
+      }
+      
+      .container {
+        max-width: 720px;
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+      }
+      
+      .urgent-banner strong {
+        font-size: 17px;
+      }
+      
+      .urgent-banner span {
+        font-size: 14px;
+      }
+      
+      .logo img {
+        height: 56px;
+      }
+      
+      .header-cta {
+        font-size: 15px;
+        padding: 12px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .hero-intro {
+        font-size: 17px;
+      }
+      
+      .hero-logos img {
+        height: 40px;
+      }
+      
+      .hero-badge {
+        padding: var(--space-lg);
+      }
+      
+      .form-shell {
+        padding: var(--space-xl);
+      }
+      
+      .form-shell h2 {
+        font-size: 26px;
+      }
+      
+      .value-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .iv-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+      }
+      
+      .vm-highlight {
+        padding: var(--space-xl);
+      }
+      
+      .vm-highlight__logo img {
+        height: 80px;
+      }
+      
+      .vm-highlight__content h2 {
+        font-size: 24px;
+      }
+      
+      .vm-highlight__cta {
+        width: auto;
+        padding: 14px 32px;
+      }
+    }
+    
+    /* ==========================================================================
+       DESKTOP (1024px+)
+       ========================================================================== */
+    
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 1180px;
+      }
+      
+      section {
+        padding: var(--space-2xl) 0;
+      }
+      
+      .urgent-banner {
+        padding: var(--space-lg) 0;
+      }
+      
+      .urgent-banner strong {
+        font-size: 18px;
+        display: inline;
+        margin-right: var(--space-sm);
+      }
+      
+      .urgent-banner span {
+        display: inline;
+      }
+      
+      .logo img {
+        height: 68px;
+      }
+      
+      .hero {
+        padding-top: 80px;
+        padding-bottom: 80px;
+      }
+      
+      .hero::before {
+        width: 500px;
+        height: 500px;
+        top: -40%;
+        right: -20%;
+      }
+      
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+      
+      .hero-content {
+        order: 1;
+      }
+      
+      .hero-visual {
+        order: 2;
+      }
+      
+      .hero h1 {
+        font-size: 48px;
+        text-align: left;
+      }
+      
+      .hero-intro {
+        text-align: left;
+        font-size: 18px;
+      }
+      
+      .hero-logos {
+        justify-content: flex-start;
+      }
+      
+      .hero-bullets li {
+        font-size: 16px;
+      }
+      
+      .hero-badge {
+        position: absolute;
+        bottom: var(--space-lg);
+        left: var(--space-lg);
+        max-width: 280px;
+      }
+      
+      .btn-primary {
+        width: auto;
+        display: inline-flex;
+      }
+      
+      .form-shell h2 {
+        font-size: 28px;
+      }
+      
+      .form-shell > p {
+        font-size: 16px;
+      }
+      
+      .trust-strip ul {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+        font-size: 15px;
+      }
+      
+      .vm-highlight__container {
+        display: grid;
+        grid-template-columns: 120px 1fr 280px;
+        gap: var(--space-xl);
+        align-items: center;
+        text-align: left;
+      }
+      
+      .vm-highlight__logo {
+        margin-bottom: 0;
+      }
+      
+      .vm-highlight__content {
+        text-align: left;
+        margin-bottom: 0;
+      }
+      
+      .vm-highlight__content h2 {
+        font-size: 28px;
+      }
+      
+      .vm-highlight__cta {
+        width: auto;
+      }
+      
+      .tva-intro h2 {
+        font-size: 42px;
+      }
+      
+      .tva-intro p {
+        font-size: 17px;
+      }
+      
+      .tva-countdown {
+        padding: var(--space-2xl);
+      }
+      
+      .tva-countdown strong {
+        font-size: 48px;
+      }
+      
+      .opt-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+      
+      .opt-heading {
+        text-align: left;
+      }
+      
+      .opt-heading h2 {
+        font-size: 42px;
+      }
+      
+      .opt-heading p {
+        font-size: 17px;
+      }
+      
+      .opt-highlight {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+      }
+      
+      .opt-highlight strong {
+        font-size: 56px;
+      }
+      
+      .opt-highlight span {
+        font-size: 16px;
+      }
+      
+      .opt-visual {
+        order: 2;
+      }
+      
+      .opt-summary {
+        padding: var(--space-2xl);
+      }
+      
+      .opt-battery-shell {
+        width: 120px;
+        height: 220px;
+      }
+      
+      .opt-battery-text span {
+        font-size: 42px;
+      }
+      
+      .section-title h2 {
+        font-size: 42px;
+      }
+      
+      .section-title p {
+        font-size: 17px;
+      }
+      
+      .value-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .st-wrapper {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+      
+      .st-media {
+        position: sticky;
+        top: 120px;
+        margin-bottom: 0;
+      }
+      
+      .st-timeline {
+        padding-left: 56px;
+      }
+      
+      .st-track {
+        left: 16px;
+        width: 6px;
+      }
+      
+      .st-index {
+        left: -32px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+      }
+      
+      .st-step h3 {
+        font-size: 22px;
+      }
+      
+      .st-step p {
+        font-size: 16px;
+      }
+      
+      .st-step ul {
+        font-size: 15px;
+      }
+      
+      .cta-card h2 {
+        font-size: 36px;
+      }
+      
+      .cta-card p {
+        font-size: 17px;
+      }
+      
+      /* Hover states for desktop */
+      .header-cta:hover,
+      .btn-primary:hover,
+      .ms-submit:hover,
+      .vm-highlight__cta:hover {
+        transform: translateY(-2px);
+      }
+      
+      .ms-option:hover {
+        border-color: var(--adsolar-blue);
+        box-shadow: var(--shadow-sm);
+        transform: translateY(-1px);
+      }
+      
+      .opt-pill:not(.is-disabled):hover {
+        border-color: var(--adsolar-blue);
+        transform: translateY(-1px);
+      }
+      
+      .opt-toggle:hover {
+        border-color: rgba(26, 139, 204, 0.3);
+      }
+    }
+    
+    /* ==========================================================================
+       LARGE DESKTOP (1280px+)
+       ========================================================================== */
+    
+    @media (min-width: 1280px) {
+      .container {
+        max-width: 1280px;
+      }
+      
+      .hero h1 {
+        font-size: 56px;
+      }
+      
+      .opt-heading h2,
+      .section-title h2 {
+        font-size: 48px;
+      }
+      
+      .tva-intro h2 {
+        font-size: 48px;
+      }
+    }
+    
+    /* ==========================================================================
+       UTILITIES
+       ========================================================================== */
+    
+    .scroll-lock {
+      overflow: hidden;
+    }
   </style>
 </head>
 <body>
-  <!-- Contenu de la landing page ADSolar -->
-  <!-- Cette page est totalement autonome, sans header/footer du site principal -->
-  
-  <div style="padding: 60px 20px; text-align: center; font-family: 'Inter', sans-serif; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 20px; color: #1a8bcc;">
-      🌞 ADSolar — Panneaux solaires RGE en région PACA
-    </h1>
-    <p style="font-size: 18px; color: #5b6473; margin-bottom: 30px;">
-      Landing page en cours de finalisation
-    </p>
-    <div style="background: #f7f9fc; padding: 30px; border-radius: 16px; margin-bottom: 30px;">
-      <p style="font-size: 16px; color: #2c3847; line-height: 1.6;">
-        ✅ Meta Pixel configuré (ID: 669111768905722)<br>
-        ✅ Page totalement isolée (pas de header/footer du site)<br>
-        ✅ Non indexée (noindex, nofollow)<br>
-        ✅ Prête pour le déploiement Vercel
-      </p>
+  <!-- BANNIÈRE URGENCE TVA -->
+  <div class="urgent-banner" role="alert">
+    <div class="container">
+      <strong>⚠️ ALERTE : La TVA à 10% disparaît le 1er janvier 2025 !</strong>
+      <span>Profitez encore du taux réduit en installant vos panneaux solaires avant la fin d'année</span>
     </div>
-    <p style="font-size: 14px; color: #5b6473;">
-      Le contenu HTML complet sera ajouté dans la prochaine étape.
-    </p>
   </div>
-  
+
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="#top" aria-label="ADSolar - Retour à l'accueil">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68c45411b57891c1190799ee_Logo%20e%CC%81critures%20noires.png" alt="ADSolar" width="200" height="68">
+        </a>
+        <a class="header-cta" href="#simulation">Simulation gratuite</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-logos">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b5989ac4fbb94cdae9be0f_logo-QualiPV-2025-RGE_sc.avif" alt="QualiPV RGE" width="120" height="40">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b5989a66157f9f5c9e4afe_logo_home.avif" alt="Home" width="80" height="40">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b5992e75ae7ad1059a51be_360_F_430991159_goUSJZivpZqS0zdnzYXQ7QbB1hNJsYcO.png" alt="4,9/5" width="100" height="40">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b5989a87f35d2c5c012dd8_var-matin-logo-png-transparent.avif" alt="Var Matin" width="100" height="40">
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1>Captez le soleil PACA et réduisez jusqu'à 80&nbsp;% votre facture électrique</h1>
+            <p class="hero-intro">ADSolar dimensionne, installe et raccorde votre centrale photovoltaïque sur toute la Provence-Alpes-Côte d'Azur. Profitez de la TVA à 10% avant le 1er janvier 2025 !</p>
+            
+            <ul class="hero-bullets">
+              <li>
+                <span class="icon">1h</span>
+                <span>Étude personnalisée envoyée par un expert ADSolar après votre simulation.</span>
+              </li>
+              <li>
+                <span class="icon">0€</span>
+                <span>Démarches administratives et primes prises en charge.</span>
+              </li>
+              <li>
+                <span class="icon">360°</span>
+                <span>Ingénierie, installation et maintenance opérées par notre équipe interne.</span>
+              </li>
+            </ul>
+            
+            <a class="btn-primary" href="#simulation">Lancer ma simulation guidée</a>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-image">
+              <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b59f97b392bbb36472614e_pourquoi%20choisir%20le%20photovoltai%CC%88que.avif" alt="Installation photovoltaïque ADSolar" width="600" height="400" loading="eager">
+              <div class="hero-badge">
+                <strong>+300 installations réalisées</strong>
+                <span>Garanties 25 ans panneaux &amp; onduleurs • Monitoring connecté inclus</span>
+              </div>
+            </div>
+
+            <div id="simulation" class="form-shell">
+              <h2>Simulation express en 5 questions</h2>
+              <p>Un conseiller basé en PACA vous recontacte sous 60&nbsp;minutes avec l'étude complète.</p>
+              
+              <div class="ms-progress">
+                <div class="ms-progress-bar"></div>
+              </div>
+
+              <form class="ms-steps" id="leadForm" data-webhook="https://adsolar.app.n8n.cloud/webhook/ebb1a7cb-0479-43dd-be9d-a45779a17b54">
+                <div class="ms-step is-active">
+                  <h3>Quel type de logement équipez-vous&nbsp;?</h3>
+                  <input type="hidden" name="type_logement">
+                  <div class="ms-options">
+                    <button type="button" class="ms-option" data-value="Maison individuelle">
+                      Maison individuelle
+                      <span>Toiture tuiles, bac acier, terrasse…</span>
+                    </button>
+                    <button type="button" class="ms-option" data-value="Appartement">
+                      Appartement
+                      <span>Dernier étage, toit terrasse partagé</span>
+                    </button>
+                    <button type="button" class="ms-option" data-value="Bâtiment professionnel">
+                      Bâtiment professionnel
+                      <span>Commerce, tertiaire, agricole</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="ms-step">
+                  <h3>Facture d'électricité moyenne / mois</h3>
+                  <input type="hidden" name="facture_energie">
+                  <div class="ms-options">
+                    <button type="button" class="ms-option" data-value="Moins de 80€">Moins de 80&nbsp;€</button>
+                    <button type="button" class="ms-option" data-value="80-150€">Entre 80 et 150&nbsp;€</button>
+                    <button type="button" class="ms-option" data-value="150-250€">Entre 150 et 250&nbsp;€</button>
+                    <button type="button" class="ms-option" data-value="Plus de 250€">Plus de 250&nbsp;€</button>
+                  </div>
+                </div>
+
+                <div class="ms-step">
+                  <h3>Orientation dominante de votre toiture</h3>
+                  <input type="hidden" name="orientation_toit">
+                  <div class="ms-options">
+                    <button type="button" class="ms-option" data-value="Sud / Sud-Est">Sud / Sud-Est</button>
+                    <button type="button" class="ms-option" data-value="Est / Ouest">Est / Ouest</button>
+                    <button type="button" class="ms-option" data-value="Nord">Nord</button>
+                    <button type="button" class="ms-option" data-value="Je ne sais pas">Je ne sais pas</button>
+                  </div>
+                </div>
+
+                <div class="ms-step">
+                  <h3>Quand souhaitez-vous lancer le projet&nbsp;?</h3>
+                  <input type="hidden" name="delai_projet">
+                  <div class="ms-options">
+                    <button type="button" class="ms-option" data-value="Dès que possible">Dès que possible</button>
+                    <button type="button" class="ms-option" data-value="3-6 mois">Dans 3 à 6 mois</button>
+                    <button type="button" class="ms-option" data-value="6 mois et +">Dans plus de 6 mois</button>
+                  </div>
+                </div>
+
+                <div class="ms-step">
+                  <h3>Vos coordonnées pour recevoir l'étude détaillée</h3>
+                  
+                  <label>
+                    Nom complet
+                    <input name="nom" type="text" required placeholder="Jean Dupont" autocomplete="name">
+                  </label>
+                  
+                  <label>
+                    Email
+                    <input name="email" type="email" required placeholder="vous@exemple.fr" autocomplete="email">
+                  </label>
+                  
+                  <label>
+                    Téléphone
+                    <input name="telephone" type="tel" required placeholder="06 00 00 00 00" autocomplete="tel">
+                  </label>
+                  
+                  <label>
+                    Code postal
+                    <input name="code_postal" type="text" required placeholder="06000" maxlength="5" pattern="\d{5}">
+                  </label>
+
+                  <button class="ms-submit" type="submit">Recevoir mon étude sous 1&nbsp;h</button>
+                  
+                  <p style="margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.5;">Vos données restent confidentielles. Un conseiller ADSolar vous rappelle pour valider votre projet.</p>
+                  
+                  <div class="ms-actions">
+                    <button type="button" class="btn-secondary" data-action="prev">← Retour</button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="form-success" id="leadFormSuccess">
+                Merci ! Nous revenons vers vous sous 1 heure avec votre étude personnalisée.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="trust-strip">
+          <ul>
+            <li>Entreprise RGE QualiPV &amp; Qualibat basée à Solliès-Pont</li>
+            <li>Primes nationales et aides locales optimisées par nos experts</li>
+            <li>Installation clé en main en moins de 8 semaines</li>
+            <li>Suivi et maintenance depuis notre centre technique PACA</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION VAR MATIN -->
+    <section>
+      <div class="container">
+        <div class="vm-highlight">
+          <div class="vm-highlight__container">
+            <figure class="vm-highlight__logo">
+              <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b5989a87f35d2c5c012dd8_var-matin-logo-png-transparent.avif" alt="Var Matin" width="120" height="120">
+            </figure>
+            
+            <div class="vm-highlight__content">
+              <p class="vm-highlight__kicker">Notre dernière actualité</p>
+              <h2>TVA à 5,5&nbsp;% : tout savoir sur notre dernière tribune</h2>
+              <p class="vm-highlight__meta">
+                Paru dans <span class="vm-highlight__publication">Var Matin</span> • <time datetime="2024-10-03">3 octobre 2024</time>
+              </p>
+              <button type="button" class="vm-highlight__cta" data-vm-modal-open>
+                Lire l'article complet
+              </button>
+            </div>
+            
+            <div class="vm-highlight__preview">
+              <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68de42bf461dc1e8e2e50460_parole%20expert%201-min.png" alt="Aperçu article Var Matin" width="280" height="200" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="vm-modal" data-vm-modal aria-hidden="true" role="dialog" aria-labelledby="vm-modal-title">
+      <div class="vm-modal__dialog">
+        <button type="button" class="vm-modal__close" data-vm-modal-close aria-label="Fermer">&times;</button>
+        <h3 id="vm-modal-title" class="vm-modal__title">Article Var Matin – TVA à 5,5&nbsp;%</h3>
+        <figure class="vm-modal__figure">
+          <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68de42bf461dc1e8e2e50460_parole%20expert%201-min.png" alt="Article complet" width="800" height="600" loading="lazy">
+          <figcaption class="vm-modal__caption">Article paru le 3 octobre 2024 dans Var Matin.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <section class="tva-section">
+      <div class="container">
+        <div class="tva-intro">
+          <span class="tva-badge">⏰ DERNIÈRE CHANCE</span>
+          <h2>Installez vos panneaux solaires avant le 31 décembre 2024</h2>
+          <p>La TVA à 10% sur les installations photovoltaïques ≤ 3 kWc disparaît le 1er janvier 2025. Ne perdez pas plusieurs centaines d'euros !</p>
+        </div>
+        
+        <div class="tva-countdown">
+          <strong>Agissez maintenant !</strong>
+          <p>Après le 1er janvier 2025, seule la TVA à 5,5% (pour installations spécifiques avec certifications PPE2 V2) ou 20% sera applicable. Pour les installations standard ≤ 3 kWc, le taux de 10% ne sera plus disponible.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="opt-section" id="optimiseur">
+      <div class="container opt-container">
+        <div class="opt-copy">
+          <div class="opt-heading">
+            <span>Optimiseur d'économies</span>
+            <h2>Composez votre installation idéale</h2>
+            <p>Activez les éléments de votre centrale et découvrez, en temps réel, l'impact sur votre facture d'électricité.</p>
+          </div>
+          
+          <div class="opt-highlight">
+            <strong data-opt-percent-copy>50%</strong>
+            <span>d'économies estimées avec votre configuration actuelle.</span>
+          </div>
+          
+          <form class="opt-form" id="optForm">
+            <fieldset class="opt-fieldset">
+              <legend>Production solaire</legend>
+              <label class="opt-toggle">
+                <input type="checkbox" id="optPanels" checked>
+                <div>
+                  <strong>Panneaux photovoltaïques DMEGC</strong>
+                  <p class="opt-subtext">Modules haute performance pour maximiser votre production.</p>
+                </div>
+              </label>
+              <div class="opt-orientations">
+                <p>Orientation dominante</p>
+                <div class="opt-pill-group">
+                  <button type="button" class="opt-pill is-active" data-orientation="sud" data-savings="50" data-label="orientés Sud">Sud (50&nbsp;%)</button>
+                  <button type="button" class="opt-pill" data-orientation="est" data-savings="45" data-label="orientés Est">Est (45&nbsp;%)</button>
+                  <button type="button" class="opt-pill" data-orientation="ouest" data-savings="45" data-label="orientés Ouest">Ouest (45&nbsp;%)</button>
+                </div>
+              </div>
+            </fieldset>
+            
+            <fieldset class="opt-fieldset">
+              <legend>Stockage intelligent</legend>
+              <label class="opt-toggle">
+                <input type="checkbox" id="optVirtual">
+                <div>
+                  <strong>Batterie virtuelle MyLight</strong>
+                  <p class="opt-subtext">Ajoutez jusqu'à +30&nbsp;% d'économies supplémentaires pour atteindre 80% d'économies totales !</p>
+                </div>
+              </label>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="opt-visual">
+          <div class="opt-summary">
+            <div class="opt-battery">
+              <div class="opt-battery-shell">
+                <div class="opt-battery-level"></div>
+                <div class="opt-battery-cap"></div>
+              </div>
+              <div class="opt-battery-text">
+                <span data-opt-percent>50%</span>
+                <small>Réduction estimée</small>
+              </div>
+            </div>
+            
+            <div class="opt-details">
+              <div class="opt-shares">
+                <div class="opt-share-card">
+                  <strong data-opt-solar-share>50%</strong>
+                  <span>Autoconsommation solaire</span>
+                </div>
+                <div class="opt-share-card">
+                  <strong data-opt-grid-share>50%</strong>
+                  <span>Dépendance réseau</span>
+                </div>
+              </div>
+              
+              <div>
+                <p class="opt-breakdown-title">Gains cumulés</p>
+                <ul class="opt-breakdown" aria-live="polite"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="value-section" id="valeurs">
+      <div class="container">
+        <div class="section-title">
+          <span>Pourquoi ADSolar</span>
+          <h2>Un installateur local qui maîtrise toute la chaîne de valeur</h2>
+          <p>De l'étude énergétique à la maintenance, nous pilotons chaque étape pour garantir performance, sécurité et confort.</p>
+        </div>
+        
+        <div class="value-grid">
+          <article class="value-card">
+            <strong>Audit solaire précis</strong>
+            <p>Étude d'ombrage, projection de rendement sur 20 ans et calcul d'autoconsommation pour maximiser vos économies.</p>
+          </article>
+          
+          <article class="value-card">
+            <strong>Design &amp; matériel premium</strong>
+            <p>Panneaux DMEGC haute performance, onduleurs Huawei, stockage compatible MyLight et design harmonisé à votre toiture.</p>
+          </article>
+          
+          <article class="value-card">
+            <strong>Démarches simplifiées</strong>
+            <p>ADSolar gère mairie, Enedis, Consuel et subventions pour accélérer votre raccordement.</p>
+          </article>
+          
+          <article class="value-card">
+            <strong>Suivi digital en continu</strong>
+            <p>Monitoring en temps réel, optimisation des réglages et hotline technique basée en Provence.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="st-section" id="etapes">
+      <div class="container">
+        <div class="st-wrapper">
+          <div class="st-media">
+            <img src="https://cdn.prod.website-files.com/68236bfa1413f482cf7f9061/68b59ee2b6092df9f2f41381_1-min.avif" alt="Équipe ADSolar" width="400" height="500" loading="lazy">
+            <div class="st-caption">
+              <strong>ADSolar, équipe PACA</strong>
+              <span>Chefs de projet, installateurs et SAV internalisés pour un suivi fluide.</span>
+            </div>
+          </div>
+
+          <div class="st-content">
+            <div class="section-title" style="margin-bottom:32px;">
+              <span>Déroulé transparent</span>
+              <h2>Votre projet solaire en 4 étapes clés</h2>
+              <p>Nous coordonnons l'ensemble des intervenants pour vous livrer une centrale performante, sans stress.</p>
+            </div>
+
+            <div class="st-timeline">
+              <div class="st-track">
+                <div class="st-progress"></div>
+              </div>
+              
+              <div class="st-steps">
+                <article class="st-step">
+                  <div class="st-index">1</div>
+                  <h3>Diagnostic énergétique &amp; projection financière</h3>
+                  <p>Analyse de vos consommations, relevé satellite et modélisation 3D pour définir la puissance idéale.</p>
+                  <ul>
+                    <li>Projection d'économies et temps de retour</li>
+                    <li>Recommandations d'orientation et stockage</li>
+                  </ul>
+                </article>
+
+                <article class="st-step">
+                  <div class="st-index">2</div>
+                  <h3>Constitution du dossier administratif</h3>
+                  <p>Nous déposons les autorisations urbanisme, Enedis, EDF OA et mobilisons les aides auxquelles vous êtes éligible.</p>
+                  <ul>
+                    <li>Montage des dossiers primes et financements</li>
+                    <li>Planification de la visite technique</li>
+                  </ul>
+                </article>
+
+                <article class="st-step">
+                  <div class="st-index">3</div>
+                  <h3>Installation &amp; raccordement certifiés RGE</h3>
+                  <p>Nos techniciens posent panneaux, onduleurs et protections électriques en 1 à 2 jours, dans le respect des normes.</p>
+                  <ul>
+                    <li>Essais complets et validation Consuel</li>
+                    <li>Mise en sécurité et finitions soignées</li>
+                  </ul>
+                </article>
+
+                <article class="st-step">
+                  <div class="st-index">4</div>
+                  <h3>Mise en service &amp; accompagnement long terme</h3>
+                  <p>Activation de la production, paramétrage de l'application et optimisation continue par notre support basé en PACA.</p>
+                  <ul>
+                    <li>Monitoring accessible 24/7</li>
+                    <li>Maintenance préventive et SAV prioritaire</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="iv-section" id="interviews">
+      <div class="container">
+        <div class="section-title">
+          <span>Interviews clients</span>
+          <h2>Ils racontent leur expérience ADSolar</h2>
+          <p>Découvrez comment nos clients de toute la région PACA ont transformé leur facture d'énergie grâce au solaire.</p>
+        </div>
+        
+        <div class="iv-grid">
+          <article class="iv-card">
+            <a class="iv-media" href="https://youtube.com/shorts/7RLfTRSBU-0" target="_blank" rel="noopener">
+              <img src="https://cdn.prod.website-files.com/68251370be6526520801733f/68b6dcd67c691ae157d6721a_dji_fly_20250206_164526_166_1740045392099_photo_optimized-min-p-3200.jpg" alt="Maison équipée par ADSolar" width="600" height="400" loading="lazy">
+              <div class="iv-overlay">
+                <span class="iv-play" aria-label="Lire l'interview">▶</span>
+              </div>
+            </a>
+            <div class="iv-body">
+              <p>« Super équipe… du commercial à l'aboutissement final vous avez été parfaits. Merci à vous, de vrais pros comme on aime ! »</p>
+            </div>
+          </article>
+
+          <article class="iv-card">
+            <a class="iv-media" href="https://youtube.com/shorts/ExH8m2aktxg" target="_blank" rel="noopener">
+              <img src="https://cdn.prod.website-files.com/68251370be6526520801733f/68b6d76a571a8813d7dff9d2_dji_fly_20241210_100608_109_1733827092449_photo_optimized-min-p-3200.jpg" alt="Client ADSolar satisfait" width="600" height="400" loading="lazy">
+              <div class="iv-overlay">
+                <span class="iv-play" aria-label="Lire l'interview">▶</span>
+              </div>
+            </a>
+            <div class="iv-body">
+              <p>« J'ai comparé 6 devis : technologie, tarif, suivi… ADSolar a tout géré jusqu'aux demandes complémentaires. Je recommande les yeux fermés. »</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="avis">
+      <div class="container">
+        <div class="section-title">
+          <span>Avis Google</span>
+          <h2>4,9/5 sur plus de 180 avis vérifiés</h2>
+          <p>Transparence totale grâce à notre module d'avis certifié. Consultez les retours récents de clients ADSolar.</p>
+        </div>
+        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-bbe1d2d5-7aa5-4407-87a4-bc4a0ed9eb05" data-elfsight-app-lazy></div>
+      </div>
+    </section>
+
+    <section class="cta-final" id="contact">
+      <div class="container">
+        <div class="cta-card">
+          <h2>Prêt à passer à l'énergie solaire ?</h2>
+          <p>Planifiez un rendez-vous avec un conseiller ADSolar pour valider la faisabilité, optimiser les aides et lancer l'installation avant la fin de l'année.</p>
+          <a class="btn-primary" href="#simulation">Je lance ma simulation gratuite</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> ADSolar — Installateur photovoltaïque RGE en Provence-Alpes-Côte d'Azur
+    </div>
+  </footer>
+
   <script>
-    // Vérification Meta Pixel
-    console.log('Meta Pixel chargé:', typeof fbq !== 'undefined');
-    document.getElementById('year')?.textContent = new Date().getFullYear();
+    const TEST_MODE = false;
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // WEBHOOK
+    async function sendToWebhook(payload, webhookUrl) {
+      const json = JSON.stringify(payload);
+      if (TEST_MODE) console.log('[Webhook]', payload);
+
+      try {
+        const blob = new Blob([json], { type: 'text/plain;charset=UTF-8' });
+        if (navigator.sendBeacon && navigator.sendBeacon(webhookUrl, blob)) {
+          if (TEST_MODE) console.log('[Webhook] sendBeacon OK');
+          return;
+        }
+      } catch (e) {
+        if (TEST_MODE) console.warn('[Webhook] sendBeacon error', e);
+      }
+
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: json,
+          keepalive: true
+        });
+        if (TEST_MODE) console.log('[Webhook] fetch OK');
+      } catch (err) {
+        if (TEST_MODE) console.warn('[Webhook] fetch error', err);
+      }
+    }
+
+    // OPTIMISEUR
+    (function() {
+      const section = document.getElementById('optimiseur');
+      if (!section) return;
+
+      const panelsToggle = document.getElementById('optPanels');
+      const orientationButtons = Array.from(document.querySelectorAll('.opt-pill'));
+      const virtualToggle = document.getElementById('optVirtual');
+      const percentDisplays = document.querySelectorAll('[data-opt-percent], [data-opt-percent-copy]');
+      const solarShareDisplay = document.querySelector('[data-opt-solar-share]');
+      const gridShareDisplay = document.querySelector('[data-opt-grid-share]');
+      const breakdownList = document.querySelector('.opt-breakdown');
+      const batteryLevel = document.querySelector('.opt-battery-level');
+
+      const setActiveOrientation = (button) => {
+        if (!button) return;
+        orientationButtons.forEach(btn => btn.classList.remove('is-active'));
+        button.classList.add('is-active');
+      };
+
+      const toggleOrientationState = () => {
+        const disabled = !panelsToggle.checked;
+        orientationButtons.forEach(btn => {
+          btn.classList.toggle('is-disabled', disabled);
+        });
+      };
+
+      const updateView = () => {
+        let total = 0;
+        const items = [];
+        const activeOrientation = orientationButtons.find(btn => btn.classList.contains('is-active'));
+
+        if (panelsToggle.checked && activeOrientation) {
+          const savings = Number(activeOrientation.dataset.savings) || 0;
+          total += savings;
+          items.push(`Panneaux photovoltaïques ${activeOrientation.dataset.label}&nbsp;: +${savings}&nbsp;%`);
+        } else {
+          items.push('Panneaux photovoltaïques désactivés');
+        }
+
+        if (virtualToggle.checked) {
+          total += 30;
+          items.push('Batterie virtuelle MyLight&nbsp;: +30&nbsp;%');
+        }
+
+        percentDisplays.forEach(el => el.textContent = `${Math.round(total)}%`);
+
+        const clamped = Math.min(total, 100);
+        const solarRatio = clamped / 100;
+        const gridRatio = 1 - solarRatio;
+
+        if (batteryLevel) {
+          batteryLevel.style.height = `${Math.max(clamped, 4)}%`;
+        }
+
+        if (solarShareDisplay) solarShareDisplay.textContent = `${Math.round(solarRatio * 100)}%`;
+        if (gridShareDisplay) gridShareDisplay.textContent = `${Math.round(gridRatio * 100)}%`;
+
+        if (breakdownList) {
+          breakdownList.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+        }
+      };
+
+      orientationButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('is-disabled')) return;
+          setActiveOrientation(btn);
+          updateView();
+        });
+      });
+
+      panelsToggle.addEventListener('change', () => {
+        toggleOrientationState();
+        updateView();
+      });
+
+      virtualToggle.addEventListener('change', updateView);
+
+      toggleOrientationState();
+      updateView();
+    })();
+
+    // FORMULAIRE
+    (function() {
+      const form = document.getElementById('leadForm');
+      if (!form) return;
+
+      const steps = Array.from(form.querySelectorAll('.ms-step'));
+      const progressBar = document.querySelector('.ms-progress-bar');
+      const successBlock = document.getElementById('leadFormSuccess');
+      let current = 0;
+
+      const updateProgress = () => {
+        progressBar.style.width = `${((current + 1) / steps.length) * 100}%`;
+      };
+
+      const showStep = (index) => {
+        steps[current].classList.remove('is-active');
+        current = index;
+        steps[current].classList.add('is-active');
+        updateProgress();
+      };
+
+      const nextStep = () => {
+        if (current < steps.length - 1) showStep(current + 1);
+      };
+
+      const prevStep = () => {
+        if (current > 0) showStep(current - 1);
+      };
+
+      steps.forEach(step => {
+        const hiddenInput = step.querySelector('input[type="hidden"]');
+        if (!hiddenInput) return;
+        step.querySelectorAll('.ms-option').forEach(btn => {
+          btn.addEventListener('click', () => {
+            hiddenInput.value = btn.dataset.value;
+            nextStep();
+          });
+        });
+      });
+
+      form.querySelectorAll('[data-action="prev"]').forEach(btn => {
+        btn.addEventListener('click', prevStep);
+      });
+
+      updateProgress();
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const responses = {};
+        const contactFields = ['nom', 'email', 'telephone', 'code_postal'];
+        const payload = {
+          nom: '',
+          email: '',
+          telephone: '',
+          code_postal: '',
+          réponses: responses,
+          utm: Object.fromEntries(new URLSearchParams(window.location.search)),
+          meta: {
+            userAgent: navigator.userAgent,
+            ts: new Date().toISOString()
+          }
+        };
+
+        formData.forEach((value, key) => {
+          if (contactFields.includes(key)) {
+            payload[key] = value;
+          } else {
+            responses[key] = value;
+          }
+        });
+
+        await sendToWebhook(payload, form.dataset.webhook);
+
+        form.reset();
+        form.classList.add('hidden');
+        if (successBlock) successBlock.classList.add('is-visible');
+
+        // TRACKING META PIXEL - VERSION CORRIGÉE
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: 'Simulation ADSolar',
+            content_category: 'solar_installation',
+            value: responses.facture_energie || 'Non renseigné',
+            currency: 'EUR'
+          });
+          if (TEST_MODE) console.log('[Meta Pixel] Lead event tracked successfully');
+        } else {
+          console.error('[Meta Pixel] fbq function is not available - vérifiez que le pixel n\'est pas bloqué par un adblocker');
+        }
+
+        // DataLayer Google Analytics
+        if (typeof window.dataLayer !== 'undefined') {
+          window.dataLayer.push({ 
+            event: 'lead_submitted', 
+            form_id: form.id,
+            form_name: 'Simulation ADSolar',
+            lead_type: 'simulation',
+            user_email: payload.email
+          });
+          if (TEST_MODE) console.log('[DataLayer] Lead event tracked successfully');
+        }
+      });
+    })();
+
+    // STEPS ANIMATION
+    (function() {
+      const section = document.querySelector('.st-timeline');
+      if (!section) return;
+      
+      const progress = section.querySelector('.st-progress');
+      const steps = Array.from(section.querySelectorAll('.st-step'));
+
+      const updateProgress = () => {
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const start = rect.top + window.scrollY - vh * 0.3;
+        const end = rect.bottom + window.scrollY - vh * 0.6;
+        const ratio = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+        if (progress) progress.style.height = `${ratio * 100}%`;
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          entry.target.classList.toggle('is-active', entry.isIntersecting);
+        });
+      }, { threshold: 0.5, rootMargin: '-15% 0px' });
+
+      steps.forEach(step => observer.observe(step));
+      ['scroll', 'resize', 'load'].forEach(evt => 
+        window.addEventListener(evt, updateProgress, { passive: true })
+      );
+      updateProgress();
+    })();
+
+    // MODAL VAR MATIN
+    (function() {
+      const modal = document.querySelector('[data-vm-modal]');
+      const openBtn = document.querySelector('[data-vm-modal-open]');
+      const closeTargets = document.querySelectorAll('[data-vm-modal-close]');
+      
+      if (!modal || !openBtn) return;
+
+      const openModal = () => {
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('scroll-lock');
+      };
+
+      const closeModal = () => {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('scroll-lock');
+      };
+
+      openBtn.addEventListener('click', openModal);
+      closeTargets.forEach(el => el.addEventListener('click', closeModal));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    })();
   </script>
 </body>
 </html>
