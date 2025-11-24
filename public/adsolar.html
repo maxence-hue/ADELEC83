@@ -6,6 +6,16 @@
   <title>ADSolar — Panneaux solaires RGE en région PACA</title>
   <meta name="description" content="ADSolar, installateur photovoltaïque RGE en Provence-Alpes-Côte d'Azur. Plus de 300 installations réalisées. Profitez de la TVA à 10% avant janvier 2025 !" />
   
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11291399170"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-11291399170');
+  </script>
+  
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -119,6 +129,7 @@ window.addEventListener('load', function() {
       background: none;
       padding: 0;
       -webkit-appearance: none;
+      appearance: none;
     }
     
     .hidden {
@@ -2584,6 +2595,30 @@ window.addEventListener('load', function() {
           var img = new Image(1, 1);
           img.src = 'https://www.facebook.com/tr?id=387557417154475&ev=Lead&cd[content_name]=Simulation%20ADSolar&noscript=1';
           console.log('✅ Image pixel de fallback envoyée');
+        }
+
+        // TRACKING GOOGLE ADS
+        console.log('🚀 Envoi de l\'événement Conversion à Google Ads...');
+        if (typeof gtag === 'function') {
+          // Envoi d'un événement de conversion générique
+          // NOTE: Si vous avez un label de conversion spécifique (ex: 'AW-11291399170/AbC-DeFgHiJkLmNoPqR'),
+          // remplacez 'conversion' par ce label dans la ligne ci-dessous.
+          gtag('event', 'conversion', {
+            'send_to': 'AW-11291399170',
+            'value': 1.0,
+            'currency': 'EUR',
+            'event_callback': function() {
+              console.log('✅ [Google Ads] Conversion event envoyé avec succès!');
+            }
+          });
+          // Envoi d'un événement personnalisé pour être sûr
+          gtag('event', 'generate_lead', {
+            'send_to': 'AW-11291399170',
+            'value': 1.0,
+            'currency': 'EUR'
+          });
+        } else {
+          console.error('❌ [Google Ads] gtag function is not available');
         }
 
         // DataLayer Google Analytics
