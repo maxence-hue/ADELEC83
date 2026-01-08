@@ -69,19 +69,49 @@ function shareOffer() {
   }
 }
 
+// Fonction pour normaliser le téléphone au format E.164 pour Meta
+function normalizePhone(phone) {
+  if (!phone) return '';
+  let cleaned = phone.replace(/\D/g, '');
+  if (cleaned.startsWith('0') && cleaned.length === 10) {
+    cleaned = '33' + cleaned.substring(1);
+  }
+  if (!cleaned.startsWith('33')) {
+    cleaned = '33' + cleaned;
+  }
+  return cleaned;
+}
+
+// Fonction pour hasher les données (SHA-256) - Meta recommande le hashing
+async function hashData(data) {
+  if (!data) return '';
+  const encoder = new TextEncoder();
+  const dataBuffer = encoder.encode(data.toLowerCase().trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 // Soumission formulaire vers webhook N8N
 document.getElementById('leadForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   
   const formData = new FormData(this);
+  const email = formData.get('email');
+  const telephone = formData.get('telephone');
+  const prenom = formData.get('prenom');
+  const nom = formData.get('nom');
+  const codePostal = formData.get('code_postal');
+  const ville = formData.get('ville');
+  
   const data = {
     owner_status: 'proprietaire',
-    code_postal: formData.get('code_postal'),
-    ville: formData.get('ville'),
-    prenom: formData.get('prenom'),
-    nom: formData.get('nom'),
-    telephone: formData.get('telephone'),
-    email: formData.get('email'),
+    code_postal: codePostal,
+    ville: ville,
+    prenom: prenom,
+    nom: nom,
+    telephone: telephone,
+    email: email,
     source: 'landing_page_batterie_offerte',
     date_soumission: new Date().toISOString()
   };
@@ -101,12 +131,60 @@ document.getElementById('leadForm').addEventListener('submit', async function(e)
     });
     
     if (response.ok) {
+      // Préparer les données hashées pour Meta Advanced Matching
+      const hashedEmail = await hashData(email);
+      const hashedPhone = await hashData(normalizePhone(telephone));
+      const hashedFirstName = await hashData(prenom);
+      const hashedLastName = await hashData(nom);
+      const hashedCity = await hashData(ville);
+      const hashedZip = await hashData(codePostal);
+      
       if (typeof fbq !== 'undefined') {
+        // Mettre à jour les données utilisateur avec Advanced Matching
+        fbq('init', '387557417154475', {
+          em: hashedEmail,
+          ph: hashedPhone,
+          fn: hashedFirstName,
+          ln: hashedLastName,
+          ct: hashedCity,
+          zp: hashedZip,
+          country: 'fr'
+        });
+        
+        // Envoyer l'événement Lead avec toutes les données enrichies
         fbq('track', 'Lead', {
           content_name: 'Demande Devis Batterie Offerte',
           content_category: 'Solar Installation',
-          value: 0,
+          content_type: 'product',
+          value: 2500,
+          currency: 'EUR',
+          lead_type: 'proprietaire',
+          city: ville,
+          region: 'Var',
+          postal_code: codePostal,
+          country: 'France',
+          source: 'landing_page_batterie_offerte',
+          offer: 'batterie_zendure_offerte'
+        });
+        
+        // Événement CompleteRegistration pour le funnel
+        fbq('track', 'CompleteRegistration', {
+          content_name: 'Formulaire Devis Solaire Complet',
+          status: 'submitted',
+          value: 2500,
           currency: 'EUR'
+        });
+        
+        // Événement personnalisé avec données détaillées
+        fbq('trackCustom', 'LeadSubmitted', {
+          lead_source: 'landing_page_batterie_offerte',
+          lead_type: 'proprietaire',
+          postal_code: codePostal,
+          city: ville,
+          department: codePostal ? codePostal.substring(0, 2) : '',
+          offer_type: 'batterie_zendure_2400ac_offerte',
+          estimated_value: 2500,
+          timestamp: new Date().toISOString()
         });
       }
       
