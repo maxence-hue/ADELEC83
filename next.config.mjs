@@ -19,6 +19,10 @@ const nextConfig = {
         source: '/adsolar',
         destination: '/adsolar.html',
       },
+      {
+        source: '/offrebatterie',
+        destination: '/offre-batterie.html',
+      },
     ];
   },
 };
